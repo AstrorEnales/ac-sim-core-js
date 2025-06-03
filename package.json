@@ -1,5 +1,13 @@
 {
   "name": "ac-sim-core-js",
+  "author": {
+    "name": "Marcel Friedrichs"
+  },
+  "description": "Library of different simulation methods",
+  "homepage": "https://github.com/AstrorEnales/ac-sim-core-js",
+  "repository": {
+    "url": "https://github.com/AstrorEnales/ac-sim-core-js"
+  },
   "private": true,
   "version": "1.0.0",
   "type": "module",
