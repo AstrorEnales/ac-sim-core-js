@@ -1,16 +1,16 @@
 var v0 = Object.defineProperty;
 var p0 = (r, e, t) => e in r ? v0(r, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : r[e] = t;
 var ve = (r, e, t) => p0(r, typeof e != "symbol" ? e + "" : e, t);
-const Ca = class Ca {
+const _a = class _a {
   constructor(e, t = 0n) {
-    ve(this, "id", ++Ca.ID_COUNTER);
+    ve(this, "id", ++_a.ID_COUNTER);
     ve(this, "name");
     ve(this, "startCount");
     this.name = e, this.startCount = t;
   }
 };
-ve(Ca, "ID_COUNTER", 0);
-let Bo = Ca;
+ve(_a, "ID_COUNTER", 0);
+let Oo = _a;
 /*!
  *  decimal.js v10.5.0
  *  An arbitrary-precision Decimal type for JavaScript.
@@ -18,7 +18,7 @@ let Bo = Ca;
  *  Copyright (c) 2025 Michael Mclaughlin <M8ch88l@gmail.com>
  *  MIT Licence
  */
-var Oo = 9e15, yt = 1e9, $o = "0123456789abcdef", oa = "2.3025850929940456840179914546843642076011014886287729760333279009675726096773524802359972050895982983419677840422862486334095254650828067566662873690987816894829072083255546808437998948262331985283935053089653777326288461633662222876982198867465436674744042432743651550489343149393914796194044002221051017141748003688084012647080685567743216228355220114804663715659121373450747856947683463616792101806445070648000277502684916746550586856935673420670581136429224554405758925724208241314695689016758940256776311356919292033376587141660230105703089634572075440370847469940168269282808481184289314848524948644871927809676271275775397027668605952496716674183485704422507197965004714951050492214776567636938662976979522110718264549734772662425709429322582798502585509785265383207606726317164309505995087807523710333101197857547331541421808427543863591778117054309827482385045648019095610299291824318237525357709750539565187697510374970888692180205189339507238539205144634197265287286965110862571492198849978748873771345686209167058", sa = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632789", qo = {
+var $o = 9e15, yt = 1e9, qo = "0123456789abcdef", sa = "2.3025850929940456840179914546843642076011014886287729760333279009675726096773524802359972050895982983419677840422862486334095254650828067566662873690987816894829072083255546808437998948262331985283935053089653777326288461633662222876982198867465436674744042432743651550489343149393914796194044002221051017141748003688084012647080685567743216228355220114804663715659121373450747856947683463616792101806445070648000277502684916746550586856935673420670581136429224554405758925724208241314695689016758940256776311356919292033376587141660230105703089634572075440370847469940168269282808481184289314848524948644871927809676271275775397027668605952496716674183485704422507197965004714951050492214776567636938662976979522110718264549734772662425709429322582798502585509785265383207606726317164309505995087807523710333101197857547331541421808427543863591778117054309827482385045648019095610299291824318237525357709750539565187697510374970888692180205189339507238539205144634197265287286965110862571492198849978748873771345686209167058", ua = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632789", Io = {
   // These values must be integers within the stated ranges (inclusive).
   // Most of these values can be changed at run-time using the `Decimal.config` method.
   // The maximum number of significant digits of the result of a calculation or base conversion.
@@ -71,12 +71,12 @@ var Oo = 9e15, yt = 1e9, $o = "0123456789abcdef", oa = "2.3025850929940456840179
   // -1 to -EXP_LIMIT
   // The maximum exponent value, above which overflow to Infinity occurs.
   // JavaScript numbers: 308  (1.7976931348623157e+308)
-  maxE: Oo,
+  maxE: $o,
   // 1 to EXP_LIMIT
   // Whether to use cryptographically-secure random number generation, if available.
   crypto: !1
   // true/false
-}, Wv, et, Re = !0, Oa = "[DecimalError] ", dt = Oa + "Invalid argument: ", Xv = Oa + "Precision limit exceeded", Yv = Oa + "crypto unavailable", Jv = "[object Decimal]", yr = Math.floor, sr = Math.pow, d0 = /^0b([01]+(\.[01]*)?|\.[01]+)(p[+-]?\d+)?$/i, h0 = /^0x([0-9a-f]+(\.[0-9a-f]*)?|\.[0-9a-f]+)(p[+-]?\d+)?$/i, g0 = /^0o([0-7]+(\.[0-7]*)?|\.[0-7]+)(p[+-]?\d+)?$/i, Qv = /^(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i, kr = 1e7, Oe = 7, y0 = 9007199254740991, b0 = oa.length - 1, Io = sa.length - 1, he = { toStringTag: Jv };
+}, Wv, et, Re = !0, $a = "[DecimalError] ", dt = $a + "Invalid argument: ", Xv = $a + "Precision limit exceeded", Yv = $a + "crypto unavailable", Jv = "[object Decimal]", yr = Math.floor, sr = Math.pow, d0 = /^0b([01]+(\.[01]*)?|\.[01]+)(p[+-]?\d+)?$/i, h0 = /^0x([0-9a-f]+(\.[0-9a-f]*)?|\.[0-9a-f]+)(p[+-]?\d+)?$/i, g0 = /^0o([0-7]+(\.[0-7]*)?|\.[0-7]+)(p[+-]?\d+)?$/i, Qv = /^(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i, kr = 1e7, Oe = 7, y0 = 9007199254740991, b0 = sa.length - 1, Ro = ua.length - 1, he = { toStringTag: Jv };
 he.absoluteValue = he.abs = function() {
   var r = new this.constructor(this);
   return r.s < 0 && (r.s = 1), _e(r);
@@ -154,7 +154,7 @@ he.hyperbolicCosine = he.cosh = function() {
   var r, e, t, n, a, i = this, o = i.constructor, c = new o(1);
   if (!i.isFinite()) return new o(i.s ? 1 / 0 : NaN);
   if (i.isZero()) return c;
-  t = o.precision, n = o.rounding, o.precision = t + Math.max(i.e, i.sd()) + 4, o.rounding = 1, a = i.d.length, a < 32 ? (r = Math.ceil(a / 3), e = (1 / qa(4, r)).toString()) : (r = 16, e = "2.3283064365386962890625e-10"), i = Zt(o, 1, i.times(e), new o(1), !0);
+  t = o.precision, n = o.rounding, o.precision = t + Math.max(i.e, i.sd()) + 4, o.rounding = 1, a = i.d.length, a < 32 ? (r = Math.ceil(a / 3), e = (1 / Ia(4, r)).toString()) : (r = 16, e = "2.3283064365386962890625e-10"), i = Zt(o, 1, i.times(e), new o(1), !0);
   for (var l, s = r, u = new o(8); s--; )
     l = i.times(i), i = c.minus(l.times(u.minus(l.times(u))));
   return _e(i, o.precision = t, o.rounding = n, !0);
@@ -165,7 +165,7 @@ he.hyperbolicSine = he.sinh = function() {
   if (e = i.precision, t = i.rounding, i.precision = e + Math.max(a.e, a.sd()) + 4, i.rounding = 1, n = a.d.length, n < 3)
     a = Zt(i, 2, a, a, !0);
   else {
-    r = 1.4 * Math.sqrt(n), r = r > 16 ? 16 : r | 0, a = a.times(1 / qa(5, r)), a = Zt(i, 2, a, a, !0);
+    r = 1.4 * Math.sqrt(n), r = r > 16 ? 16 : r | 0, a = a.times(1 / Ia(5, r)), a = Zt(i, 2, a, a, !0);
     for (var o, c = new i(5), l = new i(16), s = new i(20); r--; )
       o = a.times(a), a = a.times(c.plus(o.times(l.times(o).plus(s))));
   }
@@ -200,11 +200,11 @@ he.inverseTangent = he.atan = function() {
   if (s.isFinite()) {
     if (s.isZero())
       return new u(s);
-    if (s.abs().eq(1) && f + 4 <= Io)
+    if (s.abs().eq(1) && f + 4 <= Ro)
       return o = Wr(u, f + 4, v).times(0.25), o.s = s.s, o;
   } else {
     if (!s.s) return new u(NaN);
-    if (f + 4 <= Io)
+    if (f + 4 <= Ro)
       return o = Wr(u, f + 4, v).times(0.5), o.s = s.s, o;
   }
   for (u.precision = c = f + 10, u.rounding = 1, t = Math.min(28, c / Oe + 2 | 0), r = t; r; --r) s = s.div(s.times(s).plus(1).sqrt().plus(1));
@@ -253,9 +253,9 @@ he.logarithm = he.log = function(r) {
       for (a = t[0]; a % 10 === 0; ) a /= 10;
       i = a !== 1;
     }
-  if (Re = !1, c = f + m, o = lt(s, c), n = e ? ua(u, c + 10) : lt(r, c), l = tr(o, n, c, 1), vn(l.d, a = f, v))
+  if (Re = !1, c = f + m, o = lt(s, c), n = e ? la(u, c + 10) : lt(r, c), l = tr(o, n, c, 1), vn(l.d, a = f, v))
     do
-      if (c += 10, o = lt(s, c), n = e ? ua(u, c + 10) : lt(r, c), l = tr(o, n, c, 1), !i) {
+      if (c += 10, o = lt(s, c), n = e ? la(u, c + 10) : lt(r, c), l = tr(o, n, c, 1), !i) {
         +pr(l.d).slice(a + 1, a + 15) + 1 == 1e14 && (l = _e(l, f + 1, 0));
         break;
       }
@@ -295,14 +295,14 @@ he.minus = he.sub = function(r) {
   }
   for (; s[--o] === 0; ) s.pop();
   for (; s[0] === 0; s.shift()) --t;
-  return s[0] ? (r.d = s, r.e = $a(s, t), Re ? _e(r, c, l) : r) : new d(l === 3 ? -0 : 0);
+  return s[0] ? (r.d = s, r.e = qa(s, t), Re ? _e(r, c, l) : r) : new d(l === 3 ? -0 : 0);
 };
 he.modulo = he.mod = function(r) {
   var e, t = this, n = t.constructor;
   return r = new n(r), !t.d || !r.s || r.d && !r.d[0] ? new n(NaN) : !r.d || t.d && !t.d[0] ? _e(new n(t), n.precision, n.rounding) : (Re = !1, n.modulo == 9 ? (e = tr(t, r.abs(), 0, 3, 1), e.s *= r.s) : e = tr(t, r, 0, n.modulo, 1), e = e.times(r), Re = !0, t.minus(e));
 };
 he.naturalExponential = he.exp = function() {
-  return Ro(this);
+  return zo(this);
 };
 he.naturalLogarithm = he.ln = function() {
   return lt(this);
@@ -326,7 +326,7 @@ he.plus = he.add = function(r) {
   for (o = s.length, a = u.length, o - a < 0 && (a = o, t = u, u = s, s = t), e = 0; a; )
     e = (s[--a] = s[a] + u[a] + e) / kr | 0, s[a] %= kr;
   for (e && (s.unshift(e), ++n), o = s.length; s[--o] == 0; ) s.pop();
-  return r.d = s, r.e = $a(s, n), Re ? _e(r, c, l) : r;
+  return r.d = s, r.e = qa(s, n), Re ? _e(r, c, l) : r;
 };
 he.precision = he.sd = function(r) {
   var e, t = this;
@@ -374,7 +374,7 @@ he.times = he.mul = function(r) {
     i[a] = (i[a] + e) % kr | 0;
   }
   for (; !i[--o]; ) i.pop();
-  return e ? ++t : i.shift(), r.d = i, r.e = $a(i, t), Re ? _e(r, f.precision, f.rounding) : r;
+  return e ? ++t : i.shift(), r.d = i, r.e = qa(i, t), Re ? _e(r, f.precision, f.rounding) : r;
 };
 he.toBinary = function(r, e) {
   return us(this, 2, r, e);
@@ -437,7 +437,7 @@ he.toPower = he.pow = function(r) {
     if ((r.d[e] & 1) == 0 && (o = 1), c.e == 0 && c.d[0] == 1 && c.d.length == 1)
       return c.s = o, c;
   }
-  return t = sr(+c, s), e = t == 0 || !isFinite(t) ? yr(s * (Math.log("0." + pr(c.d)) / Math.LN10 + c.e + 1)) : new l(t + "").e, e > l.maxE + 1 || e < l.minE - 1 ? new l(e > 0 ? o / 0 : 0) : (Re = !1, l.rounding = c.s = 1, t = Math.min(12, (e + "").length), a = Ro(r.times(lt(c, n + t)), n), a.d && (a = _e(a, n + 5, 1), vn(a.d, n, i) && (e = n + 10, a = _e(Ro(r.times(lt(c, e + t)), e), e + 5, 1), +pr(a.d).slice(n + 1, n + 15) + 1 == 1e14 && (a = _e(a, n + 1, 0)))), a.s = o, Re = !0, l.rounding = i, _e(a, n, i));
+  return t = sr(+c, s), e = t == 0 || !isFinite(t) ? yr(s * (Math.log("0." + pr(c.d)) / Math.LN10 + c.e + 1)) : new l(t + "").e, e > l.maxE + 1 || e < l.minE - 1 ? new l(e > 0 ? o / 0 : 0) : (Re = !1, l.rounding = c.s = 1, t = Math.min(12, (e + "").length), a = zo(r.times(lt(c, n + t)), n), a.d && (a = _e(a, n + 5, 1), vn(a.d, n, i) && (e = n + 10, a = _e(zo(r.times(lt(c, e + t)), e), e + 5, 1), +pr(a.d).slice(n + 1, n + 15) + 1 == 1e14 && (a = _e(a, n + 1, 0)))), a.s = o, Re = !0, l.rounding = i, _e(a, n, i));
 };
 he.toPrecision = function(r, e) {
   var t, n = this, a = n.constructor;
@@ -481,7 +481,7 @@ function vn(r, e, t, n) {
 function Qn(r, e, t) {
   for (var n, a = [0], i, o = 0, c = r.length; o < c; ) {
     for (i = a.length; i--; ) a[i] *= e;
-    for (a[0] += $o.indexOf(r.charAt(o++)), n = 0; n < a.length; n++)
+    for (a[0] += qo.indexOf(r.charAt(o++)), n = 0; n < a.length; n++)
       a[n] > t - 1 && (a[n + 1] === void 0 && (a[n + 1] = 0), a[n + 1] += a[n] / t | 0, a[n] %= t);
   }
   return a.reverse();
@@ -489,7 +489,7 @@ function Qn(r, e, t) {
 function x0(r, e) {
   var t, n, a;
   if (e.isZero()) return e;
-  n = e.d.length, n < 32 ? (t = Math.ceil(n / 3), a = (1 / qa(4, t)).toString()) : (t = 16, a = "2.3283064365386962890625e-10"), r.precision += t, e = Zt(r, 1, e.times(a), new r(1));
+  n = e.d.length, n < 32 ? (t = Math.ceil(n / 3), a = (1 / Ia(4, t)).toString()) : (t = 16, a = "2.3283064365386962890625e-10"), r.precision += t, e = Zt(r, 1, e.times(a), new r(1));
   for (var i = t; i--; ) {
     var o = e.times(e);
     e = o.times(o).minus(o).times(8).plus(1);
@@ -597,19 +597,19 @@ function Xr(r, e, t) {
   var n, a = r.e, i = pr(r.d), o = i.length;
   return e ? (t && (n = t - o) > 0 ? i = i.charAt(0) + "." + i.slice(1) + ot(n) : o > 1 && (i = i.charAt(0) + "." + i.slice(1)), i = i + (r.e < 0 ? "e" : "e+") + r.e) : a < 0 ? (i = "0." + ot(-a - 1) + i, t && (n = t - o) > 0 && (i += ot(n))) : a >= o ? (i += ot(a + 1 - o), t && (n = t - a - 1) > 0 && (i = i + "." + ot(n))) : ((n = a + 1) < o && (i = i.slice(0, n) + "." + i.slice(n)), t && (n = t - o) > 0 && (a + 1 === o && (i += "."), i += ot(n))), i;
 }
-function $a(r, e) {
+function qa(r, e) {
   var t = r[0];
   for (e *= Oe; t >= 10; t /= 10) e++;
   return e;
 }
-function ua(r, e, t) {
+function la(r, e, t) {
   if (e > b0)
     throw Re = !0, t && (r.precision = t), Error(Xv);
-  return _e(new r(oa), e, 1, !0);
+  return _e(new r(sa), e, 1, !0);
 }
 function Wr(r, e, t) {
-  if (e > Io) throw Error(Xv);
-  return _e(new r(sa), e, t, !0);
+  if (e > Ro) throw Error(Xv);
+  return _e(new r(ua), e, t, !0);
 }
 function Kv(r) {
   var e = r.length - 1, t = e * Oe + 1;
@@ -647,7 +647,7 @@ function ep(r, e, t) {
   }
   return i;
 }
-function Ro(r, e) {
+function zo(r, e) {
   var t, n, a, i, o, c, l, s = 0, u = 0, f = 0, v = r.constructor, m = v.rounding, d = v.precision;
   if (!r.d || !r.d[0] || r.e > 17)
     return new v(r.d ? r.d[0] ? r.s < 0 ? 0 : 1 / 0 : 1 : r.s ? r.s < 0 ? 0 : r : NaN);
@@ -676,10 +676,10 @@ function lt(r, e) {
       p = p.times(r), t = pr(p.d), n = t.charAt(0), m++;
     i = p.e, n > 1 ? (p = new g("0." + t), i++) : p = new g(n + "." + t.slice(1));
   } else
-    return s = ua(g, u + 2, h).times(i + ""), p = lt(new g(n + "." + t.slice(1)), u - d).plus(s), g.precision = h, e == null ? _e(p, h, D, Re = !0) : p;
+    return s = la(g, u + 2, h).times(i + ""), p = lt(new g(n + "." + t.slice(1)), u - d).plus(s), g.precision = h, e == null ? _e(p, h, D, Re = !0) : p;
   for (f = p, l = o = p = tr(p.minus(1), p.plus(1), u, 1), v = _e(p.times(p), u, 1), a = 3; ; ) {
     if (o = _e(o.times(v), u, 1), s = l.plus(tr(o, new g(a), u, 1)), pr(s.d).slice(0, u) === pr(l.d).slice(0, u))
-      if (l = l.times(2), i !== 0 && (l = l.plus(ua(g, u + 2, h).times(i + ""))), l = tr(l, new g(m), u, 1), e == null)
+      if (l = l.times(2), i !== 0 && (l = l.plus(la(g, u + 2, h).times(i + ""))), l = tr(l, new g(m), u, 1), e == null)
         if (vn(l.d, u - d, D, c))
           g.precision = u += d, s = o = p = tr(f.minus(1), f.plus(1), u, 1), v = _e(p.times(p), u, 1), a = c = 1;
         else
@@ -723,13 +723,13 @@ function w0(r, e) {
   else
     throw Error(dt + e);
   for (i = e.search(/p/i), i > 0 ? (l = +e.slice(i + 1), e = e.substring(2, i)) : e = e.slice(2), i = e.indexOf("."), o = i >= 0, n = r.constructor, o && (e = e.replace(".", ""), c = e.length, i = c - i, a = jv(n, new n(t), i, i * 2)), s = Qn(e, t, kr), u = s.length - 1, i = u; s[i] === 0; --i) s.pop();
-  return i < 0 ? new n(r.s * 0) : (r.e = $a(s, u), r.d = s, Re = !1, o && (r = tr(r, a, c * 4)), l && (r = r.times(Math.abs(l) < 54 ? sr(2, l) : Se.pow(2, l))), Re = !0, r);
+  return i < 0 ? new n(r.s * 0) : (r.e = qa(s, u), r.d = s, Re = !1, o && (r = tr(r, a, c * 4)), l && (r = r.times(Math.abs(l) < 54 ? sr(2, l) : Se.pow(2, l))), Re = !0, r);
 }
 function D0(r, e) {
   var t, n = e.d.length;
   if (n < 3)
     return e.isZero() ? e : Zt(r, 2, e, e);
-  t = 1.4 * Math.sqrt(n), t = t > 16 ? 16 : t | 0, e = e.times(1 / qa(5, t)), e = Zt(r, 2, e, e);
+  t = 1.4 * Math.sqrt(n), t = t > 16 ? 16 : t | 0, e = e.times(1 / Ia(5, t)), e = Zt(r, 2, e, e);
   for (var a, i = new r(5), o = new r(16), c = new r(20); t--; )
     a = e.times(e), e = e.times(i.plus(a.times(o.times(a).minus(c))));
   return e;
@@ -745,7 +745,7 @@ function Zt(r, e, t, n, a) {
   }
   return Re = !0, o.d.length = u + 1, o;
 }
-function qa(r, e) {
+function Ia(r, e) {
   for (var t = r; --e; ) t *= r;
   return t;
 }
@@ -775,13 +775,13 @@ function us(r, e, t, n) {
         for (; ++f[--t] > a - 1; )
           f[t] = 0, t || (++i, f.unshift(1));
       for (l = f.length; !f[l - 1]; --l) ;
-      for (o = 0, u = ""; o < l; o++) u += $o.charAt(f[o]);
+      for (o = 0, u = ""; o < l; o++) u += qo.charAt(f[o]);
       if (d) {
         if (l > 1)
           if (e == 16 || e == 8) {
             for (o = e == 16 ? 4 : 3, --l; l % o; l++) u += "0";
             for (f = Qn(u, a, e), l = f.length; !f[l - 1]; --l) ;
-            for (o = 1, u = "1."; o < l; o++) u += $o.charAt(f[o]);
+            for (o = 1, u = "1."; o < l; o++) u += qo.charAt(f[o]);
           } else
             u = u.charAt(0) + "." + u.slice(1);
         u = u + (i < 0 ? "p" : "p+") + i;
@@ -838,7 +838,7 @@ function $0(r, e, t) {
   return new this(r).clamp(e, t);
 }
 function q0(r) {
-  if (!r || typeof r != "object") throw Error(Oa + "Object expected");
+  if (!r || typeof r != "object") throw Error($a + "Object expected");
   var e, t, n, a = r.defaults === !0, i = [
     "precision",
     1,
@@ -851,10 +851,10 @@ function q0(r) {
     0,
     "toExpPos",
     0,
-    Oo,
+    $o,
     "maxE",
     0,
-    Oo,
+    $o,
     "minE",
     -9e15,
     0,
@@ -863,10 +863,10 @@ function q0(r) {
     9
   ];
   for (e = 0; e < i.length; e += 3)
-    if (t = i[e], a && (this[t] = qo[t]), (n = r[t]) !== void 0)
+    if (t = i[e], a && (this[t] = Io[t]), (n = r[t]) !== void 0)
       if (yr(n) === n && n >= i[e + 1] && n <= i[e + 2]) this[t] = n;
       else throw Error(dt + t + ": " + n);
-  if (t = "crypto", a && (this[t] = qo[t]), (n = r[t]) !== void 0)
+  if (t = "crypto", a && (this[t] = Io[t]), (n = r[t]) !== void 0)
     if (n === !0 || n === !1 || n === 0 || n === 1)
       if (n)
         if (typeof crypto < "u" && crypto && (crypto.getRandomValues || crypto.randomBytes))
@@ -1028,12 +1028,12 @@ function sg(r) {
 }
 he[Symbol.for("nodejs.util.inspect.custom")] = he.toString;
 he[Symbol.toStringTag] = "Decimal";
-var Se = he.constructor = np(qo);
-oa = new Se(oa);
+var Se = he.constructor = np(Io);
 sa = new Se(sa);
-const _a = class _a {
+ua = new Se(ua);
+const Fa = class Fa {
   constructor(e, t, n, a = Se(1)) {
-    ve(this, "id", ++_a.ID_COUNTER);
+    ve(this, "id", ++Fa.ID_COUNTER);
     ve(this, "name");
     ve(this, "from");
     ve(this, "to");
@@ -1041,15 +1041,15 @@ const _a = class _a {
     this.name = e, this.from = t, this.to = n, this.rate = a;
   }
 };
-ve(_a, "ID_COUNTER", 0);
-let zo = _a;
+ve(Fa, "ID_COUNTER", 0);
+let Po = Fa;
 const ug = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  Node: Bo,
-  Reaction: zo
-}, Symbol.toStringTag, { value: "Module" })), Fa = class Fa {
+  Node: Oo,
+  Reaction: Po
+}, Symbol.toStringTag, { value: "Module" })), Ta = class Ta {
   constructor(e, t, n = "1") {
-    ve(this, "id", ++Fa.ID_COUNTER);
+    ve(this, "id", ++Ta.ID_COUNTER);
     ve(this, "_priority", 1);
     ve(this, "_probability", 1);
     ve(this, "function");
@@ -1072,8 +1072,8 @@ const ug = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     this._probability = Math.max(0, Math.min(1, e));
   }
 };
-ve(Fa, "ID_COUNTER", 0);
-let Po = Fa;
+ve(Ta, "ID_COUNTER", 0);
+let Uo = Ta;
 var ir = /* @__PURE__ */ ((r) => (r[r.Regular = 0] = "Regular", r[r.Inhibition = 1] = "Inhibition", r[r.Test = 2] = "Test", r))(ir || {}), pn = /* @__PURE__ */ ((r) => (r[r.Probability = 0] = "Probability", r[r.Priority = 1] = "Priority", r[r.Benefit = 2] = "Benefit", r))(pn || {});
 function mr() {
   return mr = Object.assign ? Object.assign.bind() : function(r) {
@@ -1084,7 +1084,7 @@ function mr() {
     return r;
   }, mr.apply(null, arguments);
 }
-var Ia = {
+var Ra = {
   // minimum relative difference between two compared values,
   // used by all comparison functions
   relTol: 1e-12,
@@ -1110,16 +1110,16 @@ var Ia = {
   randomSeed: null
 };
 function wr(r, e) {
-  if (la(r, e))
+  if (ca(r, e))
     return r[e];
   throw typeof r[e] == "function" && ls(r, e) ? new Error('Cannot access method "' + e + '" as a property') : new Error('No access to property "' + e + '"');
 }
 function Wt(r, e, t) {
-  if (la(r, e))
+  if (ca(r, e))
     return r[e] = t, t;
   throw new Error('No access to property "' + e + '"');
 }
-function la(r, e) {
+function ca(r, e) {
   return !cg(r) && !Array.isArray(r) ? !1 : Ae(fg, e) ? !0 : !(e in Object.prototype || e in Function.prototype);
 }
 function lg(r, e) {
@@ -1141,7 +1141,7 @@ var fg = {
   valueOf: !0,
   toLocaleString: !0
 };
-class Ra {
+class za {
   constructor(e) {
     this.wrappedObject = e, this[Symbol.iterator] = this.entries;
   }
@@ -1155,7 +1155,7 @@ class Ra {
     return Wt(this.wrappedObject, e, t), this;
   }
   has(e) {
-    return la(this.wrappedObject, e) && e in this.wrappedObject;
+    return ca(this.wrappedObject, e) && e in this.wrappedObject;
   }
   entries() {
     return ip(this.keys(), (e) => [e, this.get(e)]);
@@ -1165,7 +1165,7 @@ class Ra {
       e(this.get(t), t, this);
   }
   delete(e) {
-    la(this.wrappedObject, e) && delete this.wrappedObject[e];
+    ca(this.wrappedObject, e) && delete this.wrappedObject[e];
   }
   clear() {
     for (var e of this.keys())
@@ -1233,11 +1233,11 @@ function Lt(r) {
   if (Mt(r))
     return r;
   if (Tt(r))
-    return new Ra(r);
+    return new za(r);
   throw new Error("createMap can create maps from objects or Maps");
 }
 function vg(r) {
-  if (r instanceof Ra)
+  if (r instanceof za)
     return r.wrappedObject;
   var e = {};
   for (var t of r.keys()) {
@@ -1280,7 +1280,7 @@ function hn(r) {
 function ct(r) {
   return r && r.isSparseMatrix && r.constructor.prototype.isMatrix === !0 || !1;
 }
-function za(r) {
+function Pa(r) {
   return r && r.constructor.prototype.isRange === !0 || !1;
 }
 function Dn(r) {
@@ -1308,7 +1308,7 @@ function Tt(r) {
   return !!(r && typeof r == "object" && r.constructor === Object && !Hr(r) && !Ft(r));
 }
 function Mt(r) {
-  return r ? r instanceof Map || r instanceof Ra || typeof r.set == "function" && typeof r.get == "function" && typeof r.keys == "function" && typeof r.has == "function" : !1;
+  return r ? r instanceof Map || r instanceof za || typeof r.set == "function" && typeof r.get == "function" && typeof r.keys == "function" && typeof r.has == "function" : !1;
 }
 function pg(r) {
   return Mt(r) && Mt(r.a) && Mt(r.b);
@@ -1340,7 +1340,7 @@ function dp(r) {
 function Ge(r) {
   return r && r.isConstantNode === !0 && r.constructor.prototype.isNode === !0 || !1;
 }
-function Uo(r) {
+function Lo(r) {
   return Ge(r) || ar(r) && r.args.length === 1 && Ge(r.args[0]) && "-+~".includes(r.op);
 }
 function Kt(r) {
@@ -1486,7 +1486,7 @@ function bg(r, e) {
   }
   return t;
 }
-var Lo = ["Matrix", "Array"], ko = ["number", "BigNumber", "Fraction"];
+var ko = ["Matrix", "Array"], Ho = ["number", "BigNumber", "Fraction"];
 function xg(r, e) {
   function t(n) {
     if (n) {
@@ -1496,13 +1496,13 @@ function xg(r, e) {
         return a.relTol = n.epsilon, a.absTol = n.epsilon * 1e-3, delete a.epsilon, t(a);
       }
       var i = Te(r);
-      Us(n, "matrix", Lo), Us(n, "number", ko), bp(r, n);
+      Us(n, "matrix", ko), Us(n, "number", Ho), bp(r, n);
       var o = Te(r), c = Te(n);
       return e("config", o, i, c), o;
     } else
       return Te(r);
   }
-  return t.MATRIX_OPTIONS = Lo, t.NUMBER_OPTIONS = ko, Object.keys(Ia).forEach((n) => {
+  return t.MATRIX_OPTIONS = ko, t.NUMBER_OPTIONS = Ho, Object.keys(Ra).forEach((n) => {
     Object.defineProperty(t, n, {
       get: () => r[n],
       enumerable: !0,
@@ -1523,11 +1523,11 @@ Example:
   const mathjs = create(all);
   mathjs.config({ number: 'BigNumber' });
 `);
-  return Object.freeze(Ia);
+  return Object.freeze(Ra);
 };
-mr(An, Ia, {
-  MATRIX_OPTIONS: Lo,
-  NUMBER_OPTIONS: ko
+mr(An, Ra, {
+  MATRIX_OPTIONS: ko,
+  NUMBER_OPTIONS: Ho
 });
 function Ls() {
   return !0;
@@ -2176,7 +2176,7 @@ function wp() {
     const Fe = ye[0] && ye[0].params.length <= 2 && !x(ye[0].params), rr = ye[1] && ye[1].params.length <= 2 && !x(ye[1].params), C = ye[2] && ye[2].params.length <= 2 && !x(ye[2].params), G = ye[3] && ye[3].params.length <= 2 && !x(ye[3].params), oe = ye[4] && ye[4].params.length <= 2 && !x(ye[4].params), de = ye[5] && ye[5].params.length <= 2 && !x(ye[5].params), Be = Fe && rr && C && G && oe && de;
     for (let Je = 0; Je < ye.length; ++Je)
       ye[Je].test = A(ye[Je].params);
-    const Pe = Fe ? b(ye[0].params[0]) : Br, xr = rr ? b(ye[1].params[0]) : Br, Wa = C ? b(ye[2].params[0]) : Br, Ph = G ? b(ye[3].params[0]) : Br, Uh = oe ? b(ye[4].params[0]) : Br, Lh = de ? b(ye[5].params[0]) : Br, kh = Fe ? b(ye[0].params[1]) : Br, Hh = rr ? b(ye[1].params[1]) : Br, Gh = C ? b(ye[2].params[1]) : Br, Vh = G ? b(ye[3].params[1]) : Br, Zh = oe ? b(ye[4].params[1]) : Br, Wh = de ? b(ye[5].params[1]) : Br;
+    const Pe = Fe ? b(ye[0].params[0]) : Br, xr = rr ? b(ye[1].params[0]) : Br, Xa = C ? b(ye[2].params[0]) : Br, Ph = G ? b(ye[3].params[0]) : Br, Uh = oe ? b(ye[4].params[0]) : Br, Lh = de ? b(ye[5].params[0]) : Br, kh = Fe ? b(ye[0].params[1]) : Br, Hh = rr ? b(ye[1].params[1]) : Br, Gh = C ? b(ye[2].params[1]) : Br, Vh = G ? b(ye[3].params[1]) : Br, Zh = oe ? b(ye[4].params[1]) : Br, Wh = de ? b(ye[5].params[1]) : Br;
     for (let Je = 0; Je < ye.length; ++Je)
       ye[Je].implementation = U(ye[Je].params, ye[Je].fn);
     const Xh = Fe ? ye[0].implementation : $t, Yh = rr ? ye[1].implementation : $t, Jh = C ? ye[2].implementation : $t, Qh = G ? ye[3].implementation : $t, Kh = oe ? ye[4].implementation : $t, jh = de ? ye[5].implementation : $t, e0 = Fe ? ye[0].params.length : -1, r0 = rr ? ye[1].params.length : -1, t0 = C ? ye[2].params.length : -1, n0 = G ? ye[3].params.length : -1, a0 = oe ? ye[4].params.length : -1, i0 = de ? ye[5].params.length : -1, o0 = Be ? 6 : 0, s0 = ye.length, u0 = ye.map((Je) => Je.test), l0 = ye.map((Je) => Je.implementation), c0 = function() {
@@ -2186,7 +2186,7 @@ function wp() {
       return o.onMismatch(P, arguments, ye);
     };
     function an(Je, Er) {
-      return arguments.length === e0 && Pe(Je) && kh(Er) ? Xh.apply(this, arguments) : arguments.length === r0 && xr(Je) && Hh(Er) ? Yh.apply(this, arguments) : arguments.length === t0 && Wa(Je) && Gh(Er) ? Jh.apply(this, arguments) : arguments.length === n0 && Ph(Je) && Vh(Er) ? Qh.apply(this, arguments) : arguments.length === a0 && Uh(Je) && Zh(Er) ? Kh.apply(this, arguments) : arguments.length === i0 && Lh(Je) && Wh(Er) ? jh.apply(this, arguments) : c0.apply(this, arguments);
+      return arguments.length === e0 && Pe(Je) && kh(Er) ? Xh.apply(this, arguments) : arguments.length === r0 && xr(Je) && Hh(Er) ? Yh.apply(this, arguments) : arguments.length === t0 && Xa(Je) && Gh(Er) ? Jh.apply(this, arguments) : arguments.length === n0 && Ph(Je) && Vh(Er) ? Qh.apply(this, arguments) : arguments.length === a0 && Uh(Je) && Zh(Er) ? Kh.apply(this, arguments) : arguments.length === i0 && Lh(Je) && Wh(Er) ? jh.apply(this, arguments) : c0.apply(this, arguments);
     }
     try {
       Object.defineProperty(an, "name", {
@@ -2402,7 +2402,7 @@ var ft = Math.sign || function(r) {
 }, Mg = Math.expm1 || function(e) {
   return e >= 2e-4 || e <= -2e-4 ? Math.exp(e) - 1 : e + e * e / 2 + e * e * e / 6;
 };
-function Xa(r, e, t) {
+function Ya(r, e, t) {
   var n = {
     2: "0b",
     8: "0o",
@@ -2444,11 +2444,11 @@ function Ct(r, e) {
     case "engineering":
       return Cg(r, n);
     case "bin":
-      return Xa(r, 2, a);
+      return Ya(r, 2, a);
     case "oct":
-      return Xa(r, 8, a);
+      return Ya(r, 8, a);
     case "hex":
-      return Xa(r, 16, a);
+      return Ya(r, 16, a);
     case "auto":
       return _g(r, n, e).replace(/((\.\d*?)(0+))($|e)/, function() {
         var i = arguments[2], o = arguments[4];
@@ -2499,7 +2499,7 @@ function En(r) {
 function Cg(r, e) {
   if (isNaN(r) || !isFinite(r))
     return String(r);
-  var t = En(r), n = Pa(t, e), a = n.exponent, i = n.coefficients, o = a % 3 === 0 ? a : a < 0 ? a - 3 - a % 3 : a - a % 3;
+  var t = En(r), n = Ua(t, e), a = n.exponent, i = n.coefficients, o = a % 3 === 0 ? a : a < 0 ? a - 3 - a % 3 : a - a % 3;
   if (Ie(e))
     for (; e > i.length || a - o + 1 > i.length; )
       i.push(0);
@@ -2514,13 +2514,13 @@ function Cg(r, e) {
 function Ap(r, e) {
   if (isNaN(r) || !isFinite(r))
     return String(r);
-  var t = En(r), n = typeof e == "number" ? Pa(t, t.exponent + 1 + e) : t, a = n.coefficients, i = n.exponent + 1, o = i + (e || 0);
+  var t = En(r), n = typeof e == "number" ? Ua(t, t.exponent + 1 + e) : t, a = n.coefficients, i = n.exponent + 1, o = i + (e || 0);
   return a.length < o && (a = a.concat(Ht(o - a.length))), i < 0 && (a = Ht(-i + 1).concat(a), i = 1), i < a.length && a.splice(i, 0, i === 0 ? "0." : "."), n.sign + a.join("");
 }
 function Ep(r, e) {
   if (isNaN(r) || !isFinite(r))
     return String(r);
-  var t = En(r), n = e ? Pa(t, e) : t, a = n.coefficients, i = n.exponent;
+  var t = En(r), n = e ? Ua(t, e) : t, a = n.coefficients, i = n.exponent;
   a.length < e && (a = a.concat(Ht(e - a.length)));
   var o = a.shift();
   return n.sign + o + (a.length > 0 ? "." + a.join("") : "") + "e" + (i >= 0 ? "+" : "") + i;
@@ -2528,7 +2528,7 @@ function Ep(r, e) {
 function _g(r, e, t) {
   if (isNaN(r) || !isFinite(r))
     return String(r);
-  var n = Gs(t == null ? void 0 : t.lowerExp, -3), a = Gs(t == null ? void 0 : t.upperExp, 5), i = En(r), o = e ? Pa(i, e) : i;
+  var n = Gs(t == null ? void 0 : t.lowerExp, -3), a = Gs(t == null ? void 0 : t.upperExp, 5), i = En(r), o = e ? Ua(i, e) : i;
   if (o.exponent < n || o.exponent >= a)
     return Ep(r, e);
   var c = o.coefficients, l = o.exponent;
@@ -2536,7 +2536,7 @@ function _g(r, e, t) {
   var s = l > 0 ? l : 0;
   return s < c.length - 1 && c.splice(s + 1, 0, "."), o.sign + c.join("");
 }
-function Pa(r, e) {
+function Ua(r, e) {
   for (var t = {
     sign: r.sign,
     coefficients: r.coefficients,
@@ -2666,7 +2666,7 @@ var Sp = function() {
     },
     {
       name: "Range",
-      test: za
+      test: Pa
     },
     {
       name: "Index",
@@ -3023,12 +3023,12 @@ const gr = Math.cosh || function(r) {
     return Math.cos(r) - 1;
   const t = r * r;
   return t * (t * (t * (t * (t * (t * (t * (t / 20922789888e3 - 1 / 87178291200) + 1 / 479001600) - 1 / 3628800) + 1 / 40320) - 1 / 720) + 1 / 24) - 1 / 2);
-}, Ya = function(r, e) {
+}, Ja = function(r, e) {
   return r = Math.abs(r), e = Math.abs(e), r < e && ([r, e] = [e, r]), r < 1e8 ? Math.sqrt(r * r + e * e) : (e /= r, r * Math.sqrt(1 + e * e));
 }, qt = function() {
   throw SyntaxError("Invalid Param");
 };
-function Ja(r, e) {
+function Qa(r, e) {
   const t = Math.abs(r), n = Math.abs(e);
   return r === 0 ? Math.log(n) : e === 0 ? Math.log(t) : t < 3e3 && n < 3e3 ? Math.log(r * r + e * e) * 0.5 : (r = r * 0.5, e = e * 0.5, 0.5 * Math.log(r * r + e * e) + Math.LN2);
 }
@@ -3089,7 +3089,7 @@ ce.prototype = {
    * @returns {Complex}
    */
   sign: function() {
-    const r = Ya(this.re, this.im);
+    const r = Ja(this.re, this.im);
     return new ce(
       this.re / r,
       this.im / r
@@ -3186,7 +3186,7 @@ ce.prototype = {
     }
     if (n && t.re > 0)
       return ce.ZERO;
-    const i = Math.atan2(this.im, this.re), o = Ja(this.re, this.im);
+    const i = Math.atan2(this.im, this.re), o = Qa(this.re, this.im);
     let c = Math.exp(t.re * o - t.im * i), l = t.im * o + t.re * i;
     return new ce(
       c * Math.cos(l),
@@ -3202,7 +3202,7 @@ ce.prototype = {
     const r = this.re, e = this.im;
     if (e === 0)
       return r >= 0 ? new ce(Math.sqrt(r), 0) : new ce(0, Math.sqrt(-r));
-    const t = Ya(r, e);
+    const t = Ja(r, e);
     let n = Math.sqrt(0.5 * (t + Math.abs(r))), a = Math.abs(e) / (2 * n);
     return r >= 0 ? new ce(n, e < 0 ? -a : a) : new ce(a, e < 0 ? -n : n);
   },
@@ -3241,7 +3241,7 @@ ce.prototype = {
   log: function() {
     const r = this.re, e = this.im;
     return e === 0 && r > 0 ? new ce(Math.log(r), 0) : new ce(
-      Ja(r, e),
+      Qa(r, e),
       Math.atan2(e, r)
     );
   },
@@ -3251,7 +3251,7 @@ ce.prototype = {
    * @returns {number}
    */
   abs: function() {
-    return Ya(this.re, this.im);
+    return Ja(this.re, this.im);
   },
   /**
    * Calculate the angle of the complex number
@@ -3548,7 +3548,7 @@ ce.prototype = {
       r !== -1 ? r / 0 : 0,
       e !== 0 ? e / 0 : 0
     ), c = o.re;
-    return o.re = Ja(o.re, o.im) / 2, o.im = Math.atan2(o.im, c) / 2, t && (o.im = -o.im), o;
+    return o.re = Qa(o.re, o.im) / 2, o.im = Math.atan2(o.im, c) / 2, t && (o.im = -o.im), o;
   },
   /**
    * Calculate the complex acoth
@@ -3811,7 +3811,7 @@ typeof BigInt > "u" && (BigInt = function(r) {
   if (isNaN(r)) throw new Error("");
   return r;
 });
-const Ce = BigInt(0), ke = BigInt(1), yn = BigInt(2), Ho = BigInt(5), Sr = BigInt(10), Yg = 2e3, Ne = {
+const Ce = BigInt(0), ke = BigInt(1), yn = BigInt(2), Go = BigInt(5), Sr = BigInt(10), Yg = 2e3, Ne = {
   s: ke,
   n: Ce,
   d: ke
@@ -3837,7 +3837,7 @@ function nr(r, e) {
 }
 function It(r) {
   const e = {};
-  let t = r, n = yn, a = Ho - ke;
+  let t = r, n = yn, a = Go - ke;
   for (; a <= t; ) {
     for (; t % n === Ce; )
       t /= n, e[n] = (e[n] || Ce) + ke;
@@ -3920,7 +3920,7 @@ function Jg(r, e, t) {
 function Qg(r, e) {
   for (; e % yn === Ce; e /= yn)
     ;
-  for (; e % Ho === Ce; e /= Ho)
+  for (; e % Go === Ce; e /= Go)
     ;
   if (e === ke)
     return Ce;
@@ -4478,7 +4478,7 @@ var jg = "Fraction", e1 = [], Fp = /* @__PURE__ */ I(jg, e1, () => (Object.defin
 }, {
   isClass: !0
 });
-function Qa(r, e, t) {
+function Ka(r, e, t) {
   var n = r.constructor, a = new n(2), i = "";
   if (t) {
     if (t < 1)
@@ -4520,11 +4520,11 @@ function o1(r, e) {
     case "engineering":
       return s1(r, n);
     case "bin":
-      return Qa(r, 2, a);
+      return Ka(r, 2, a);
     case "oct":
-      return Qa(r, 8, a);
+      return Ka(r, 8, a);
     case "hex":
-      return Qa(r, 16, a);
+      return Ka(r, 16, a);
     case "auto": {
       var i = Ws(e == null ? void 0 : e.lowerExp, -3), o = Ws(e == null ? void 0 : e.upperExp, 5);
       if (r.isZero()) return "0";
@@ -4617,7 +4617,7 @@ function Bp(r, e) {
 function f1(r) {
   return r && typeof r == "object" && typeof r.s == "bigint" && typeof r.n == "bigint" && typeof r.d == "bigint" || !1;
 }
-function Go(r, e) {
+function Vo(r, e) {
   if (!vr(r))
     throw new TypeError("Unexpected type of argument in function compareText (expected: string or Array or Matrix, actual: " + je(r) + ", index: 0)");
   if (!vr(e))
@@ -4672,7 +4672,7 @@ function Ys(r, e) {
   } else
     Op(r, e, 0);
 }
-function ca(r, e) {
+function fa(r, e) {
   var t = r.isMatrix ? r._size : $e(r), n = e._sourceSize;
   n.forEach((a, i) => {
     if (a !== null && a !== t[i])
@@ -4711,16 +4711,16 @@ function Yt(r, e, t) {
       throw new TypeError("Invalid size, must contain positive integers (size: " + He(e) + ")");
   }), (Ie(r) || qe(r)) && (r = [r]);
   var n = t !== void 0 ? t : 0;
-  return Vo(r, e, 0, n), r;
+  return Zo(r, e, 0, n), r;
 }
-function Vo(r, e, t, n) {
+function Zo(r, e, t, n) {
   var a, i, o = r.length, c = e[t], l = Math.min(o, c);
   if (r.length = c, t < e.length - 1) {
     var s = t + 1;
     for (a = 0; a < l; a++)
-      i = r[a], Array.isArray(i) || (i = [i], r[a] = i), Vo(i, e, s, n);
+      i = r[a], Array.isArray(i) || (i = [i], r[a] = i), Zo(i, e, s, n);
     for (a = l; a < c; a++)
-      i = [], r[a] = i, Vo(i, e, s, n);
+      i = [], r[a] = i, Zo(i, e, s, n);
   } else {
     for (a = 0; a < l; a++)
       for (; Array.isArray(r[a]); )
@@ -4770,7 +4770,7 @@ function m1(r, e) {
   }
   return t;
 }
-function fa(r, e) {
+function ma(r, e) {
   for (var t = $e(r); Array.isArray(r) && r.length === 1; )
     r = r[0], t.shift();
   for (var n = t.length; t[n - 1] === 1; )
@@ -4867,7 +4867,7 @@ function Jt(r) {
     });
   return e;
 }
-function ma(r) {
+function va(r) {
   if (!Array.isArray(r))
     throw new TypeError("Array input expected");
   if (r.length === 0)
@@ -4876,12 +4876,12 @@ function ma(r) {
     e.push(r[t].value);
   return e;
 }
-function Ua(r, e) {
+function La(r, e) {
   for (var t, n = 0, a = 0; a < r.length; a++) {
     var i = r[a], o = Array.isArray(i);
     if (a === 0 && o && (n = i.length), o && i.length !== n)
       return;
-    var c = o ? Ua(i, e) : e(i);
+    var c = o ? La(i, e) : e(i);
     if (t === void 0)
       t = c;
     else if (t !== c)
@@ -4952,7 +4952,7 @@ function hs(r, e) {
     Ke(e[n], t[n]);
   return e.reduce((a, i) => a[i], r);
 }
-function Zo(r, e) {
+function Wo(r, e) {
   var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
   if (r.length === 0)
     return [];
@@ -5108,7 +5108,7 @@ var b1 = "DenseMatrix", x1 = ["Matrix"], Hp = /* @__PURE__ */ I(b1, x1, (r) => {
   }, Object.defineProperty(t, "name", {
     value: "DenseMatrix"
   }), t.prototype.constructor = t, t.prototype.type = "DenseMatrix", t.prototype.isDenseMatrix = !0, t.prototype.getDataType = function() {
-    return Ua(this._data, je);
+    return La(this._data, je);
   }, t.prototype.storage = function() {
     return "dense";
   }, t.prototype.datatype = function() {
@@ -5449,22 +5449,22 @@ function gt(r, e) {
 }
 function Ue(r, e, t) {
   if (!t)
-    return Me(r) ? r.map((a) => e(a), !1, !0) : Zo(r, e, !0);
+    return Me(r) ? r.map((a) => e(a), !1, !0) : Wo(r, e, !0);
   var n = (a) => a === 0 ? a : e(a);
-  return Me(r) ? r.map((a) => n(a), !1, !0) : Zo(r, n, !0);
+  return Me(r) ? r.map((a) => n(a), !1, !0) : Wo(r, n, !0);
 }
-function La(r, e, t) {
+function ka(r, e, t) {
   var n = Array.isArray(r) ? $e(r) : r.size();
   if (e < 0 || e >= n.length)
     throw new Rr(e, n.length);
-  return Me(r) ? r.create(va(r.valueOf(), e, t), r.datatype()) : va(r, e, t);
+  return Me(r) ? r.create(pa(r.valueOf(), e, t), r.datatype()) : pa(r, e, t);
 }
-function va(r, e, t) {
+function pa(r, e, t) {
   var n, a, i, o;
   if (e <= 0)
     if (Array.isArray(r[0])) {
       for (o = Gp(r), a = [], n = 0; n < o.length; n++)
-        a[n] = va(o[n], e - 1, t);
+        a[n] = pa(o[n], e - 1, t);
       return a;
     } else {
       for (i = r[0], n = 1; n < r.length; n++)
@@ -5473,7 +5473,7 @@ function va(r, e, t) {
     }
   else {
     for (a = [], n = 0; n < r.length; n++)
-      a[n] = va(r[n], e - 1, t);
+      a[n] = pa(r[n], e - 1, t);
     return a;
   }
 }
@@ -5558,14 +5558,14 @@ rd.signature = en;
 function nu(r, e) {
   return e ? Math.log(r) / Math.log(e) : Math.log(r);
 }
-function pa(r) {
+function da(r) {
   return Ag(r);
 }
-pa.signature = Gr;
-function Wo(r) {
+da.signature = Gr;
+function Xo(r) {
   return Ng(r);
 }
-Wo.signature = Gr;
+Xo.signature = Gr;
 function au(r) {
   var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 2, t = e < 0;
   if (t && (e = -e), e === 0)
@@ -5579,10 +5579,10 @@ function au(r) {
   var n = Math.pow(Math.abs(r), 1 / e);
   return n = r < 0 ? -n : n, t ? 1 / n : n;
 }
-function Xo(r) {
+function Yo(r) {
   return ft(r);
 }
-Xo.signature = Gr;
+Yo.signature = Gr;
 function td(r) {
   return r * r;
 }
@@ -5676,24 +5676,24 @@ function vd(r) {
   return !r;
 }
 vd.signature = _1;
-function Yo(r, e) {
-  return !!(r || e);
-}
-Yo.signature = gs;
 function Jo(r, e) {
-  return !!r != !!e;
+  return !!(r || e);
 }
 Jo.signature = gs;
 function Qo(r, e) {
-  return !!(r && e);
+  return !!r != !!e;
 }
 Qo.signature = gs;
-function da(r) {
+function Ko(r, e) {
+  return !!(r && e);
+}
+Ko.signature = gs;
+function ha(r) {
   var e;
   if (Ee(r))
     return r <= 0 ? isFinite(r) ? 1 / 0 : NaN : r > 171 ? 1 / 0 : rt(1, r - 1);
   if (r < 0.5)
-    return Math.PI / (Math.sin(Math.PI * r) * da(1 - r));
+    return Math.PI / (Math.sin(Math.PI * r) * ha(1 - r));
   if (r >= 171.35)
     return 1 / 0;
   if (r > 85) {
@@ -5706,20 +5706,20 @@ function da(r) {
   var c = r + pd + 0.5;
   return Math.sqrt(2 * Math.PI) * Math.pow(c, r + 0.5) * Math.exp(-c) * e;
 }
-da.signature = "number";
+ha.signature = "number";
 var pd = 4.7421875, Gt = [0.9999999999999971, 57.15623566586292, -59.59796035547549, 14.136097974741746, -0.4919138160976202, 3399464998481189e-20, 4652362892704858e-20, -9837447530487956e-20, 1580887032249125e-19, -21026444172410488e-20, 21743961811521265e-20, -1643181065367639e-19, 8441822398385275e-20, -26190838401581408e-21, 36899182659531625e-22], dd = 0.9189385332046728, F1 = 5, T1 = 7, iu = [1.000000000190015, 76.18009172947146, -86.50532032941678, 24.01409824083091, -1.231739572450155, 0.001208650973866179, -5395239384953e-18];
-function ha(r) {
+function ga(r) {
   if (r < 0) return NaN;
   if (r === 0) return 1 / 0;
   if (!isFinite(r)) return r;
   if (r < 0.5)
-    return Math.log(Math.PI / Math.sin(Math.PI * r)) - ha(1 - r);
+    return Math.log(Math.PI / Math.sin(Math.PI * r)) - ga(1 - r);
   r = r - 1;
   for (var e = r + F1 + 0.5, t = iu[0], n = T1 - 1; n >= 1; n--)
     t += iu[n] / (r + n);
   return dd + (r + 0.5) * Math.log(e) - e + Math.log(t);
 }
-ha.signature = "number";
+ga.signature = "number";
 var br = "number";
 function hd(r) {
   return Tg(r);
@@ -5915,14 +5915,14 @@ var tn = /* @__PURE__ */ I("compareUnits", ["typed"], (r) => {
       return e.find(t, [n.valueType(), a.valueType()])(n.value, a.value);
     })
   };
-}), ga = "equalScalar", Z1 = ["typed", "config"], Id = /* @__PURE__ */ I(ga, Z1, (r) => {
+}), ya = "equalScalar", Z1 = ["typed", "config"], Id = /* @__PURE__ */ I(ya, Z1, (r) => {
   var {
     typed: e,
     config: t
   } = r, n = tn({
     typed: e
   });
-  return e(ga, {
+  return e(ya, {
     "boolean, boolean": function(i, o) {
       return i === o;
     },
@@ -5943,12 +5943,12 @@ var tn = /* @__PURE__ */ I("compareUnits", ["typed"], (r) => {
     }
   }, n);
 });
-I(ga, ["typed", "config"], (r) => {
+I(ya, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(ga, {
+  return e(ya, {
     "number, number": function(a, i) {
       return dr(a, i, t.relTol, t.absTol);
     }
@@ -6007,7 +6007,7 @@ var W1 = "SparseMatrix", X1 = ["typed", "equalScalar", "Matrix"], Rd = /* @__PUR
   }, Object.defineProperty(a, "name", {
     value: "SparseMatrix"
   }), a.prototype.constructor = a, a.prototype.type = "SparseMatrix", a.prototype.isSparseMatrix = !0, a.prototype.getDataType = function() {
-    return Ua(this._values, je);
+    return La(this._values, je);
   }, a.prototype.storage = function() {
     return "sparse";
   }, a.prototype.datatype = function() {
@@ -6940,7 +6940,7 @@ var zd = /* @__PURE__ */ I(Y1, J1, (r) => {
     // deep map collection, skip zeros since abs(0) = 0
     "Array | Matrix": e.referToSelf((t) => (n) => Ue(n, t, !0))
   });
-}), Nu = "mapSlices", Cy = ["typed", "isInteger"], Ko = /* @__PURE__ */ I(Nu, Cy, (r) => {
+}), Nu = "mapSlices", Cy = ["typed", "isInteger"], jo = /* @__PURE__ */ I(Nu, Cy, (r) => {
   var {
     typed: e,
     isInteger: t
@@ -6952,24 +6952,24 @@ var zd = /* @__PURE__ */ I(Y1, J1, (r) => {
       var c = Array.isArray(a) ? $e(a) : a.size();
       if (i < 0 || i >= c.length)
         throw new Rr(i, c.length);
-      return Me(a) ? a.create(ya(a.valueOf(), i, o), a.datatype()) : ya(a, i, o);
+      return Me(a) ? a.create(ba(a.valueOf(), i, o), a.datatype()) : ba(a, i, o);
     }
   });
 }, {
   formerly: "apply"
 });
-function ya(r, e, t) {
+function ba(r, e, t) {
   var n, a, i;
   if (e <= 0)
     if (Array.isArray(r[0])) {
       for (i = _y(r), a = [], n = 0; n < i.length; n++)
-        a[n] = ya(i[n], e - 1, t);
+        a[n] = ba(i[n], e - 1, t);
       return a;
     } else
       return t(r);
   else {
     for (a = [], n = 0; n < r.length; n++)
-      a[n] = ya(r[n], e - 1, t);
+      a[n] = ba(r[n], e - 1, t);
     return a;
   }
 }
@@ -7157,7 +7157,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
         u[v] = t(n, a + 1, i, i[a + 1], c[v], l, s);
     return u;
   }
-}), jo = "ceil", ky = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], Hy = new Se(10), Gy = /* @__PURE__ */ I(jo, ["typed", "config", "round"], (r) => {
+}), es = "ceil", ky = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], Hy = new Se(10), Gy = /* @__PURE__ */ I(es, ["typed", "config", "round"], (r) => {
   var {
     typed: e,
     config: t,
@@ -7167,7 +7167,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
     var o = Math.ceil(i), c = n(i);
     return o === c ? o : dr(i, c, t.relTol, t.absTol) && !dr(i, o, t.relTol, t.absTol) ? c : o;
   }
-  return e(jo, {
+  return e(es, {
     number: a,
     "number, number": function(o, c) {
       if (!Ee(c))
@@ -7178,7 +7178,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
       return a(o * l) / l;
     }
   });
-}), Vy = /* @__PURE__ */ I(jo, ky, (r) => {
+}), Vy = /* @__PURE__ */ I(es, ky, (r) => {
   var {
     typed: e,
     config: t,
@@ -7297,13 +7297,13 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
       return a.exp().minus(1);
     }
   });
-}), es = "fix", Ky = ["typed", "Complex", "matrix", "ceil", "floor", "equalScalar", "zeros", "DenseMatrix"], jy = /* @__PURE__ */ I(es, ["typed", "ceil", "floor"], (r) => {
+}), rs = "fix", Ky = ["typed", "Complex", "matrix", "ceil", "floor", "equalScalar", "zeros", "DenseMatrix"], jy = /* @__PURE__ */ I(rs, ["typed", "ceil", "floor"], (r) => {
   var {
     typed: e,
     ceil: t,
     floor: n
   } = r;
-  return e(es, {
+  return e(rs, {
     number: function(i) {
       return i > 0 ? n(i) : t(i);
     },
@@ -7311,7 +7311,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
       return i > 0 ? n(i, o) : t(i, o);
     }
   });
-}), eb = /* @__PURE__ */ I(es, Ky, (r) => {
+}), eb = /* @__PURE__ */ I(rs, Ky, (r) => {
   var {
     typed: e,
     Complex: t,
@@ -7371,7 +7371,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
     "number | Complex | Fraction | BigNumber, Array": e.referToSelf((v) => (m, d) => u(n(d), m, v, !0).valueOf()),
     "number | Complex | Fraction | BigNumber, Matrix": e.referToSelf((v) => (m, d) => o(m, 0) ? c(d.size(), d.storage()) : d.storage() === "dense" ? u(d, m, v, !0) : s(d, m, v, !0))
   });
-}), rs = "floor", rb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], tb = new Se(10), nb = /* @__PURE__ */ I(rs, ["typed", "config", "round"], (r) => {
+}), ts = "floor", rb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], tb = new Se(10), nb = /* @__PURE__ */ I(ts, ["typed", "config", "round"], (r) => {
   var {
     typed: e,
     config: t,
@@ -7381,7 +7381,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
     var o = Math.floor(i), c = n(i);
     return o === c ? o : dr(i, c, t.relTol, t.absTol) && !dr(i, o, t.relTol, t.absTol) ? c : o;
   }
-  return e(rs, {
+  return e(ts, {
     number: a,
     "number, number": function(o, c) {
       if (!Ee(c))
@@ -7392,7 +7392,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
       return a(o * l) / l;
     }
   });
-}), kd = /* @__PURE__ */ I(rs, rb, (r) => {
+}), kd = /* @__PURE__ */ I(ts, rb, (r) => {
   var {
     typed: e,
     config: t,
@@ -7521,7 +7521,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
       datatype: s === n._datatype && d === a._datatype ? g : void 0
     });
   };
-}), ub = "matAlgo05xSfSf", lb = ["typed", "equalScalar"], ka = /* @__PURE__ */ I(ub, lb, (r) => {
+}), ub = "matAlgo05xSfSf", lb = ["typed", "equalScalar"], Ha = /* @__PURE__ */ I(ub, lb, (r) => {
   var {
     typed: e,
     equalScalar: t
@@ -7652,7 +7652,7 @@ var pb = "matrixAlgorithmSuite", db = ["typed", "matrix"], er = /* @__PURE__ */ 
     equalScalar: i
   }), f = Nr({
     typed: e
-  }), v = ka({
+  }), v = Ha({
     typed: e,
     equalScalar: i
   }), m = hr({
@@ -7795,7 +7795,7 @@ at.prototype = new Error();
 at.prototype.constructor = Error;
 at.prototype.name = "ArgumentsError";
 at.prototype.isArgumentsError = !0;
-var Tu = "gcd", Nb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "BigNumber", "DenseMatrix", "concat"], Ka = "number | BigNumber | Fraction | Matrix | Array", Ab = "".concat(Ka, ", ").concat(Ka, ", ...").concat(Ka);
+var Tu = "gcd", Nb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "BigNumber", "DenseMatrix", "concat"], ja = "number | BigNumber | Fraction | Matrix | Array", Ab = "".concat(ja, ", ").concat(ja, ", ...").concat(ja);
 function Bu(r) {
   return !r.some((e) => Array.isArray(e));
 }
@@ -7871,7 +7871,7 @@ var Eb = /* @__PURE__ */ I(Tu, Nb, (r) => {
     }
     return g.lt(h) ? g.neg() : g;
   }
-}), Sb = "matAlgo06xS0S0", Mb = ["typed", "equalScalar"], Ha = /* @__PURE__ */ I(Sb, Mb, (r) => {
+}), Sb = "matAlgo06xS0S0", Mb = ["typed", "equalScalar"], Ga = /* @__PURE__ */ I(Sb, Mb, (r) => {
   var {
     typed: e,
     equalScalar: t
@@ -7919,7 +7919,7 @@ var Eb = /* @__PURE__ */ I(Tu, Nb, (r) => {
   } = r, i = Zr({
     typed: e,
     equalScalar: n
-  }), o = Ha({
+  }), o = Ga({
     typed: e,
     equalScalar: n
   }), c = hr({
@@ -7967,7 +7967,7 @@ function xs(r, e, t, n) {
     return n(a.toNumber());
   };
 }
-var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__PURE__ */ I($u, Fb, (r) => {
+var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = da(16), Bb = /* @__PURE__ */ I($u, Fb, (r) => {
   var {
     typed: e,
     config: t,
@@ -7981,9 +7981,9 @@ var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__P
   }
   return e($u, {
     number: function(c) {
-      return c >= 0 || t.predictable ? pa(c) : i(c);
+      return c >= 0 || t.predictable ? da(c) : i(c);
     },
-    bigint: xs(Tb, pa, t, i),
+    bigint: xs(Tb, da, t, i),
     Complex: a,
     BigNumber: function(c) {
       return !c.isNegative() || t.predictable ? c.log() : i(c.toNumber());
@@ -8001,9 +8001,9 @@ var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__P
   }
   return e(qu, {
     number: function(c) {
-      return c >= 0 || t.predictable ? Wo(c) : a(c);
+      return c >= 0 || t.predictable ? Xo(c) : a(c);
     },
-    bigint: xs(4, Wo, t, a),
+    bigint: xs(4, Xo, t, a),
     Complex: i,
     BigNumber: function(c) {
       return !c.isNegative() || t.predictable ? c.log(2) : a(c.toNumber());
@@ -8308,7 +8308,7 @@ var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__P
   }), c = Zr({
     typed: e,
     equalScalar: n
-  }), l = Ha({
+  }), l = Ga({
     typed: e,
     equalScalar: n
   }), s = hr({
@@ -8377,9 +8377,9 @@ var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__P
     Fraction: a
   } = r;
   return e(zu, {
-    number: Xo,
+    number: Yo,
     Complex: function(o) {
-      return o.im === 0 ? n(Xo(o.re)) : o.sign();
+      return o.im === 0 ? n(Yo(o.re)) : o.sign();
     },
     BigNumber: function(o) {
       return new t(o.cmp(0));
@@ -8454,7 +8454,7 @@ var $u = "log10", Fb = ["typed", "config", "Complex"], Tb = pa(16), Bb = /* @__P
     typed: e
   }), s = Nr({
     typed: e
-  }), u = ka({
+  }), u = Ha({
     typed: e,
     equalScalar: n
   }), f = Ot({
@@ -8722,7 +8722,7 @@ var Gu = "bitAnd", cx = ["typed", "matrix", "equalScalar", "concat"], Vd = /* @_
   } = r, i = Zr({
     typed: e,
     equalScalar: n
-  }), o = Ha({
+  }), o = Ga({
     typed: e,
     equalScalar: n
   }), c = hr({
@@ -8917,7 +8917,7 @@ var Gu = "bitAnd", cx = ["typed", "matrix", "equalScalar", "concat"], Vd = /* @_
     concat: i
   } = r, o = Nr({
     typed: e
-  }), c = ka({
+  }), c = Ha({
     typed: e,
     equalScalar: n
   }), l = lr({
@@ -8929,14 +8929,14 @@ var Gu = "bitAnd", cx = ["typed", "matrix", "equalScalar", "concat"], Vd = /* @_
     concat: i
   });
   return e(ju, {
-    "number, number": Yo,
+    "number, number": Jo,
     "Complex, Complex": function(f, v) {
       return f.re !== 0 || f.im !== 0 || v.re !== 0 || v.im !== 0;
     },
     "BigNumber, BigNumber": function(f, v) {
       return !f.isZero() && !f.isNaN() || !v.isZero() && !v.isNaN();
     },
-    "bigint, bigint": Yo,
+    "bigint, bigint": Jo,
     "Unit, Unit": e.referToSelf((u) => (f, v) => u(f.value || 0, v.value || 0))
   }, s({
     SS: c,
@@ -8964,11 +8964,11 @@ var Gu = "bitAnd", cx = ["typed", "matrix", "equalScalar", "concat"], Vd = /* @_
     concat: a
   });
   return e(el, {
-    "number, number": Jo,
+    "number, number": Qo,
     "Complex, Complex": function(f, v) {
       return (f.re !== 0 || f.im !== 0) != (v.re !== 0 || v.im !== 0);
     },
-    "bigint, bigint": Jo,
+    "bigint, bigint": Qo,
     "BigNumber, BigNumber": function(f, v) {
       return (!f.isZero() && !f.isNaN()) != (!v.isZero() && !v.isNaN());
     },
@@ -9068,7 +9068,7 @@ var Gu = "bitAnd", cx = ["typed", "matrix", "equalScalar", "concat"], Vd = /* @_
   });
   function i(o, c) {
     var l = Math.max($e(o).length, $e(c).length);
-    o = fa(o), c = fa(c);
+    o = ma(o), c = ma(c);
     var s = $e(o), u = $e(c);
     if (s.length !== 1 || u.length !== 1 || s[0] !== 3 || u[0] !== 3)
       throw new RangeError("Vectors with length 3 expected (Size A = [" + s.join(", ") + "], B = [" + u.join(", ") + "])");
@@ -9182,11 +9182,11 @@ var sl = "flatten", Lx = ["typed"], kx = /* @__PURE__ */ I(sl, Lx, (r) => {
       return n.create(We(n.valueOf(), !0), n.datatype());
     }
   });
-}), ts = "forEach", Hx = ["typed"], Jd = /* @__PURE__ */ I(ts, Hx, (r) => {
+}), ns = "forEach", Hx = ["typed"], Jd = /* @__PURE__ */ I(ns, Hx, (r) => {
   var {
     typed: e
   } = r;
-  return e(ts, {
+  return e(ns, {
     "Array, function": Gx,
     "Matrix, function": function(n, a) {
       n.forEach(a);
@@ -9194,7 +9194,7 @@ var sl = "flatten", Lx = ["typed"], kx = /* @__PURE__ */ I(sl, Lx, (r) => {
   });
 });
 function Gx(r, e) {
-  var t = _t(e, r, ts);
+  var t = _t(e, r, ns);
   kp(r, t.fn, t.isUnary);
 }
 var ul = "getMatrixDataType", Vx = ["typed"], Zx = /* @__PURE__ */ I(ul, Vx, (r) => {
@@ -9203,7 +9203,7 @@ var ul = "getMatrixDataType", Vx = ["typed"], Zx = /* @__PURE__ */ I(ul, Vx, (r)
   } = r;
   return e(ul, {
     Array: function(n) {
-      return Ua(n, je);
+      return La(n, je);
     },
     Matrix: function(n) {
       return n.getDataType();
@@ -9312,11 +9312,11 @@ var ul = "getMatrixDataType", Vx = ["typed"], Zx = /* @__PURE__ */ I(ul, Vx, (r)
       });
     }) && c;
   }
-}), ja = "map", Qx = ["typed"], Qd = /* @__PURE__ */ I(ja, Qx, (r) => {
+}), ei = "map", Qx = ["typed"], Qd = /* @__PURE__ */ I(ei, Qx, (r) => {
   var {
     typed: e
   } = r;
-  return e(ja, {
+  return e(ei, {
     "Array, function": n,
     "Matrix, function": function(i, o) {
       return i.map(o);
@@ -9356,8 +9356,8 @@ var ul = "getMatrixDataType", Vx = ["typed"], Zx = /* @__PURE__ */ I(ul, Vx, (r)
     }
   }
   function n(a, i) {
-    var o = _t(i, a, ja);
-    return Zo(a, o.fn, o.isUnary);
+    var o = _t(i, a, ei);
+    return Wo(a, o.fn, o.isUnary);
   }
 }), fl = "diff", Kx = ["typed", "matrix", "subtract", "number"], Kd = /* @__PURE__ */ I(fl, Kx, (r) => {
   var {
@@ -9817,10 +9817,10 @@ var ml = "range", tw = ["typed", "config", "?matrix", "?bignumber", "smaller", "
   } = r;
   return e(yl, {
     Array: function(n) {
-      return fa(Te(n));
+      return ma(Te(n));
     },
     Matrix: function(n) {
-      var a = fa(n.toArray());
+      var a = ma(n.toArray());
       return Array.isArray(a) ? n.create(a, n.datatype()) : a;
     },
     any: function(n) {
@@ -9837,7 +9837,7 @@ var ml = "range", tw = ["typed", "config", "?matrix", "?bignumber", "smaller", "
   return e(bl, {
     // get subset
     "Matrix, Index": function(c, l) {
-      return Xt(l) ? t() : (ca(c, l), c.subset(l));
+      return Xt(l) ? t() : (fa(c, l), c.subset(l));
     },
     "Array, Index": e.referTo("Matrix, Index", function(o) {
       return function(c, l) {
@@ -9849,7 +9849,7 @@ var ml = "range", tw = ["typed", "config", "?matrix", "?bignumber", "smaller", "
     "string, Index": yw,
     // set subset
     "Matrix, Index, any, any": function(c, l, s, u) {
-      return Xt(l) ? c : (ca(c, l), c.clone().subset(l, i(s, l), u));
+      return Xt(l) ? c : (fa(c, l), c.clone().subset(l, i(s, l), u));
     },
     "Array, Index, any, any": e.referTo("Matrix, Index, any, any", function(o) {
       return function(c, l, s, u) {
@@ -9892,7 +9892,7 @@ function yw(r, e) {
     throw new TypeError("Index expected");
   if (Xt(e))
     return "";
-  if (ca(Array.from(r), e), e.size().length !== 1)
+  if (fa(Array.from(r), e), e.size().length !== 1)
     throw new Le(e.size().length, 1);
   var t = r.length;
   Ke(e.min()[0], t), Ke(e.max()[0], t);
@@ -9906,7 +9906,7 @@ function xl(r, e, t, n) {
     throw new TypeError("Index expected");
   if (Xt(e))
     return r;
-  if (ca(Array.from(r), e), e.size().length !== 1)
+  if (fa(Array.from(r), e), e.size().length !== 1)
     throw new Le(e.size().length, 1);
   if (n !== void 0) {
     if (typeof n != "string" || n.length !== 1)
@@ -11627,7 +11627,7 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
   } = r, c = Zr({
     typed: e,
     equalScalar: n
-  }), l = Ha({
+  }), l = Ga({
     typed: e,
     equalScalar: n
   }), s = hr({
@@ -11641,14 +11641,14 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
     concat: o
   });
   return e(jl, {
-    "number, number": Qo,
+    "number, number": Ko,
     "Complex, Complex": function(m, d) {
       return (m.re !== 0 || m.im !== 0) && (d.re !== 0 || d.im !== 0);
     },
     "BigNumber, BigNumber": function(m, d) {
       return !m.isZero() && !d.isZero() && !m.isNaN() && !d.isNaN();
     },
-    "bigint, bigint": Qo,
+    "bigint, bigint": Ko,
     "Unit, Unit": e.referToSelf((v) => (m, d) => v(m.value || 0, d.value || 0)),
     "SparseMatrix, any": e.referToSelf((v) => (m, d) => i(d) ? a(m.size(), m.storage()) : s(m, d, v, !1)),
     "DenseMatrix, any": e.referToSelf((v) => (m, d) => i(d) ? a(m.size(), m.storage()) : u(m, d, v, !1)),
@@ -11660,7 +11660,7 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
     SS: l,
     DS: c
   }));
-}), ba = "compare", H2 = ["typed", "config", "matrix", "equalScalar", "BigNumber", "Fraction", "DenseMatrix", "concat"], G2 = /* @__PURE__ */ I(ba, H2, (r) => {
+}), xa = "compare", H2 = ["typed", "config", "matrix", "equalScalar", "BigNumber", "Fraction", "DenseMatrix", "concat"], G2 = /* @__PURE__ */ I(xa, H2, (r) => {
   var {
     typed: e,
     config: t,
@@ -11672,7 +11672,7 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
     concat: l
   } = r, s = Nr({
     typed: e
-  }), u = ka({
+  }), u = Ha({
     typed: e,
     equalScalar: n
   }), f = lr({
@@ -11685,7 +11685,7 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
   }), m = tn({
     typed: e
   });
-  return e(ba, V2({
+  return e(xa, V2({
     typed: e,
     config: t
   }), {
@@ -11709,12 +11709,12 @@ var Zl = "lsolve", S2 = ["typed", "matrix", "divideScalar", "multiplyScalar", "s
     DS: s,
     Ss: f
   }));
-}), V2 = /* @__PURE__ */ I(ba, ["typed", "config"], (r) => {
+}), V2 = /* @__PURE__ */ I(xa, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(ba, {
+  return e(xa, {
     "number, number": function(a, i) {
       return dr(a, i, t.relTol, t.absTol) ? 0 : a > i ? 1 : -1;
     }
@@ -11742,9 +11742,9 @@ function Z2(r) {
     });
   }), t;
 }
-var ei, ec;
+var ri, ec;
 function W2() {
-  return ec || (ec = 1, ei = function r(e, t) {
+  return ec || (ec = 1, ri = function r(e, t) {
     var n = /(^([+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)?$|^0x[0-9a-f]+$|\d+)/gi, a = /(^[ ]*|[ ]*$)/g, i = /(^([\w ]+,?[\w ]+)?[\w ]+,?[\w ]+\d+:\d+(:\d+)?[\w ]?|^\d{1,4}[\/\-]\d{1,4}[\/\-]\d{1,4}|^\w+, \w+ \d+, \d{4})/, o = /^0x[0-9a-f]+$/i, c = /^0/, l = function(h) {
       return r.insensitive && ("" + h).toLowerCase() || "" + h;
     }, s = l(e).replace(a, "") || "", u = l(t).replace(a, "") || "", f = s.replace(n, "\0$1\0").replace(/\0$/, "").replace(/^\0/, "").split("\0"), v = u.replace(n, "\0$1\0").replace(/\0$/, "").replace(/^\0/, "").split("\0"), m = parseInt(s.match(o), 16) || f.length !== 1 && s.match(i) && Date.parse(s), d = parseInt(u.match(o), 16) || m && u.match(i) && Date.parse(u) || null, p, y;
@@ -11763,7 +11763,7 @@ function W2() {
         return 1;
     }
     return 0;
-  }), ei;
+  }), ri;
 }
 var X2 = W2();
 const Pt = /* @__PURE__ */ Mn(X2);
@@ -11827,7 +11827,7 @@ function Q2(r, e) {
   return r.re > e.re ? 1 : r.re < e.re ? -1 : r.im > e.im ? 1 : r.im < e.im ? -1 : 0;
 }
 var tc = "compareText", K2 = ["typed", "matrix", "concat"];
-Go.signature = "any, any";
+Vo.signature = "any, any";
 var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   var {
     typed: e,
@@ -11838,11 +11838,11 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     matrix: t,
     concat: n
   });
-  return e(tc, Go, a({
-    elop: Go,
+  return e(tc, Vo, a({
+    elop: Vo,
     Ds: !0
   }));
-}), xa = "equal", eD = ["typed", "matrix", "equalScalar", "DenseMatrix", "concat", "SparseMatrix"], rD = /* @__PURE__ */ I(xa, eD, (r) => {
+}), wa = "equal", eD = ["typed", "matrix", "equalScalar", "DenseMatrix", "concat", "SparseMatrix"], rD = /* @__PURE__ */ I(wa, eD, (r) => {
   var {
     typed: e,
     matrix: t,
@@ -11863,7 +11863,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     matrix: t,
     concat: i
   });
-  return e(xa, tD({
+  return e(wa, tD({
     typed: e,
     equalScalar: n
   }), u({
@@ -11872,12 +11872,12 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     DS: c,
     Ss: s
   }));
-}), tD = I(xa, ["typed", "equalScalar"], (r) => {
+}), tD = I(wa, ["typed", "equalScalar"], (r) => {
   var {
     typed: e,
     equalScalar: t
   } = r;
-  return e(xa, {
+  return e(wa, {
     "any, any": function(a, i) {
       return a === null ? i === null : i === null ? a === null : a === void 0 ? i === void 0 : i === void 0 ? a === void 0 : t(a, i);
     }
@@ -11893,7 +11893,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
       return n(t(i, o));
     }
   });
-}), wa = "smaller", iD = ["typed", "config", "bignumber", "matrix", "DenseMatrix", "concat", "SparseMatrix"], oD = /* @__PURE__ */ I(wa, iD, (r) => {
+}), Da = "smaller", iD = ["typed", "config", "bignumber", "matrix", "DenseMatrix", "concat", "SparseMatrix"], oD = /* @__PURE__ */ I(Da, iD, (r) => {
   var {
     typed: e,
     config: t,
@@ -11920,7 +11920,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   function m(d, p) {
     return d.lt(p) && !Ir(d, p, t.relTol, t.absTol);
   }
-  return e(wa, sD({
+  return e(Da, sD({
     typed: e,
     config: t
   }), {
@@ -11942,17 +11942,17 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     DS: l,
     Ss: u
   }));
-}), sD = /* @__PURE__ */ I(wa, ["typed", "config"], (r) => {
+}), sD = /* @__PURE__ */ I(Da, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(wa, {
+  return e(Da, {
     "number, number": function(a, i) {
       return a < i && !dr(a, i, t.relTol, t.absTol);
     }
   });
-}), Da = "smallerEq", uD = ["typed", "config", "matrix", "DenseMatrix", "concat", "SparseMatrix"], lD = /* @__PURE__ */ I(Da, uD, (r) => {
+}), Na = "smallerEq", uD = ["typed", "config", "matrix", "DenseMatrix", "concat", "SparseMatrix"], lD = /* @__PURE__ */ I(Na, uD, (r) => {
   var {
     typed: e,
     config: t,
@@ -11975,7 +11975,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   }), f = tn({
     typed: e
   });
-  return e(Da, cD({
+  return e(Na, cD({
     typed: e,
     config: t
   }), {
@@ -11993,17 +11993,17 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     DS: c,
     Ss: s
   }));
-}), cD = /* @__PURE__ */ I(Da, ["typed", "config"], (r) => {
+}), cD = /* @__PURE__ */ I(Na, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(Da, {
+  return e(Na, {
     "number, number": function(a, i) {
       return a <= i || dr(a, i, t.relTol, t.absTol);
     }
   });
-}), Na = "larger", fD = ["typed", "config", "bignumber", "matrix", "DenseMatrix", "concat", "SparseMatrix"], lh = /* @__PURE__ */ I(Na, fD, (r) => {
+}), Aa = "larger", fD = ["typed", "config", "bignumber", "matrix", "DenseMatrix", "concat", "SparseMatrix"], lh = /* @__PURE__ */ I(Aa, fD, (r) => {
   var {
     typed: e,
     config: t,
@@ -12030,7 +12030,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   function m(d, p) {
     return d.gt(p) && !Ir(d, p, t.relTol, t.absTol);
   }
-  return e(Na, mD({
+  return e(Aa, mD({
     typed: e,
     config: t
   }), {
@@ -12052,17 +12052,17 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     DS: l,
     Ss: u
   }));
-}), mD = /* @__PURE__ */ I(Na, ["typed", "config"], (r) => {
+}), mD = /* @__PURE__ */ I(Aa, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(Na, {
+  return e(Aa, {
     "number, number": function(a, i) {
       return a > i && !dr(a, i, t.relTol, t.absTol);
     }
   });
-}), Aa = "largerEq", vD = ["typed", "config", "matrix", "DenseMatrix", "concat", "SparseMatrix"], pD = /* @__PURE__ */ I(Aa, vD, (r) => {
+}), Ea = "largerEq", vD = ["typed", "config", "matrix", "DenseMatrix", "concat", "SparseMatrix"], pD = /* @__PURE__ */ I(Ea, vD, (r) => {
   var {
     typed: e,
     config: t,
@@ -12085,7 +12085,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   }), f = tn({
     typed: e
   });
-  return e(Aa, dD({
+  return e(Ea, dD({
     typed: e,
     config: t
   }), {
@@ -12105,12 +12105,12 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     DS: c,
     Ss: s
   }));
-}), dD = /* @__PURE__ */ I(Aa, ["typed", "config"], (r) => {
+}), dD = /* @__PURE__ */ I(Ea, ["typed", "config"], (r) => {
   var {
     typed: e,
     config: t
   } = r;
-  return e(Aa, {
+  return e(Ea, {
     "number, number": function(a, i) {
       return a >= i || dr(a, i, t.relTol, t.absTol);
     }
@@ -12140,7 +12140,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     else
       return Array.isArray(i) ? !1 : t(a, i);
   }
-}), Ea = "unequal", yD = ["typed", "config", "equalScalar", "matrix", "DenseMatrix", "concat", "SparseMatrix"], bD = /* @__PURE__ */ I(Ea, yD, (r) => {
+}), Sa = "unequal", yD = ["typed", "config", "equalScalar", "matrix", "DenseMatrix", "concat", "SparseMatrix"], bD = /* @__PURE__ */ I(Sa, yD, (r) => {
   var {
     typed: e,
     config: t,
@@ -12162,7 +12162,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     matrix: a,
     concat: o
   });
-  return e(Ea, xD({
+  return e(Sa, xD({
     typed: e,
     equalScalar: n
   }), f({
@@ -12174,12 +12174,12 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
   function v(m, d) {
     return !n(m, d);
   }
-}), xD = I(Ea, ["typed", "equalScalar"], (r) => {
+}), xD = I(Sa, ["typed", "equalScalar"], (r) => {
   var {
     typed: e,
     equalScalar: t
   } = r;
-  return e(Ea, {
+  return e(Sa, {
     "any, any": function(a, i) {
       return a === null ? i !== null : i === null ? a !== null : a === void 0 ? i !== void 0 : i === void 0 ? a !== void 0 : !t(a, i);
     }
@@ -12290,7 +12290,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     "Array | Matrix": c,
     // max([a, b, c, d, ...], dim)
     "Array | Matrix, number | BigNumber": function(s, u) {
-      return La(s, u.valueOf(), o);
+      return ka(s, u.valueOf(), o);
     },
     // max(a, b, c, d, ...)
     "...": function(s) {
@@ -12331,7 +12331,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     "Array | Matrix": c,
     // min([a, b, c, d, ...], dim)
     "Array | Matrix, number | BigNumber": function(s, u) {
-      return La(s, u.valueOf(), o);
+      return ka(s, u.valueOf(), o);
     },
     // min(a, b, c, d, ...)
     "...": function(s) {
@@ -12450,7 +12450,7 @@ var j2 = /* @__PURE__ */ I(tc, K2, (r) => {
     this._dimensions = [], this._sourceSize = [], this._isScalar = !0;
     for (var o = 0, c = arguments.length; o < c; o++) {
       var l = arguments[o], s = Ye(l), u = Me(l), f = typeof l, v = null;
-      if (za(l))
+      if (Pa(l))
         this._dimensions.push(l), this._isScalar = !1;
       else if (s || u) {
         var m = void 0;
@@ -12712,21 +12712,21 @@ function Cn(r) {
 var UD = Cn(function(r) {
   return new r(1).exp();
 }, {
-  hasher: Ga
+  hasher: Va
 }), LD = Cn(function(r) {
   return new r(1).plus(new r(5).sqrt()).div(2);
 }, {
-  hasher: Ga
+  hasher: Va
 }), Ms = Cn(function(r) {
   return r.acos(-1);
 }, {
-  hasher: Ga
+  hasher: Va
 }), kD = Cn(function(r) {
   return Ms(r).times(2);
 }, {
-  hasher: Ga
+  hasher: Va
 });
-function Ga(r) {
+function Va(r) {
   return r[0].precision;
 }
 function cc(r, e) {
@@ -12739,7 +12739,7 @@ function cc(r, e) {
   }
   return t;
 }
-function ri(r) {
+function ti(r) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? cc(Object(t), !0).forEach(function(n) {
@@ -12981,7 +12981,7 @@ var HD = "Unit", GD = ["?on", "config", "addScalar", "subtractScalar", "multiply
     for (var k = this.clone(), j = Mr(R) ? R : new h(R), te = 0; te < U.length; te++)
       k.dimensions[te] = (this.dimensions[te] || 0) + (j.dimensions[te] || 0);
     for (var le = 0; le < j.units.length; le++) {
-      var pe = ri({}, j.units[le]);
+      var pe = ti({}, j.units[le]);
       k.units.push(pe);
     }
     if (this.value !== null || j.value !== null) {
@@ -12996,7 +12996,7 @@ var HD = "Unit", GD = ["?on", "config", "addScalar", "subtractScalar", "multiply
     for (var k = this.clone(), j = Mr(R) ? R : new h(R), te = 0; te < U.length; te++)
       k.dimensions[te] = (this.dimensions[te] || 0) - (j.dimensions[te] || 0);
     for (var le = 0; le < j.units.length; le++) {
-      var pe = ri(ri({}, j.units[le]), {}, {
+      var pe = ti(ti({}, j.units[le]), {}, {
         power: -j.units[le].power
       });
       k.units.push(pe);
@@ -16041,7 +16041,7 @@ var HD = "Unit", GD = ["?on", "config", "addScalar", "subtractScalar", "multiply
           m || u.push(f[d]);
         }
       }
-      return Array.isArray(l) && Array.isArray(s) ? ma(u) : new o(ma(u));
+      return Array.isArray(l) && Array.isArray(s) ? va(u) : new o(va(u));
     }
   });
 }), zc = "setDistinct", rA = ["typed", "size", "subset", "compareNatural", "Index", "DenseMatrix"], tA = /* @__PURE__ */ I(zc, rA, (r) => {
@@ -16091,7 +16091,7 @@ var HD = "Unit", GD = ["?on", "config", "addScalar", "subtractScalar", "multiply
               break;
             }
       }
-      return Array.isArray(l) && Array.isArray(s) ? ma(u) : new o(ma(u));
+      return Array.isArray(l) && Array.isArray(s) ? va(u) : new o(va(u));
     }
   });
 }), Uc = "setIsSubset", iA = ["typed", "size", "subset", "compareNatural", "Index"], oA = /* @__PURE__ */ I(Uc, iA, (r) => {
@@ -17420,7 +17420,7 @@ function Qe(r, e, t, n) {
     }
   if (i === "OperatorNode:multiply" && a.implicit && t !== "show") {
     var l = In(a.args[0], e);
-    !(Ge(l) && n && n.getIdentifier() === "OperatorNode:divide" && Uo(In(n.args[0], e))) && !(l.getIdentifier() === "OperatorNode:divide" && Uo(In(l.args[0], e)) && Ge(In(l.args[1]))) && (o += 1);
+    !(Ge(l) && n && n.getIdentifier() === "OperatorNode:divide" && Lo(In(n.args[0], e))) && !(l.getIdentifier() === "OperatorNode:divide" && Lo(In(l.args[0], e)) && Ge(In(l.args[1]))) && (o += 1);
   }
   return o;
 }
@@ -17440,7 +17440,7 @@ function un(r, e) {
   }
   return null;
 }
-function ti(r, e, t) {
+function ni(r, e, t) {
   var n = t !== "keep" ? r.getContent() : r, a = t !== "keep" ? r.getContent() : e, i = n.getIdentifier(), o = a.getIdentifier(), c = Qe(n, t);
   if (c === null)
     return null;
@@ -17979,9 +17979,9 @@ var Rn = "AssignmentNode", PA = [
 }, {
   isClass: !0,
   isNode: !0
-}), ni, Qc;
+}), ai, Qc;
 function VA() {
-  if (Qc) return ni;
+  if (Qc) return ai;
   Qc = 1;
   var r = Object.assign || function(a) {
     for (var i = 1; i < arguments.length; i++) {
@@ -18011,7 +18011,7 @@ function VA() {
   }, n = function(i, o) {
     return r({}, i, o);
   };
-  return ni = function(a) {
+  return ai = function(a) {
     for (var i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, o = i.preserveFormatting, c = o === void 0 ? !1 : o, l = i.escapeMapFn, s = l === void 0 ? n : l, u = String(a), f = "", v = s(r({}, e), c ? r({}, t) : {}), m = Object.keys(v), d = function() {
       var y = !1;
       m.forEach(function(g, D) {
@@ -18020,11 +18020,11 @@ function VA() {
     }; u; )
       d();
     return f;
-  }, ni;
+  }, ai;
 }
 var ZA = VA();
 const WA = /* @__PURE__ */ Mn(ZA);
-var ns = {
+var as = {
   // GREEK LETTERS
   Alpha: "A",
   alpha: "\\alpha",
@@ -18468,7 +18468,7 @@ var ns = {
   complex: {
     0: "0",
     1: "\\left(${args[0]}\\right)",
-    2: "\\left(\\left(${args[0]}\\right)+".concat(ns.i, "\\cdot\\left(${args[1]}\\right)\\right)")
+    2: "\\left(\\left(${args[0]}\\right)+".concat(as.i, "\\cdot\\left(${args[1]}\\right)\\right)")
   },
   matrix: {
     0: "\\begin{bmatrix}\\end{bmatrix}",
@@ -18486,13 +18486,13 @@ var ns = {
 }, XA = "\\mathrm{${name}}\\left(${args}\\right)", jc = {
   deg: "^\\circ"
 };
-function as(r) {
+function is(r) {
   return WA(r, {
     preserveFormatting: !0
   });
 }
 function vh(r, e) {
-  return e = typeof e > "u" ? !1 : e, e ? Ae(jc, r) ? jc[r] : "\\mathrm{" + as(r) + "}" : Ae(ns, r) ? ns[r] : as(r);
+  return e = typeof e > "u" ? !1 : e, e ? Ae(jc, r) ? jc[r] : "\\mathrm{" + is(r) + "}" : Ae(as, r) ? as[r] : is(r);
 }
 var Un = "ConstantNode", YA = ["Node"], JA = /* @__PURE__ */ I(Un, YA, (r) => {
   var {
@@ -18623,7 +18623,7 @@ var Un = "ConstantNode", YA = ["Node"], JA = /* @__PURE__ */ I(Un, YA, (r) => {
       var i = this._toString(a), o = je(this.value);
       switch (o) {
         case "string":
-          return "\\mathtt{" + as(i) + "}";
+          return "\\mathtt{" + is(i) + "}";
         case "number":
         case "BigNumber": {
           var c = o === "BigNumber" ? this.value.isFinite() : isFinite(this.value);
@@ -19125,7 +19125,7 @@ var Un = "ConstantNode", YA = ["Node"], JA = /* @__PURE__ */ I(Un, YA, (r) => {
   isNode: !0
 });
 function cn(r, e) {
-  return new ap(r, new Ra(e), new Set(Object.keys(e)));
+  return new ap(r, new za(e), new Set(Object.keys(e)));
 }
 var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
   var {
@@ -19184,9 +19184,9 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
         break;
       case 2:
         {
-          var y, g = Qe(l[0], o, c, i), D = ti(i, l[0], o);
+          var y, g = Qe(l[0], o, c, i), D = ni(i, l[0], o);
           g === null ? y = !1 : g === u && f === "right" && !D || g < u ? y = !0 : y = !1;
-          var h, w = Qe(l[1], o, c, i), x = ti(i, l[1], o);
+          var h, w = Qe(l[1], o, c, i), x = ni(i, l[1], o);
           if (w === null ? h = !1 : w === u && f === "left" && !x || w < u ? h = !0 : h = !1, s) {
             var b, A, E;
             o === "keep" ? (b = i.getIdentifier(), A = i.args[0].getIdentifier(), E = i.args[1].getIdentifier()) : (b = i.getContent().getIdentifier(), A = i.args[0].getContent().getIdentifier(), E = i.args[1].getContent().getIdentifier()), g !== null && (Lr[u][b].latexLeftParens === !1 && (y = !1), Lr[g][A].latexParens === !1 && (y = !1)), w !== null && (Lr[u][b].latexRightParens === !1 && (h = !1), Lr[w][E].latexParens === !1 && (h = !1));
@@ -19196,7 +19196,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
         break;
       default:
         (i.getIdentifier() === "OperatorNode:add" || i.getIdentifier() === "OperatorNode:multiply") && (v = l.map(function(S) {
-          var M = Qe(S, o, c, i), T = ti(i, S, o), O = un(S, o);
+          var M = Qe(S, o, c, i), T = ni(i, S, o), O = un(S, o);
           return M === null ? !1 : u === M && f === O && !T ? !0 : M < u;
         }));
         break;
@@ -20630,8 +20630,8 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
         return G = Pe.name, U(C), de = z(C), new o(new D(G), de);
       if (ht(Pe))
         return U(C), de = z(C), new o(Pe.object, Pe.index, de);
-      if (tt(Pe) && ur(Pe.fn) && (Be = !0, oe = [], G = Pe.name, Pe.args.forEach(function(xr, Wa) {
-        ur(xr) ? oe[Wa] = xr.name : Be = !1;
+      if (tt(Pe) && ur(Pe.fn) && (Be = !0, oe = [], G = Pe.name, Pe.args.forEach(function(xr, Xa) {
+        ur(xr) ? oe[Xa] = xr.name : Be = !1;
       }), Be))
         return U(C), de = z(C), new u(G, oe, de);
       throw Fe(C, "Invalid left hand side of assignment operator =");
@@ -20775,7 +20775,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
     return G;
   }
   function te(C) {
-    for (var G = le(C), oe = G, de = []; C.token === "/" && Uo(oe); )
+    for (var G = le(C), oe = G, de = []; C.token === "/" && Lo(oe); )
       if (de.push(mr({}, C)), U(C), C.tokenType === x.NUMBER)
         if (de.push(mr({}, C)), U(C), C.tokenType === x.SYMBOL || C.token === "(" || C.token === "in")
           mr(C, de.pop()), de.pop(), oe = le(C), G = new d("/", "divide", [G, oe]);
@@ -21591,7 +21591,7 @@ var PE = "csCounts", UE = ["transpose"], LE = /* @__PURE__ */ I(PE, UE, (r) => {
     return !0;
   }
 });
-function is(r, e) {
+function os(r, e) {
   return r[e] < 0;
 }
 function dh(r, e) {
@@ -21605,10 +21605,10 @@ function VE(r, e, t, n, a) {
   for (n[0] = r; v >= 0; ) {
     r = n[v];
     var m = a ? a[r] : r;
-    is(o, r) || (dh(o, r), n[l + v] = m < 0 ? 0 : sf(o[m]));
+    os(o, r) || (dh(o, r), n[l + v] = m < 0 ? 0 : sf(o[m]));
     var d = 1;
     for (u = n[l + v], f = m < 0 ? 0 : sf(o[m + 1]); u < f; u++)
-      if (s = i[u], !is(o, s)) {
+      if (s = i[u], !os(o, s)) {
         n[l + v] = u, n[++v] = s, d = 0;
         break;
       }
@@ -21620,7 +21620,7 @@ function ZE(r, e, t, n, a) {
   var i = r._ptr, o = r._size, c = e._index, l = e._ptr, s = o[1], u, f, v, m = s;
   for (f = l[t], v = l[t + 1], u = f; u < v; u++) {
     var d = c[u];
-    is(i, d) || (m = VE(d, r, m, n, a));
+    os(i, d) || (m = VE(d, r, m, n, a));
   }
   for (u = m; u < s; u++)
     dh(i, n[u]);
@@ -25556,7 +25556,7 @@ var Q_ = "eigs", K_ = ["config", "typed", "matrix", "addScalar", "equal", "subtr
   }
   function o(c, l) {
     try {
-      var s = La(c, l, n);
+      var s = ka(c, l, n);
       return s;
     } catch (u) {
       throw Dr(u, "sum");
@@ -25646,7 +25646,7 @@ var Q_ = "eigs", K_ = ["config", "typed", "matrix", "addScalar", "equal", "subtr
   });
   function a(o, c) {
     try {
-      var l = La(o, c, t), s = Array.isArray(o) ? $e(o) : o.size();
+      var l = ka(o, c, t), s = Array.isArray(o) ? $e(o) : o.size();
       return n(l, s[c]);
     } catch (u) {
       throw Dr(u, "mean");
@@ -25741,7 +25741,7 @@ var Q_ = "eigs", K_ = ["config", "typed", "matrix", "addScalar", "equal", "subtr
       throw s instanceof TypeError && s.message.includes("median") ? new TypeError(s.message.replace("median", "mad")) : Dr(s, "mad");
     }
   }
-}), ai = "unbiased", _f = "variance", E4 = ["typed", "add", "subtract", "multiply", "divide", "mapSlices", "isNaN"], bh = /* @__PURE__ */ I(_f, E4, (r) => {
+}), ii = "unbiased", _f = "variance", E4 = ["typed", "add", "subtract", "multiply", "divide", "mapSlices", "isNaN"], bh = /* @__PURE__ */ I(_f, E4, (r) => {
   var {
     typed: e,
     add: t,
@@ -25754,19 +25754,19 @@ var Q_ = "eigs", K_ = ["config", "typed", "matrix", "addScalar", "equal", "subtr
   return e(_f, {
     // variance([a, b, c, d, ...])
     "Array | Matrix": function(f) {
-      return l(f, ai);
+      return l(f, ii);
     },
     // variance([a, b, c, d, ...], normalization)
     "Array | Matrix, string": l,
     // variance([a, b, c, c, ...], dim)
     "Array | Matrix, number | BigNumber": function(f, v) {
-      return s(f, v, ai);
+      return s(f, v, ii);
     },
     // variance([a, b, c, c, ...], dim, normalization)
     "Array | Matrix, number | BigNumber, string": s,
     // variance(a, b, c, d, ...)
     "...": function(f) {
-      return l(f, ai);
+      return l(f, ii);
     }
   });
   function l(u, f) {
@@ -26027,7 +26027,7 @@ var Rf = "gamma", $4 = ["typed", "config", "multiplyScalar", "pow", "BigNumber",
   } = r;
   function c(s) {
     if (s.im === 0)
-      return da(s.re);
+      return ha(s.re);
     if (s.re < 0.5) {
       var u = new o(1 - s.re, -s.im), f = new o(Math.PI * s.re, Math.PI * s.im);
       return new o(Math.PI).div(f.sin()).div(c(u));
@@ -26041,7 +26041,7 @@ var Rf = "gamma", $4 = ["typed", "config", "multiplyScalar", "pow", "BigNumber",
     return v.mul(y).mul(g).mul(D);
   }
   return e(Rf, {
-    number: da,
+    number: ha,
     Complex: c,
     BigNumber: function(u) {
       if (u.isInteger())
@@ -26069,7 +26069,7 @@ var Rf = "gamma", $4 = ["typed", "config", "multiplyScalar", "pow", "BigNumber",
     typed: t
   } = r, n = 7, a = 7, i = [-0.029550653594771242, 0.00641025641025641, -0.0019175269175269176, 8417508417508417e-19, -5952380952380953e-19, 7936507936507937e-19, -0.002777777777777778, 0.08333333333333333];
   return t(zf, {
-    number: ha,
+    number: ga,
     Complex: o,
     BigNumber: function() {
       throw new Error("mathjs doesn't yet provide an implementation of the algorithm lgamma for BigNumber");
@@ -26080,7 +26080,7 @@ var Rf = "gamma", $4 = ["typed", "config", "multiplyScalar", "pow", "BigNumber",
     if (s.isNaN())
       return new e(NaN, NaN);
     if (s.im === 0)
-      return new e(ha(s.re), 0);
+      return new e(ga(s.re), 0);
     if (s.re >= n || Math.abs(s.im) >= a)
       return c(s);
     if (s.re <= v) {
@@ -26562,12 +26562,12 @@ function uF() {
     );
   }(ia)), ia.exports;
 }
-var ii, Qf;
+var oi, Qf;
 function lF() {
-  if (Qf) return ii;
+  if (Qf) return oi;
   Qf = 1;
   var r = W4(), e = Y4(), t = Q4(), n = j4(), a = rF(), i = nF(), o = uF();
-  return o.alea = r, o.xor128 = e, o.xorwow = t, o.xorshift7 = n, o.xor4096 = a, o.tychei = i, ii = o, ii;
+  return o.alea = r, o.xor128 = e, o.xorwow = t, o.xorshift7 = n, o.xor4096 = a, o.tychei = i, oi = o, oi;
 }
 var cF = lF();
 const Dh = /* @__PURE__ */ Mn(cF);
@@ -26829,8 +26829,8 @@ var jf = "random", pF = ["typed", "config", "?on"], dF = /* @__PURE__ */ I(jf, p
 function om(r) {
   return Ge(r) || ar(r) && r.isUnary() && Ge(r.args[0]);
 }
-function Sa(r) {
-  return !!(Ge(r) || (tt(r) || ar(r)) && r.args.every(Sa) || Yr(r) && Sa(r.content));
+function Ma(r) {
+  return !!(Ge(r) || (tt(r) || ar(r)) && r.args.every(Ma) || Yr(r) && Ma(r.content));
 }
 function sm(r, e) {
   var t = Object.keys(r);
@@ -26842,7 +26842,7 @@ function sm(r, e) {
   }
   return t;
 }
-function oi(r) {
+function si(r) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? sm(Object(t), !0).forEach(function(n) {
@@ -26955,9 +26955,9 @@ var _F = "simplifyUtil", FF = ["FunctionNode", "OperatorNode", "SymbolNode"], _s
     return u(h, "associative", w);
   }
   function m(h, w) {
-    var x = oi({}, h);
+    var x = si({}, h);
     for (var b in w)
-      Ae(h, b) ? x[b] = oi(oi({}, w[b]), h[b]) : x[b] = w[b];
+      Ae(h, b) ? x[b] = si(si({}, w[b]), h[b]) : x[b] = w[b];
     return x;
   }
   function d(h, w) {
@@ -27781,13 +27781,13 @@ var _F = "simplifyUtil", FF = ["FunctionNode", "OperatorNode", "SymbolNode"], _s
               return [];
             break;
           case "ce":
-            if (Sa(L))
+            if (Ma(L))
               K[0].placeholders[H.name] = L;
             else
               return [];
             break;
           case "ve":
-            if (!Sa(L))
+            if (!Ma(L))
               K[0].placeholders[H.name] = L;
             else
               return [];
@@ -29249,7 +29249,7 @@ function Tr(r, e, t) {
     recreateOnConfigChange: !0
   });
 }
-var AT = /* @__PURE__ */ ze("speedOfLight", "299792458", "m s^-1"), ET = /* @__PURE__ */ ze("gravitationConstant", "6.67430e-11", "m^3 kg^-1 s^-2"), ST = /* @__PURE__ */ ze("planckConstant", "6.62607015e-34", "J s"), MT = /* @__PURE__ */ ze("reducedPlanckConstant", "1.0545718176461565e-34", "J s"), CT = /* @__PURE__ */ ze("magneticConstant", "1.25663706212e-6", "N A^-2"), _T = /* @__PURE__ */ ze("electricConstant", "8.8541878128e-12", "F m^-1"), FT = /* @__PURE__ */ ze("vacuumImpedance", "376.730313667", "ohm"), TT = /* @__PURE__ */ ze("coulomb", "8.987551792261171e9", "N m^2 C^-2"), BT = /* @__PURE__ */ ze("elementaryCharge", "1.602176634e-19", "C"), OT = /* @__PURE__ */ ze("bohrMagneton", "9.2740100783e-24", "J T^-1"), $T = /* @__PURE__ */ ze("conductanceQuantum", "7.748091729863649e-5", "S"), qT = /* @__PURE__ */ ze("inverseConductanceQuantum", "12906.403729652257", "ohm"), IT = /* @__PURE__ */ ze("magneticFluxQuantum", "2.0678338484619295e-15", "Wb"), RT = /* @__PURE__ */ ze("nuclearMagneton", "5.0507837461e-27", "J T^-1"), zT = /* @__PURE__ */ ze("klitzing", "25812.807459304513", "ohm"), PT = /* @__PURE__ */ ze("bohrRadius", "5.29177210903e-11", "m"), UT = /* @__PURE__ */ ze("classicalElectronRadius", "2.8179403262e-15", "m"), LT = /* @__PURE__ */ ze("electronMass", "9.1093837015e-31", "kg"), kT = /* @__PURE__ */ ze("fermiCoupling", "1.1663787e-5", "GeV^-2"), HT = Va("fineStructure", 0.0072973525693), GT = /* @__PURE__ */ ze("hartreeEnergy", "4.3597447222071e-18", "J"), VT = /* @__PURE__ */ ze("protonMass", "1.67262192369e-27", "kg"), ZT = /* @__PURE__ */ ze("deuteronMass", "3.3435830926e-27", "kg"), WT = /* @__PURE__ */ ze("neutronMass", "1.6749271613e-27", "kg"), XT = /* @__PURE__ */ ze("quantumOfCirculation", "3.6369475516e-4", "m^2 s^-1"), YT = /* @__PURE__ */ ze("rydberg", "10973731.568160", "m^-1"), JT = /* @__PURE__ */ ze("thomsonCrossSection", "6.6524587321e-29", "m^2"), QT = Va("weakMixingAngle", 0.2229), KT = Va("efimovFactor", 22.7), jT = /* @__PURE__ */ ze("atomicMass", "1.66053906660e-27", "kg"), e5 = /* @__PURE__ */ ze("avogadro", "6.02214076e23", "mol^-1"), r5 = /* @__PURE__ */ ze("boltzmann", "1.380649e-23", "J K^-1"), t5 = /* @__PURE__ */ ze("faraday", "96485.33212331001", "C mol^-1"), n5 = /* @__PURE__ */ ze("firstRadiation", "3.7417718521927573e-16", "W m^2"), a5 = /* @__PURE__ */ ze("loschmidt", "2.686780111798444e25", "m^-3"), i5 = /* @__PURE__ */ ze("gasConstant", "8.31446261815324", "J K^-1 mol^-1"), o5 = /* @__PURE__ */ ze("molarPlanckConstant", "3.990312712893431e-10", "J s mol^-1"), s5 = /* @__PURE__ */ ze("molarVolume", "0.022413969545014137", "m^3 mol^-1"), u5 = Va("sackurTetrode", -1.16487052358), l5 = /* @__PURE__ */ ze("secondRadiation", "0.014387768775039337", "m K"), c5 = /* @__PURE__ */ ze("stefanBoltzmann", "5.67037441918443e-8", "W m^-2 K^-4"), f5 = /* @__PURE__ */ ze("wienDisplacement", "2.897771955e-3", "m K"), m5 = /* @__PURE__ */ ze("molarMass", "0.99999999965e-3", "kg mol^-1"), v5 = /* @__PURE__ */ ze("molarMassC12", "11.9999999958e-3", "kg mol^-1"), p5 = /* @__PURE__ */ ze("gravity", "9.80665", "m s^-2"), d5 = /* @__PURE__ */ ze("planckLength", "1.616255e-35", "m"), h5 = /* @__PURE__ */ ze("planckMass", "2.176435e-8", "kg"), g5 = /* @__PURE__ */ ze("planckTime", "5.391245e-44", "s"), y5 = /* @__PURE__ */ ze("planckCharge", "1.87554603778e-18", "C"), b5 = /* @__PURE__ */ ze("planckTemperature", "1.416785e+32", "K");
+var AT = /* @__PURE__ */ ze("speedOfLight", "299792458", "m s^-1"), ET = /* @__PURE__ */ ze("gravitationConstant", "6.67430e-11", "m^3 kg^-1 s^-2"), ST = /* @__PURE__ */ ze("planckConstant", "6.62607015e-34", "J s"), MT = /* @__PURE__ */ ze("reducedPlanckConstant", "1.0545718176461565e-34", "J s"), CT = /* @__PURE__ */ ze("magneticConstant", "1.25663706212e-6", "N A^-2"), _T = /* @__PURE__ */ ze("electricConstant", "8.8541878128e-12", "F m^-1"), FT = /* @__PURE__ */ ze("vacuumImpedance", "376.730313667", "ohm"), TT = /* @__PURE__ */ ze("coulomb", "8.987551792261171e9", "N m^2 C^-2"), BT = /* @__PURE__ */ ze("elementaryCharge", "1.602176634e-19", "C"), OT = /* @__PURE__ */ ze("bohrMagneton", "9.2740100783e-24", "J T^-1"), $T = /* @__PURE__ */ ze("conductanceQuantum", "7.748091729863649e-5", "S"), qT = /* @__PURE__ */ ze("inverseConductanceQuantum", "12906.403729652257", "ohm"), IT = /* @__PURE__ */ ze("magneticFluxQuantum", "2.0678338484619295e-15", "Wb"), RT = /* @__PURE__ */ ze("nuclearMagneton", "5.0507837461e-27", "J T^-1"), zT = /* @__PURE__ */ ze("klitzing", "25812.807459304513", "ohm"), PT = /* @__PURE__ */ ze("bohrRadius", "5.29177210903e-11", "m"), UT = /* @__PURE__ */ ze("classicalElectronRadius", "2.8179403262e-15", "m"), LT = /* @__PURE__ */ ze("electronMass", "9.1093837015e-31", "kg"), kT = /* @__PURE__ */ ze("fermiCoupling", "1.1663787e-5", "GeV^-2"), HT = Za("fineStructure", 0.0072973525693), GT = /* @__PURE__ */ ze("hartreeEnergy", "4.3597447222071e-18", "J"), VT = /* @__PURE__ */ ze("protonMass", "1.67262192369e-27", "kg"), ZT = /* @__PURE__ */ ze("deuteronMass", "3.3435830926e-27", "kg"), WT = /* @__PURE__ */ ze("neutronMass", "1.6749271613e-27", "kg"), XT = /* @__PURE__ */ ze("quantumOfCirculation", "3.6369475516e-4", "m^2 s^-1"), YT = /* @__PURE__ */ ze("rydberg", "10973731.568160", "m^-1"), JT = /* @__PURE__ */ ze("thomsonCrossSection", "6.6524587321e-29", "m^2"), QT = Za("weakMixingAngle", 0.2229), KT = Za("efimovFactor", 22.7), jT = /* @__PURE__ */ ze("atomicMass", "1.66053906660e-27", "kg"), e5 = /* @__PURE__ */ ze("avogadro", "6.02214076e23", "mol^-1"), r5 = /* @__PURE__ */ ze("boltzmann", "1.380649e-23", "J K^-1"), t5 = /* @__PURE__ */ ze("faraday", "96485.33212331001", "C mol^-1"), n5 = /* @__PURE__ */ ze("firstRadiation", "3.7417718521927573e-16", "W m^2"), a5 = /* @__PURE__ */ ze("loschmidt", "2.686780111798444e25", "m^-3"), i5 = /* @__PURE__ */ ze("gasConstant", "8.31446261815324", "J K^-1 mol^-1"), o5 = /* @__PURE__ */ ze("molarPlanckConstant", "3.990312712893431e-10", "J s mol^-1"), s5 = /* @__PURE__ */ ze("molarVolume", "0.022413969545014137", "m^3 mol^-1"), u5 = Za("sackurTetrode", -1.16487052358), l5 = /* @__PURE__ */ ze("secondRadiation", "0.014387768775039337", "m K"), c5 = /* @__PURE__ */ ze("stefanBoltzmann", "5.67037441918443e-8", "W m^-2 K^-4"), f5 = /* @__PURE__ */ ze("wienDisplacement", "2.897771955e-3", "m K"), m5 = /* @__PURE__ */ ze("molarMass", "0.99999999965e-3", "kg mol^-1"), v5 = /* @__PURE__ */ ze("molarMassC12", "11.9999999958e-3", "kg mol^-1"), p5 = /* @__PURE__ */ ze("gravity", "9.80665", "m s^-2"), d5 = /* @__PURE__ */ ze("planckLength", "1.616255e-35", "m"), h5 = /* @__PURE__ */ ze("planckMass", "2.176435e-8", "kg"), g5 = /* @__PURE__ */ ze("planckTime", "5.391245e-44", "s"), y5 = /* @__PURE__ */ ze("planckCharge", "1.87554603778e-18", "C"), b5 = /* @__PURE__ */ ze("planckTemperature", "1.416785e+32", "K");
 function ze(r, e, t) {
   var n = ["config", "Unit", "BigNumber"];
   return I(r, n, (a) => {
@@ -29261,7 +29261,7 @@ function ze(r, e, t) {
     return s.fixPrefix = !0, s;
   });
 }
-function Va(r, e) {
+function Za(r, e) {
   var t = ["config", "BigNumber"];
   return I(r, t, (n) => {
     var {
@@ -29296,7 +29296,7 @@ var w5 = "mapSlices", D5 = ["typed", "isInteger"], N5 = /* @__PURE__ */ I(w5, D5
   var {
     typed: e,
     isInteger: t
-  } = r, n = Ko({
+  } = r, n = jo({
     typed: e,
     isInteger: t
   });
@@ -29313,7 +29313,7 @@ var w5 = "mapSlices", D5 = ["typed", "isInteger"], N5 = /* @__PURE__ */ I(w5, D5
   });
 }, x5({
   isTransformFunction: !0
-}, Ko.meta)), A5 = "column", E5 = ["typed", "Index", "matrix", "range"], S5 = /* @__PURE__ */ I(A5, E5, (r) => {
+}, jo.meta)), A5 = "column", E5 = ["typed", "Index", "matrix", "range"], S5 = /* @__PURE__ */ I(A5, E5, (r) => {
   var {
     typed: e,
     Index: t,
@@ -29438,7 +29438,7 @@ var _5 = "filter", F5 = ["typed"], T5 = /* @__PURE__ */ I(_5, F5, (r) => {
   return function() {
     for (var a = [], i = 0, o = arguments.length; i < o; i++) {
       var c = arguments[i];
-      if (za(c))
+      if (Pa(c))
         c.start--, c.end -= c.step > 0 ? 0 : 2;
       else if (c && c.isSet === !0)
         c = c.map(function(s) {
@@ -30180,7 +30180,7 @@ const z8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   createMagneticConstant: CT,
   createMagneticFluxQuantum: IT,
   createMap: Qd,
-  createMapSlices: Ko,
+  createMapSlices: jo,
   createMapSlicesTransform: N5,
   createMapTransform: U5,
   createMatrix: Ld,
@@ -30366,7 +30366,7 @@ var Nh = /* @__PURE__ */ Cp({
 }), U8 = /* @__PURE__ */ Id({
   config: An,
   typed: zr
-}), Ma = /* @__PURE__ */ ah({
+}), Ca = /* @__PURE__ */ ah({
   typed: zr
 }), L8 = /* @__PURE__ */ Vp({
   typed: zr
@@ -30405,7 +30405,7 @@ var Nh = /* @__PURE__ */ Cp({
   config: An,
   matrix: Mh,
   typed: zr
-}), si = /* @__PURE__ */ Ss({
+}), ui = /* @__PURE__ */ Ss({
   config: An,
   isNaN: H8,
   larger: W8,
@@ -30577,7 +30577,7 @@ function K8(r, e, t, n) {
   return a;
 }
 function $s(r, e) {
-  var t = mr({}, Ia, e);
+  var t = mr({}, Ra, e);
   if (typeof Object.create != "function")
     throw new Error("ES5 not supported by this JavaScript engine. Please load the es5-shim and es5-sham library for compatibility.");
   var n = Q8({
@@ -30594,7 +30594,7 @@ function $s(r, e) {
     isCollection: Fr,
     isDenseMatrix: hn,
     isSparseMatrix: ct,
-    isRange: za,
+    isRange: Pa,
     isIndex: Dn,
     isBoolean: op,
     isResultSet: sp,
@@ -30660,9 +30660,9 @@ function $s(r, e) {
     });
   }), n.create = $s.bind(null, r), n.factory = I, n.import(Object.values(gg(r))), n.ArgumentsError = at, n.DimensionError = Le, n.IndexError = Rr, n;
 }
-const Ta = class Ta {
+const Ba = class Ba {
   constructor(e) {
-    ve(this, "id", ++Ta.ID_COUNTER);
+    ve(this, "id", ++Ba.ID_COUNTER);
     ve(this, "conflictStrategy", pn.Probability);
     ve(this, "parameters", []);
     ve(this, "name");
@@ -30673,8 +30673,8 @@ const Ta = class Ta {
     return this.name;
   }
 };
-ve(Ta, "ID_COUNTER", 0);
-let jr = Ta;
+ve(Ba, "ID_COUNTER", 0);
+let jr = Ba;
 class At extends jr {
   constructor() {
     super(...arguments);
@@ -30686,24 +30686,24 @@ class At extends jr {
     return this._tokenStart;
   }
   set tokenStart(t) {
-    this._tokenStart = si(t, 0n);
+    this._tokenStart = ui(t, 0n);
   }
   get tokenMin() {
     return this._tokenMin;
   }
   set tokenMin(t) {
-    this._tokenMin = si(t, 0n);
+    this._tokenMin = ui(t, 0n);
   }
   get tokenMax() {
     return this._tokenMax;
   }
   set tokenMax(t) {
-    this._tokenMax = t !== null ? si(t, 0n) : null;
+    this._tokenMax = t !== null ? ui(t, 0n) : null;
   }
 }
-const Ba = class Ba {
+const Oa = class Oa {
   constructor(e) {
-    ve(this, "id", ++Ba.ID_COUNTER);
+    ve(this, "id", ++Oa.ID_COUNTER);
     ve(this, "firingCondition", "true");
     ve(this, "knockedOut", !1);
     ve(this, "parameters", []);
@@ -30714,8 +30714,8 @@ const Ba = class Ba {
     return this.name;
   }
 };
-ve(Ba, "ID_COUNTER", 0);
-let pt = Ba;
+ve(Oa, "ID_COUNTER", 0);
+let pt = Oa;
 class _h extends pt {
   constructor() {
     super(...arguments);
@@ -30756,37 +30756,13 @@ var ut = /* @__PURE__ */ ((r) => (r[r.Exponential = 0] = "Exponential", r[r.Tria
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ui, Nm;
+var li, Nm;
 function eB() {
-  if (Nm) return ui;
+  if (Nm) return li;
   Nm = 1;
   function r(e) {
     return e !== e;
   }
-  return ui = r, ui;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var li, Am;
-function Fh() {
-  if (Am) return li;
-  Am = 1;
-  var r = eB();
   return li = r, li;
 }
 /**
@@ -30806,11 +30782,11 @@ function Fh() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ci, Em;
-function rB() {
-  if (Em) return ci;
-  Em = 1;
-  var r = Math.sqrt;
+var ci, Am;
+function Fh() {
+  if (Am) return ci;
+  Am = 1;
+  var r = eB();
   return ci = r, ci;
 }
 /**
@@ -30830,11 +30806,11 @@ function rB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var fi, Sm;
-function tB() {
-  if (Sm) return fi;
-  Sm = 1;
-  var r = rB();
+var fi, Em;
+function rB() {
+  if (Em) return fi;
+  Em = 1;
+  var r = Math.sqrt;
   return fi = r, fi;
 }
 /**
@@ -30854,13 +30830,11 @@ function tB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var mi, Mm;
-function nB() {
-  if (Mm) return mi;
-  Mm = 1;
-  function r() {
-    return typeof Symbol == "function" && typeof Symbol("foo") == "symbol";
-  }
+var mi, Sm;
+function tB() {
+  if (Sm) return mi;
+  Sm = 1;
+  var r = rB();
   return mi = r, mi;
 }
 /**
@@ -30880,11 +30854,13 @@ function nB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var vi, Cm;
-function aB() {
-  if (Cm) return vi;
-  Cm = 1;
-  var r = nB();
+var vi, Mm;
+function nB() {
+  if (Mm) return vi;
+  Mm = 1;
+  function r() {
+    return typeof Symbol == "function" && typeof Symbol("foo") == "symbol";
+  }
   return vi = r, vi;
 }
 /**
@@ -30904,15 +30880,39 @@ function aB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var pi, _m;
+var pi, Cm;
+function aB() {
+  if (Cm) return pi;
+  Cm = 1;
+  var r = nB();
+  return pi = r, pi;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var di, _m;
 function iB() {
-  if (_m) return pi;
+  if (_m) return di;
   _m = 1;
   var r = aB(), e = r();
   function t() {
     return e && typeof Symbol.toStringTag == "symbol";
   }
-  return pi = t, pi;
+  return di = t, di;
 }
 /**
 * @license Apache-2.0
@@ -30931,35 +30931,11 @@ function iB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var di, Fm;
+var hi, Fm;
 function oB() {
-  if (Fm) return di;
+  if (Fm) return hi;
   Fm = 1;
   var r = iB();
-  return di = r, di;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var hi, Tm;
-function Th() {
-  if (Tm) return hi;
-  Tm = 1;
-  var r = Object.prototype.toString;
   return hi = r, hi;
 }
 /**
@@ -30979,15 +30955,12 @@ function Th() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var gi, Bm;
-function sB() {
-  if (Bm) return gi;
-  Bm = 1;
-  var r = Th();
-  function e(t) {
-    return r.call(t);
-  }
-  return gi = e, gi;
+var gi, Tm;
+function Th() {
+  if (Tm) return gi;
+  Tm = 1;
+  var r = Object.prototype.toString;
+  return gi = r, gi;
 }
 /**
 * @license Apache-2.0
@@ -31006,13 +30979,13 @@ function sB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var yi, Om;
-function uB() {
-  if (Om) return yi;
-  Om = 1;
-  var r = Object.prototype.hasOwnProperty;
-  function e(t, n) {
-    return t == null ? !1 : r.call(t, n);
+var yi, Bm;
+function sB() {
+  if (Bm) return yi;
+  Bm = 1;
+  var r = Th();
+  function e(t) {
+    return r.call(t);
   }
   return yi = e, yi;
 }
@@ -31033,12 +31006,15 @@ function uB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var bi, $m;
-function lB() {
-  if ($m) return bi;
-  $m = 1;
-  var r = uB();
-  return bi = r, bi;
+var bi, Om;
+function uB() {
+  if (Om) return bi;
+  Om = 1;
+  var r = Object.prototype.hasOwnProperty;
+  function e(t, n) {
+    return t == null ? !1 : r.call(t, n);
+  }
+  return bi = e, bi;
 }
 /**
 * @license Apache-2.0
@@ -31057,11 +31033,11 @@ function lB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var xi, qm;
-function cB() {
-  if (qm) return xi;
-  qm = 1;
-  var r = typeof Symbol == "function" ? Symbol : void 0;
+var xi, $m;
+function lB() {
+  if ($m) return xi;
+  $m = 1;
+  var r = uB();
   return xi = r, xi;
 }
 /**
@@ -31081,11 +31057,11 @@ function cB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var wi, Im;
-function fB() {
-  if (Im) return wi;
-  Im = 1;
-  var r = cB();
+var wi, qm;
+function cB() {
+  if (qm) return wi;
+  qm = 1;
+  var r = typeof Symbol == "function" ? Symbol : void 0;
   return wi = r, wi;
 }
 /**
@@ -31105,12 +31081,12 @@ function fB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Di, Rm;
-function mB() {
-  if (Rm) return Di;
-  Rm = 1;
-  var r = fB(), e = typeof r == "function" ? r.toStringTag : "";
-  return Di = e, Di;
+var Di, Im;
+function fB() {
+  if (Im) return Di;
+  Im = 1;
+  var r = cB();
+  return Di = r, Di;
 }
 /**
 * @license Apache-2.0
@@ -31129,9 +31105,33 @@ function mB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ni, zm;
+var Ni, Rm;
+function mB() {
+  if (Rm) return Ni;
+  Rm = 1;
+  var r = fB(), e = typeof r == "function" ? r.toStringTag : "";
+  return Ni = e, Ni;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Ai, zm;
 function vB() {
-  if (zm) return Ni;
+  if (zm) return Ai;
   zm = 1;
   var r = lB(), e = mB(), t = Th();
   function n(a) {
@@ -31146,7 +31146,7 @@ function vB() {
     }
     return c = t.call(a), i ? a[e] = o : delete a[e], c;
   }
-  return Ni = n, Ni;
+  return Ai = n, Ai;
 }
 /**
 * @license Apache-2.0
@@ -31165,12 +31165,12 @@ function vB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ai, Pm;
-function Za() {
-  if (Pm) return Ai;
+var Ei, Pm;
+function Wa() {
+  if (Pm) return Ei;
   Pm = 1;
   var r = oB(), e = sB(), t = vB(), n;
-  return r() ? n = t : n = e, Ai = n, Ai;
+  return r() ? n = t : n = e, Ei = n, Ei;
 }
 /**
 * @license Apache-2.0
@@ -31189,16 +31189,16 @@ function Za() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ei, Um;
+var Si, Um;
 function pB() {
-  if (Um) return Ei;
+  if (Um) return Si;
   Um = 1;
-  var r = Za(), e = typeof Uint32Array == "function";
+  var r = Wa(), e = typeof Uint32Array == "function";
   function t(n) {
     return e && n instanceof Uint32Array || // eslint-disable-line stdlib/require-globals
     r(n) === "[object Uint32Array]";
   }
-  return Ei = t, Ei;
+  return Si = t, Si;
 }
 /**
 * @license Apache-2.0
@@ -31217,35 +31217,11 @@ function pB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Si, Lm;
+var Mi, Lm;
 function dB() {
-  if (Lm) return Si;
+  if (Lm) return Mi;
   Lm = 1;
   var r = pB();
-  return Si = r, Si;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Mi, km;
-function hB() {
-  if (km) return Mi;
-  km = 1;
-  var r = 4294967295;
   return Mi = r, Mi;
 }
 /**
@@ -31265,11 +31241,11 @@ function hB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ci, Hm;
-function gB() {
-  if (Hm) return Ci;
-  Hm = 1;
-  var r = typeof Uint32Array == "function" ? Uint32Array : null;
+var Ci, km;
+function hB() {
+  if (km) return Ci;
+  km = 1;
+  var r = 4294967295;
   return Ci = r, Ci;
 }
 /**
@@ -31289,9 +31265,33 @@ function gB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var _i, Gm;
+var _i, Hm;
+function gB() {
+  if (Hm) return _i;
+  Hm = 1;
+  var r = typeof Uint32Array == "function" ? Uint32Array : null;
+  return _i = r, _i;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Fi, Gm;
 function yB() {
-  if (Gm) return _i;
+  if (Gm) return Fi;
   Gm = 1;
   var r = dB(), e = hB(), t = gB();
   function n() {
@@ -31308,7 +31308,7 @@ function yB() {
     }
     return a;
   }
-  return _i = n, _i;
+  return Fi = n, Fi;
 }
 /**
 * @license Apache-2.0
@@ -31327,35 +31327,11 @@ function yB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Fi, Vm;
+var Ti, Vm;
 function bB() {
-  if (Vm) return Fi;
+  if (Vm) return Ti;
   Vm = 1;
   var r = yB();
-  return Fi = r, Fi;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Ti, Zm;
-function xB() {
-  if (Zm) return Ti;
-  Zm = 1;
-  var r = typeof Uint32Array == "function" ? Uint32Array : void 0;
   return Ti = r, Ti;
 }
 /**
@@ -31375,13 +31351,11 @@ function xB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Bi, Wm;
-function wB() {
-  if (Wm) return Bi;
-  Wm = 1;
-  function r() {
-    throw new Error("not implemented");
-  }
+var Bi, Zm;
+function xB() {
+  if (Zm) return Bi;
+  Zm = 1;
+  var r = typeof Uint32Array == "function" ? Uint32Array : void 0;
   return Bi = r, Bi;
 }
 /**
@@ -31401,12 +31375,14 @@ function wB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Oi, Xm;
-function Bh() {
-  if (Xm) return Oi;
-  Xm = 1;
-  var r = bB(), e = xB(), t = wB(), n;
-  return r() ? n = e : n = t, Oi = n, Oi;
+var Oi, Wm;
+function wB() {
+  if (Wm) return Oi;
+  Wm = 1;
+  function r() {
+    throw new Error("not implemented");
+  }
+  return Oi = r, Oi;
 }
 /**
 * @license Apache-2.0
@@ -31425,16 +31401,40 @@ function Bh() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var $i, Ym;
+var $i, Xm;
+function Bh() {
+  if (Xm) return $i;
+  Xm = 1;
+  var r = bB(), e = xB(), t = wB(), n;
+  return r() ? n = e : n = t, $i = n, $i;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var qi, Ym;
 function DB() {
-  if (Ym) return $i;
+  if (Ym) return qi;
   Ym = 1;
-  var r = Za(), e = typeof Float64Array == "function";
+  var r = Wa(), e = typeof Float64Array == "function";
   function t(n) {
     return e && n instanceof Float64Array || // eslint-disable-line stdlib/require-globals
     r(n) === "[object Float64Array]";
   }
-  return $i = t, $i;
+  return qi = t, qi;
 }
 /**
 * @license Apache-2.0
@@ -31453,35 +31453,11 @@ function DB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var qi, Jm;
+var Ii, Jm;
 function NB() {
-  if (Jm) return qi;
+  if (Jm) return Ii;
   Jm = 1;
   var r = DB();
-  return qi = r, qi;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Ii, Qm;
-function AB() {
-  if (Qm) return Ii;
-  Qm = 1;
-  var r = typeof Float64Array == "function" ? Float64Array : null;
   return Ii = r, Ii;
 }
 /**
@@ -31501,9 +31477,33 @@ function AB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ri, Km;
+var Ri, Qm;
+function AB() {
+  if (Qm) return Ri;
+  Qm = 1;
+  var r = typeof Float64Array == "function" ? Float64Array : null;
+  return Ri = r, Ri;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var zi, Km;
 function EB() {
-  if (Km) return Ri;
+  if (Km) return zi;
   Km = 1;
   var r = NB(), e = AB();
   function t() {
@@ -31517,7 +31517,7 @@ function EB() {
     }
     return n;
   }
-  return Ri = t, Ri;
+  return zi = t, zi;
 }
 /**
 * @license Apache-2.0
@@ -31536,35 +31536,11 @@ function EB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var zi, jm;
+var Pi, jm;
 function SB() {
-  if (jm) return zi;
+  if (jm) return Pi;
   jm = 1;
   var r = EB();
-  return zi = r, zi;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Pi, ev;
-function MB() {
-  if (ev) return Pi;
-  ev = 1;
-  var r = typeof Float64Array == "function" ? Float64Array : void 0;
   return Pi = r, Pi;
 }
 /**
@@ -31584,13 +31560,11 @@ function MB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ui, rv;
-function CB() {
-  if (rv) return Ui;
-  rv = 1;
-  function r() {
-    throw new Error("not implemented");
-  }
+var Ui, ev;
+function MB() {
+  if (ev) return Ui;
+  ev = 1;
+  var r = typeof Float64Array == "function" ? Float64Array : void 0;
   return Ui = r, Ui;
 }
 /**
@@ -31610,12 +31584,14 @@ function CB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Li, tv;
-function Oh() {
-  if (tv) return Li;
-  tv = 1;
-  var r = SB(), e = MB(), t = CB(), n;
-  return r() ? n = e : n = t, Li = n, Li;
+var Li, rv;
+function CB() {
+  if (rv) return Li;
+  rv = 1;
+  function r() {
+    throw new Error("not implemented");
+  }
+  return Li = r, Li;
 }
 /**
 * @license Apache-2.0
@@ -31634,16 +31610,40 @@ function Oh() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ki, nv;
+var ki, tv;
+function Oh() {
+  if (tv) return ki;
+  tv = 1;
+  var r = SB(), e = MB(), t = CB(), n;
+  return r() ? n = e : n = t, ki = n, ki;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Hi, nv;
 function _B() {
-  if (nv) return ki;
+  if (nv) return Hi;
   nv = 1;
-  var r = Za(), e = typeof Uint8Array == "function";
+  var r = Wa(), e = typeof Uint8Array == "function";
   function t(n) {
     return e && n instanceof Uint8Array || // eslint-disable-line stdlib/require-globals
     r(n) === "[object Uint8Array]";
   }
-  return ki = t, ki;
+  return Hi = t, Hi;
 }
 /**
 * @license Apache-2.0
@@ -31662,35 +31662,11 @@ function _B() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Hi, av;
+var Gi, av;
 function FB() {
-  if (av) return Hi;
+  if (av) return Gi;
   av = 1;
   var r = _B();
-  return Hi = r, Hi;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Gi, iv;
-function TB() {
-  if (iv) return Gi;
-  iv = 1;
-  var r = 255;
   return Gi = r, Gi;
 }
 /**
@@ -31710,11 +31686,11 @@ function TB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Vi, ov;
-function BB() {
-  if (ov) return Vi;
-  ov = 1;
-  var r = typeof Uint8Array == "function" ? Uint8Array : null;
+var Vi, iv;
+function TB() {
+  if (iv) return Vi;
+  iv = 1;
+  var r = 255;
   return Vi = r, Vi;
 }
 /**
@@ -31734,9 +31710,33 @@ function BB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Zi, sv;
+var Zi, ov;
+function BB() {
+  if (ov) return Zi;
+  ov = 1;
+  var r = typeof Uint8Array == "function" ? Uint8Array : null;
+  return Zi = r, Zi;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Wi, sv;
 function OB() {
-  if (sv) return Zi;
+  if (sv) return Wi;
   sv = 1;
   var r = FB(), e = TB(), t = BB();
   function n() {
@@ -31753,7 +31753,7 @@ function OB() {
     }
     return a;
   }
-  return Zi = n, Zi;
+  return Wi = n, Wi;
 }
 /**
 * @license Apache-2.0
@@ -31772,35 +31772,11 @@ function OB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Wi, uv;
+var Xi, uv;
 function $B() {
-  if (uv) return Wi;
+  if (uv) return Xi;
   uv = 1;
   var r = OB();
-  return Wi = r, Wi;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Xi, lv;
-function qB() {
-  if (lv) return Xi;
-  lv = 1;
-  var r = typeof Uint8Array == "function" ? Uint8Array : void 0;
   return Xi = r, Xi;
 }
 /**
@@ -31820,13 +31796,11 @@ function qB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Yi, cv;
-function IB() {
-  if (cv) return Yi;
-  cv = 1;
-  function r() {
-    throw new Error("not implemented");
-  }
+var Yi, lv;
+function qB() {
+  if (lv) return Yi;
+  lv = 1;
+  var r = typeof Uint8Array == "function" ? Uint8Array : void 0;
   return Yi = r, Yi;
 }
 /**
@@ -31846,12 +31820,14 @@ function IB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ji, fv;
-function RB() {
-  if (fv) return Ji;
-  fv = 1;
-  var r = $B(), e = qB(), t = IB(), n;
-  return r() ? n = e : n = t, Ji = n, Ji;
+var Ji, cv;
+function IB() {
+  if (cv) return Ji;
+  cv = 1;
+  function r() {
+    throw new Error("not implemented");
+  }
+  return Ji = r, Ji;
 }
 /**
 * @license Apache-2.0
@@ -31870,16 +31846,40 @@ function RB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Qi, mv;
+var Qi, fv;
+function RB() {
+  if (fv) return Qi;
+  fv = 1;
+  var r = $B(), e = qB(), t = IB(), n;
+  return r() ? n = e : n = t, Qi = n, Qi;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Ki, mv;
 function zB() {
-  if (mv) return Qi;
+  if (mv) return Ki;
   mv = 1;
-  var r = Za(), e = typeof Uint16Array == "function";
+  var r = Wa(), e = typeof Uint16Array == "function";
   function t(n) {
     return e && n instanceof Uint16Array || // eslint-disable-line stdlib/require-globals
     r(n) === "[object Uint16Array]";
   }
-  return Qi = t, Qi;
+  return Ki = t, Ki;
 }
 /**
 * @license Apache-2.0
@@ -31898,35 +31898,11 @@ function zB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Ki, vv;
+var ji, vv;
 function PB() {
-  if (vv) return Ki;
+  if (vv) return ji;
   vv = 1;
   var r = zB();
-  return Ki = r, Ki;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var ji, pv;
-function UB() {
-  if (pv) return ji;
-  pv = 1;
-  var r = 65535;
   return ji = r, ji;
 }
 /**
@@ -31946,11 +31922,11 @@ function UB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var eo, dv;
-function LB() {
-  if (dv) return eo;
-  dv = 1;
-  var r = typeof Uint16Array == "function" ? Uint16Array : null;
+var eo, pv;
+function UB() {
+  if (pv) return eo;
+  pv = 1;
+  var r = 65535;
   return eo = r, eo;
 }
 /**
@@ -31970,9 +31946,33 @@ function LB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ro, hv;
+var ro, dv;
+function LB() {
+  if (dv) return ro;
+  dv = 1;
+  var r = typeof Uint16Array == "function" ? Uint16Array : null;
+  return ro = r, ro;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var to, hv;
 function kB() {
-  if (hv) return ro;
+  if (hv) return to;
   hv = 1;
   var r = PB(), e = UB(), t = LB();
   function n() {
@@ -31989,7 +31989,7 @@ function kB() {
     }
     return a;
   }
-  return ro = n, ro;
+  return to = n, to;
 }
 /**
 * @license Apache-2.0
@@ -32008,35 +32008,11 @@ function kB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var to, gv;
+var no, gv;
 function HB() {
-  if (gv) return to;
+  if (gv) return no;
   gv = 1;
   var r = kB();
-  return to = r, to;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var no, yv;
-function GB() {
-  if (yv) return no;
-  yv = 1;
-  var r = typeof Uint16Array == "function" ? Uint16Array : void 0;
   return no = r, no;
 }
 /**
@@ -32056,13 +32032,11 @@ function GB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var ao, bv;
-function VB() {
-  if (bv) return ao;
-  bv = 1;
-  function r() {
-    throw new Error("not implemented");
-  }
+var ao, yv;
+function GB() {
+  if (yv) return ao;
+  yv = 1;
+  var r = typeof Uint16Array == "function" ? Uint16Array : void 0;
   return ao = r, ao;
 }
 /**
@@ -32082,12 +32056,14 @@ function VB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var io, xv;
-function ZB() {
-  if (xv) return io;
-  xv = 1;
-  var r = HB(), e = GB(), t = VB(), n;
-  return r() ? n = e : n = t, io = n, io;
+var io, bv;
+function VB() {
+  if (bv) return io;
+  bv = 1;
+  function r() {
+    throw new Error("not implemented");
+  }
+  return io = r, io;
 }
 /**
 * @license Apache-2.0
@@ -32106,15 +32082,39 @@ function ZB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var oo, wv;
+var oo, xv;
+function ZB() {
+  if (xv) return oo;
+  xv = 1;
+  var r = HB(), e = GB(), t = VB(), n;
+  return r() ? n = e : n = t, oo = n, oo;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var so, wv;
 function WB() {
-  if (wv) return oo;
+  if (wv) return so;
   wv = 1;
   var r = RB(), e = ZB(), t = {
     uint16: e,
     uint8: r
   };
-  return oo = t, oo;
+  return so = t, so;
 }
 /**
 * @license Apache-2.0
@@ -32133,16 +32133,16 @@ function WB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var so, Dv;
+var uo, Dv;
 function XB() {
-  if (Dv) return so;
+  if (Dv) return uo;
   Dv = 1;
   var r = WB(), e;
   function t() {
     var n, a;
     return n = new r.uint16(1), n[0] = 4660, a = new r.uint8(n.buffer), a[0] === 52;
   }
-  return e = t(), so = e, so;
+  return e = t(), uo = e, uo;
 }
 /**
 * @license Apache-2.0
@@ -32161,12 +32161,12 @@ function XB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var uo, Nv;
+var lo, Nv;
 function $h() {
-  if (Nv) return uo;
+  if (Nv) return lo;
   Nv = 1;
   var r = XB();
-  return uo = r, uo;
+  return lo = r, lo;
 }
 /**
 * @license Apache-2.0
@@ -32185,12 +32185,12 @@ function $h() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var lo, Av;
+var co, Av;
 function YB() {
-  if (Av) return lo;
+  if (Av) return co;
   Av = 1;
   var r = $h(), e;
-  return r === !0 ? e = 1 : e = 0, lo = e, lo;
+  return r === !0 ? e = 1 : e = 0, co = e, co;
 }
 /**
 * @license Apache-2.0
@@ -32209,15 +32209,15 @@ function YB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var co, Ev;
+var fo, Ev;
 function JB() {
-  if (Ev) return co;
+  if (Ev) return fo;
   Ev = 1;
   var r = Bh(), e = Oh(), t = YB(), n = new e(1), a = new r(n.buffer);
   function i(o) {
     return n[0] = o, a[t];
   }
-  return co = i, co;
+  return fo = i, fo;
 }
 /**
 * @license Apache-2.0
@@ -32236,12 +32236,12 @@ function JB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var fo, Sv;
+var mo, Sv;
 function QB() {
-  if (Sv) return fo;
+  if (Sv) return mo;
   Sv = 1;
   var r = JB();
-  return fo = r, fo;
+  return mo = r, mo;
 }
 /**
 * @license Apache-2.0
@@ -32260,12 +32260,12 @@ function QB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var mo, Mv;
+var vo, Mv;
 function KB() {
-  if (Mv) return mo;
+  if (Mv) return vo;
   Mv = 1;
   var r = $h(), e;
-  return r === !0 ? e = 1 : e = 0, mo = e, mo;
+  return r === !0 ? e = 1 : e = 0, vo = e, vo;
 }
 /**
 * @license Apache-2.0
@@ -32284,15 +32284,15 @@ function KB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var vo, Cv;
+var po, Cv;
 function jB() {
-  if (Cv) return vo;
+  if (Cv) return po;
   Cv = 1;
   var r = Bh(), e = Oh(), t = KB(), n = new e(1), a = new r(n.buffer);
   function i(o, c) {
     return n[0] = o, a[t] = c >>> 0, n[0];
   }
-  return vo = i, vo;
+  return po = i, po;
 }
 /**
 * @license Apache-2.0
@@ -32311,35 +32311,11 @@ function jB() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var po, _v;
+var ho, _v;
 function e6() {
-  if (_v) return po;
+  if (_v) return ho;
   _v = 1;
   var r = jB();
-  return po = r, po;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var ho, Fv;
-function r6() {
-  if (Fv) return ho;
-  Fv = 1;
-  var r = 1023;
   return ho = r, ho;
 }
 /**
@@ -32359,9 +32335,12 @@ function r6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var go, Tv;
-function t6() {
-  return Tv || (Tv = 1, go = Number), go;
+var go, Fv;
+function r6() {
+  if (Fv) return go;
+  Fv = 1;
+  var r = 1023;
+  return go = r, go;
 }
 /**
 * @license Apache-2.0
@@ -32380,12 +32359,33 @@ function t6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var yo, Bv;
+var yo, Tv;
+function t6() {
+  return Tv || (Tv = 1, yo = Number), yo;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2018 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var bo, Bv;
 function n6() {
-  if (Bv) return yo;
+  if (Bv) return bo;
   Bv = 1;
   var r = t6();
-  return yo = r, yo;
+  return bo = r, bo;
 }
 /**
 * @license Apache-2.0
@@ -32404,12 +32404,12 @@ function n6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var bo, Ov;
+var xo, Ov;
 function qh() {
-  if (Ov) return bo;
+  if (Ov) return xo;
   Ov = 1;
   var r = n6(), e = r.NEGATIVE_INFINITY;
-  return bo = e, bo;
+  return xo = e, xo;
 }
 /**
 * @license Apache-2.0
@@ -32428,14 +32428,14 @@ function qh() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var xo, $v;
+var wo, $v;
 function a6() {
-  if ($v) return xo;
+  if ($v) return wo;
   $v = 1;
   function r(e) {
     return e === 0 ? 0.3999999999940942 : 0.3999999999940942 + e * (0.22222198432149784 + e * 0.15313837699209373);
   }
-  return xo = r, xo;
+  return wo = r, wo;
 }
 /**
 * @license Apache-2.0
@@ -32454,14 +32454,14 @@ function a6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var wo, qv;
+var Do, qv;
 function i6() {
-  if (qv) return wo;
+  if (qv) return Do;
   qv = 1;
   function r(e) {
     return e === 0 ? 0.6666666666666735 : 0.6666666666666735 + e * (0.2857142874366239 + e * (0.1818357216161805 + e * 0.14798198605116586));
   }
-  return wo = r, wo;
+  return Do = r, Do;
 }
 /**
 * @license Apache-2.0
@@ -32494,16 +32494,16 @@ function i6() {
 * is preserved.
 * ```
 */
-var Do, Iv;
+var No, Iv;
 function o6() {
-  if (Iv) return Do;
+  if (Iv) return No;
   Iv = 1;
   var r = QB(), e = e6(), t = Fh(), n = r6(), a = qh(), i = a6(), o = i6(), c = 0.6931471803691238, l = 19082149292705877e-26, s = 18014398509481984, u = 0.3333333333333333, f = 1048575, v = 2146435072, m = 1048576, d = 1072693248;
   function p(y) {
     var g, D, h, w, x, b, A, E, N, S, M, T;
     return y === 0 ? a : t(y) || y < 0 ? NaN : (D = r(y), x = 0, D < m && (x -= 54, y *= s, D = r(y)), D >= v ? y + y : (x += (D >> 20) - n | 0, D &= f, E = D + 614244 & 1048576 | 0, y = e(y, D | E ^ d), x += E >> 20 | 0, A = y - 1, (f & 2 + D) < 3 ? A === 0 ? x === 0 ? 0 : x * c + x * l : (b = A * A * (0.5 - u * A), x === 0 ? A - b : x * c - (b - x * l - A)) : (S = A / (2 + A), T = S * S, E = D - 398458 | 0, M = T * T, N = 440401 - D | 0, w = M * i(M), h = T * o(M), E |= N, b = h + w, E > 0 ? (g = 0.5 * A * A, x === 0 ? A - (g - S * (g + b)) : x * c - (g - (S * (g + b) + x * l) - A)) : x === 0 ? A - S * (A - b) : x * c - (S * (A - b) - x * l - A))));
   }
-  return Do = p, Do;
+  return No = p, No;
 }
 /**
 * @license Apache-2.0
@@ -32522,41 +32522,17 @@ function o6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var No, Rv;
+var Ao, Rv;
 function s6() {
-  if (Rv) return No;
+  if (Rv) return Ao;
   Rv = 1;
   var r = o6();
-  return No = r, No;
-}
-/**
-* @license Apache-2.0
-*
-* Copyright (c) 2018 The Stdlib Authors.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-var Ao, zv;
-function u6() {
-  if (zv) return Ao;
-  zv = 1;
-  var r = Number.POSITIVE_INFINITY;
   return Ao = r, Ao;
 }
 /**
 * @license Apache-2.0
 *
-* Copyright (c) 2022 The Stdlib Authors.
+* Copyright (c) 2018 The Stdlib Authors.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -32570,14 +32546,11 @@ function u6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Eo, Pv;
-function l6() {
-  if (Pv) return Eo;
-  Pv = 1;
-  function r(e) {
-    var t, n, a;
-    return e === 0 ? -5087819496582806e-19 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -5087819496582806e-19 + e * (-0.008368748197417368 + e * (0.03348066254097446 + e * (-0.012692614766297404 + e * (-0.03656379714117627 + e * (0.02198786811111689 + e * (0.008226878746769157 + e * (-0.005387729650712429 + e * (0 + e * 0)))))))), a = 1 + e * (-0.9700050433032906 + e * (-1.5657455823417585 + e * (1.5622155839842302 + e * (0.662328840472003 + e * (-0.7122890234154284 + e * (-0.05273963823400997 + e * (0.07952836873415717 + e * (-0.0023339375937419 + e * 8862163904564247e-19))))))))) : (e = 1 / e, n = 0 + e * (0 + e * (-0.005387729650712429 + e * (0.008226878746769157 + e * (0.02198786811111689 + e * (-0.03656379714117627 + e * (-0.012692614766297404 + e * (0.03348066254097446 + e * (-0.008368748197417368 + e * -5087819496582806e-19)))))))), a = 8862163904564247e-19 + e * (-0.0023339375937419 + e * (0.07952836873415717 + e * (-0.05273963823400997 + e * (-0.7122890234154284 + e * (0.662328840472003 + e * (1.5622155839842302 + e * (-1.5657455823417585 + e * (-0.9700050433032906 + e * 1))))))))), n / a);
-  }
+var Eo, zv;
+function u6() {
+  if (zv) return Eo;
+  zv = 1;
+  var r = Number.POSITIVE_INFINITY;
   return Eo = r, Eo;
 }
 /**
@@ -32597,13 +32570,13 @@ function l6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var So, Uv;
-function c6() {
-  if (Uv) return So;
-  Uv = 1;
+var So, Pv;
+function l6() {
+  if (Pv) return So;
+  Pv = 1;
   function r(e) {
     var t, n, a;
-    return e === 0 ? -0.20243350835593876 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.20243350835593876 + e * (0.10526468069939171 + e * (8.3705032834312 + e * (17.644729840837403 + e * (-18.851064805871424 + e * (-44.6382324441787 + e * (17.445385985570866 + e * (21.12946554483405 + e * -3.6719225470772936))))))), a = 1 + e * (6.242641248542475 + e * (3.971343795334387 + e * (-28.66081804998 + e * (-20.14326346804852 + e * (48.560921310873994 + e * (10.826866735546016 + e * (-22.643693341313973 + e * 1.7211476576120028)))))))) : (e = 1 / e, n = -3.6719225470772936 + e * (21.12946554483405 + e * (17.445385985570866 + e * (-44.6382324441787 + e * (-18.851064805871424 + e * (17.644729840837403 + e * (8.3705032834312 + e * (0.10526468069939171 + e * -0.20243350835593876))))))), a = 1.7211476576120028 + e * (-22.643693341313973 + e * (10.826866735546016 + e * (48.560921310873994 + e * (-20.14326346804852 + e * (-28.66081804998 + e * (3.971343795334387 + e * (6.242641248542475 + e * 1)))))))), n / a);
+    return e === 0 ? -5087819496582806e-19 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -5087819496582806e-19 + e * (-0.008368748197417368 + e * (0.03348066254097446 + e * (-0.012692614766297404 + e * (-0.03656379714117627 + e * (0.02198786811111689 + e * (0.008226878746769157 + e * (-0.005387729650712429 + e * (0 + e * 0)))))))), a = 1 + e * (-0.9700050433032906 + e * (-1.5657455823417585 + e * (1.5622155839842302 + e * (0.662328840472003 + e * (-0.7122890234154284 + e * (-0.05273963823400997 + e * (0.07952836873415717 + e * (-0.0023339375937419 + e * 8862163904564247e-19))))))))) : (e = 1 / e, n = 0 + e * (0 + e * (-0.005387729650712429 + e * (0.008226878746769157 + e * (0.02198786811111689 + e * (-0.03656379714117627 + e * (-0.012692614766297404 + e * (0.03348066254097446 + e * (-0.008368748197417368 + e * -5087819496582806e-19)))))))), a = 8862163904564247e-19 + e * (-0.0023339375937419 + e * (0.07952836873415717 + e * (-0.05273963823400997 + e * (-0.7122890234154284 + e * (0.662328840472003 + e * (1.5622155839842302 + e * (-1.5657455823417585 + e * (-0.9700050433032906 + e * 1))))))))), n / a);
   }
   return So = r, So;
 }
@@ -32624,13 +32597,13 @@ function c6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Mo, Lv;
-function f6() {
-  if (Lv) return Mo;
-  Lv = 1;
+var Mo, Uv;
+function c6() {
+  if (Uv) return Mo;
+  Uv = 1;
   function r(e) {
     var t, n, a;
-    return e === 0 ? -0.1311027816799519 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.1311027816799519 + e * (-0.16379404719331705 + e * (0.11703015634199525 + e * (0.38707973897260434 + e * (0.3377855389120359 + e * (0.14286953440815717 + e * (0.029015791000532906 + e * (0.0021455899538880526 + e * (-6794655751811263e-22 + e * (28522533178221704e-24 + e * -681149956853777e-24))))))))), a = 1 + e * (3.4662540724256723 + e * (5.381683457070069 + e * (4.778465929458438 + e * (2.5930192162362027 + e * (0.848854343457902 + e * (0.15226433829533179 + e * (0.011059242293464892 + e * (0 + e * (0 + e * 0)))))))))) : (e = 1 / e, n = -681149956853777e-24 + e * (28522533178221704e-24 + e * (-6794655751811263e-22 + e * (0.0021455899538880526 + e * (0.029015791000532906 + e * (0.14286953440815717 + e * (0.3377855389120359 + e * (0.38707973897260434 + e * (0.11703015634199525 + e * (-0.16379404719331705 + e * -0.1311027816799519))))))))), a = 0 + e * (0 + e * (0 + e * (0.011059242293464892 + e * (0.15226433829533179 + e * (0.848854343457902 + e * (2.5930192162362027 + e * (4.778465929458438 + e * (5.381683457070069 + e * (3.4662540724256723 + e * 1)))))))))), n / a);
+    return e === 0 ? -0.20243350835593876 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.20243350835593876 + e * (0.10526468069939171 + e * (8.3705032834312 + e * (17.644729840837403 + e * (-18.851064805871424 + e * (-44.6382324441787 + e * (17.445385985570866 + e * (21.12946554483405 + e * -3.6719225470772936))))))), a = 1 + e * (6.242641248542475 + e * (3.971343795334387 + e * (-28.66081804998 + e * (-20.14326346804852 + e * (48.560921310873994 + e * (10.826866735546016 + e * (-22.643693341313973 + e * 1.7211476576120028)))))))) : (e = 1 / e, n = -3.6719225470772936 + e * (21.12946554483405 + e * (17.445385985570866 + e * (-44.6382324441787 + e * (-18.851064805871424 + e * (17.644729840837403 + e * (8.3705032834312 + e * (0.10526468069939171 + e * -0.20243350835593876))))))), a = 1.7211476576120028 + e * (-22.643693341313973 + e * (10.826866735546016 + e * (48.560921310873994 + e * (-20.14326346804852 + e * (-28.66081804998 + e * (3.971343795334387 + e * (6.242641248542475 + e * 1)))))))), n / a);
   }
   return Mo = r, Mo;
 }
@@ -32651,13 +32624,13 @@ function f6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var Co, kv;
-function m6() {
-  if (kv) return Co;
-  kv = 1;
+var Co, Lv;
+function f6() {
+  if (Lv) return Co;
+  Lv = 1;
   function r(e) {
     var t, n, a;
-    return e === 0 ? -0.0350353787183178 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.0350353787183178 + e * (-0.0022242652921344794 + e * (0.018557330651423107 + e * (0.009508047013259196 + e * (0.0018712349281955923 + e * (15754461742496055e-20 + e * (460469890584318e-20 + e * (-2304047769118826e-25 + e * 26633922742578204e-28))))))), a = 1 + e * (1.3653349817554064 + e * (0.7620591645536234 + e * (0.22009110576413124 + e * (0.03415891436709477 + e * (0.00263861676657016 + e * (7646752923027944e-20 + e * (0 + e * 0)))))))) : (e = 1 / e, n = 26633922742578204e-28 + e * (-2304047769118826e-25 + e * (460469890584318e-20 + e * (15754461742496055e-20 + e * (0.0018712349281955923 + e * (0.009508047013259196 + e * (0.018557330651423107 + e * (-0.0022242652921344794 + e * -0.0350353787183178))))))), a = 0 + e * (0 + e * (7646752923027944e-20 + e * (0.00263861676657016 + e * (0.03415891436709477 + e * (0.22009110576413124 + e * (0.7620591645536234 + e * (1.3653349817554064 + e * 1)))))))), n / a);
+    return e === 0 ? -0.1311027816799519 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.1311027816799519 + e * (-0.16379404719331705 + e * (0.11703015634199525 + e * (0.38707973897260434 + e * (0.3377855389120359 + e * (0.14286953440815717 + e * (0.029015791000532906 + e * (0.0021455899538880526 + e * (-6794655751811263e-22 + e * (28522533178221704e-24 + e * -681149956853777e-24))))))))), a = 1 + e * (3.4662540724256723 + e * (5.381683457070069 + e * (4.778465929458438 + e * (2.5930192162362027 + e * (0.848854343457902 + e * (0.15226433829533179 + e * (0.011059242293464892 + e * (0 + e * (0 + e * 0)))))))))) : (e = 1 / e, n = -681149956853777e-24 + e * (28522533178221704e-24 + e * (-6794655751811263e-22 + e * (0.0021455899538880526 + e * (0.029015791000532906 + e * (0.14286953440815717 + e * (0.3377855389120359 + e * (0.38707973897260434 + e * (0.11703015634199525 + e * (-0.16379404719331705 + e * -0.1311027816799519))))))))), a = 0 + e * (0 + e * (0 + e * (0.011059242293464892 + e * (0.15226433829533179 + e * (0.848854343457902 + e * (2.5930192162362027 + e * (4.778465929458438 + e * (5.381683457070069 + e * (3.4662540724256723 + e * 1)))))))))), n / a);
   }
   return Co = r, Co;
 }
@@ -32678,15 +32651,42 @@ function m6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var _o, Hv;
+var _o, kv;
+function m6() {
+  if (kv) return _o;
+  kv = 1;
+  function r(e) {
+    var t, n, a;
+    return e === 0 ? -0.0350353787183178 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.0350353787183178 + e * (-0.0022242652921344794 + e * (0.018557330651423107 + e * (0.009508047013259196 + e * (0.0018712349281955923 + e * (15754461742496055e-20 + e * (460469890584318e-20 + e * (-2304047769118826e-25 + e * 26633922742578204e-28))))))), a = 1 + e * (1.3653349817554064 + e * (0.7620591645536234 + e * (0.22009110576413124 + e * (0.03415891436709477 + e * (0.00263861676657016 + e * (7646752923027944e-20 + e * (0 + e * 0)))))))) : (e = 1 / e, n = 26633922742578204e-28 + e * (-2304047769118826e-25 + e * (460469890584318e-20 + e * (15754461742496055e-20 + e * (0.0018712349281955923 + e * (0.009508047013259196 + e * (0.018557330651423107 + e * (-0.0022242652921344794 + e * -0.0350353787183178))))))), a = 0 + e * (0 + e * (7646752923027944e-20 + e * (0.00263861676657016 + e * (0.03415891436709477 + e * (0.22009110576413124 + e * (0.7620591645536234 + e * (1.3653349817554064 + e * 1)))))))), n / a);
+  }
+  return _o = r, _o;
+}
+/**
+* @license Apache-2.0
+*
+* Copyright (c) 2022 The Stdlib Authors.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+var Fo, Hv;
 function v6() {
-  if (Hv) return _o;
+  if (Hv) return Fo;
   Hv = 1;
   function r(e) {
     var t, n, a;
     return e === 0 ? -0.016743100507663373 : (e < 0 ? t = -e : t = e, t <= 1 ? (n = -0.016743100507663373 + e * (-0.0011295143874558028 + e * (0.001056288621524929 + e * (20938631748758808e-20 + e * (14962478375834237e-21 + e * (44969678992770644e-23 + e * (4625961635228786e-24 + e * (-2811287356288318e-29 + e * 9905570997331033e-32))))))), a = 1 + e * (0.5914293448864175 + e * (0.1381518657490833 + e * (0.016074608709367652 + e * (9640118070051656e-19 + e * (27533547476472603e-21 + e * (282243172016108e-21 + e * (0 + e * 0)))))))) : (e = 1 / e, n = 9905570997331033e-32 + e * (-2811287356288318e-29 + e * (4625961635228786e-24 + e * (44969678992770644e-23 + e * (14962478375834237e-21 + e * (20938631748758808e-20 + e * (0.001056288621524929 + e * (-0.0011295143874558028 + e * -0.016743100507663373))))))), a = 0 + e * (0 + e * (282243172016108e-21 + e * (27533547476472603e-21 + e * (9640118070051656e-19 + e * (0.016074608709367652 + e * (0.1381518657490833 + e * (0.5914293448864175 + e * 1)))))))), n / a);
   }
-  return _o = r, _o;
+  return Fo = r, Fo;
 }
 /**
 * @license Apache-2.0
@@ -32718,16 +32718,16 @@ function v6() {
 * LICENSE or copy at http://www.boost.org/LICENSE_1_0.txt)
 * ```
 */
-var Fo, Gv;
+var To, Gv;
 function p6() {
-  if (Gv) return Fo;
+  if (Gv) return To;
   Gv = 1;
   var r = Fh(), e = tB(), t = s6(), n = u6(), a = qh(), i = l6(), o = c6(), c = f6(), l = m6(), s = v6(), u = 0.08913147449493408, f = 2.249481201171875, v = 0.807220458984375, m = 0.9399557113647461, d = 0.9836282730102539;
   function p(y) {
     var g, D, h, w, x, b;
     return r(y) ? NaN : y === 1 ? n : y === -1 ? a : y === 0 ? y : y > 1 || y < -1 ? NaN : (y < 0 ? (g = -1, D = -y) : (g = 1, D = y), w = 1 - D, D <= 0.5 ? (x = D * (D + 10), b = i(D), g * (x * u + x * b)) : w >= 0.25 ? (x = e(-2 * t(w)), w -= 0.25, b = o(w), g * (x / (f + b))) : (w = e(-t(w)), w < 3 ? (h = w - 1.125, b = c(h), g * (v * w + b * w)) : w < 6 ? (h = w - 3, b = l(h), g * (m * w + b * w)) : (h = w - 6, b = s(h), g * (d * w + b * w))));
   }
-  return Fo = p, Fo;
+  return To = p, To;
 }
 /**
 * @license Apache-2.0
@@ -32746,12 +32746,12 @@ function p6() {
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-var To, Vv;
+var Bo, Vv;
 function d6() {
-  if (Vv) return To;
+  if (Vv) return Bo;
   Vv = 1;
   var r = p6();
-  return To = r, To;
+  return Bo = r, Bo;
 }
 var h6 = d6();
 const Ih = /* @__PURE__ */ Mn(h6);
@@ -32813,7 +32813,7 @@ class Rh extends pt {
           }
         };
       case ut.TruncatedNormal: {
-        const l = (1 + Ma((n - o) / (c * Math.sqrt(2)))) * 0.5, s = (1 + Ma((a - o) / (c * Math.sqrt(2)))) * 0.5;
+        const l = (1 + Ca((n - o) / (c * Math.sqrt(2)))) * 0.5, s = (1 + Ca((a - o) / (c * Math.sqrt(2)))) * 0.5;
         return {
           sample() {
             const u = l + Math.max(1e-10, t.nextDouble()) * (s - l), f = o + c * Math.sqrt(2) * Ih(2 * u - 1);
@@ -32848,7 +32848,7 @@ class Rh extends pt {
 }
 const g6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  Arc: Po,
+  Arc: Uo,
   ArcType: ir,
   ConflictHandling: pn,
   DiscretePlace: At,
@@ -32918,7 +32918,7 @@ class y6 extends qs {
   initialize(t) {
     this.steps.splice(0, this.steps.length);
     const n = this.nodes.map((a) => a.startCount);
-    this.steps.push(new os(t, n));
+    this.steps.push(new oa(t, n));
   }
   step(t = null) {
     const n = this.steps[this.steps.length - 1], a = this.reactions.map(
@@ -32944,7 +32944,7 @@ class y6 extends qs {
     const v = n.time.add(c);
     if (t !== null && v.comparedTo(t) > 0)
       return !1;
-    const m = new os(v, u);
+    const m = new oa(v, u);
     return this.steps.push(m), !0;
   }
   calculatePropensity(t, n) {
@@ -32979,11 +32979,23 @@ class y6 extends qs {
   getStartStep() {
     return this.steps[0];
   }
+  getLastStep() {
+    return this.steps[this.steps.length - 1];
+  }
+  inject(t, n) {
+    const a = this.getLastStep(), i = [...a.speciesCounts];
+    for (let c = 0; c < t.length; c++) {
+      const l = this.nodesOrder.get(t[c].node);
+      i[l] = i[l] + t[c].amount;
+    }
+    const o = new oa(n ?? a.time, i);
+    this.steps.push(o);
+  }
   getMaxTime() {
     return this.steps[this.steps.length - 1].time;
   }
 }
-class os {
+class oa {
   constructor(e, t) {
     ve(this, "time");
     ve(this, "speciesCounts");
@@ -32993,7 +33005,7 @@ class os {
 const b6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   GillespieSimulator: y6,
-  Step: os
+  Step: oa
 }, Symbol.toStringTag, { value: "Module" })), Ur = class Ur {
   static get mathjs() {
     if (Ur._instance === null) {
@@ -33864,7 +33876,7 @@ class S6 {
     ve(this, "sigma");
     ve(this, "cdfMin");
     ve(this, "cdfMax");
-    this.random = e, this.min = t, this.max = n, this.mu = a, this.sigma = i, this.cdfMin = (1 + Ma((t - a) / (i * Math.sqrt(2)))) * 0.5, this.cdfMax = (1 + Ma((n - a) / (i * Math.sqrt(2)))) * 0.5;
+    this.random = e, this.min = t, this.max = n, this.mu = a, this.sigma = i, this.cdfMin = (1 + Ca((t - a) / (i * Math.sqrt(2)))) * 0.5, this.cdfMax = (1 + Ca((n - a) / (i * Math.sqrt(2)))) * 0.5;
   }
   sample() {
     const e = this.cdfMin + Math.max(1e-10, this.random.nextDouble()) * (this.cdfMax - this.cdfMin), t = this.mu + this.sigma * Math.sqrt(2) * Ih(2 * e - 1);

@@ -3,6 +3,7 @@ import { Node } from '../../model/gillespie/Node';
 import { Reaction } from '../../model/gillespie/Reaction';
 import { RandomGenerator } from '../../random/RandomGenerator';
 import { Simulator } from '../Simulator';
+import { NodeWithQuantity } from '../../model/gillespie';
 export declare class GillespieSimulator extends Simulator {
     private readonly nodes;
     private readonly nodesOrder;
@@ -17,6 +18,8 @@ export declare class GillespieSimulator extends Simulator {
     getReactions(): Reaction[];
     getSteps(): Step[];
     getStartStep(): Step;
+    getLastStep(): Step;
+    inject(nodeValues: NodeWithQuantity[], time: Decimal | null): void;
     getMaxTime(): Decimal;
 }
 export declare class Step {

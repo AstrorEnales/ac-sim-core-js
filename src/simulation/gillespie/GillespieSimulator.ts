@@ -4,6 +4,7 @@ import {Reaction} from '../../model/gillespie/Reaction';
 import {RandomGenerator} from '../../random/RandomGenerator';
 import {Xorshift128Plus} from '../../random/Xorshift128Plus';
 import {Simulator} from '../Simulator';
+import {NodeWithQuantity} from '../../model/gillespie';
 
 export class GillespieSimulator extends Simulator {
 	private readonly nodes: Node[];
@@ -118,6 +119,22 @@ export class GillespieSimulator extends Simulator {
 
 	public getStartStep(): Step {
 		return this.steps[0];
+	}
+
+	public getLastStep(): Step {
+		return this.steps[this.steps.length - 1];
+	}
+
+	public inject(nodeValues: NodeWithQuantity[], time: Decimal | null): void {
+		const currentStep = this.getLastStep();
+		const newSpeciesCounts: bigint[] = [...currentStep.speciesCounts];
+		for (let i = 0; i < nodeValues.length; i++) {
+			const nIndex = this.nodesOrder.get(nodeValues[i].node)!;
+			newSpeciesCounts[nIndex] =
+				newSpeciesCounts[nIndex] + nodeValues[i].amount;
+		}
+		const nextStep = new Step(time ?? currentStep.time, newSpeciesCounts);
+		this.steps.push(nextStep);
 	}
 
 	public getMaxTime(): Decimal {
