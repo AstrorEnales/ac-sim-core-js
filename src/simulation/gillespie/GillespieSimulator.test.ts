@@ -30,6 +30,21 @@ test('singleStep', () => {
 	expect(steps[1].speciesCounts[2]).toBe(1n);
 });
 
+test('inputOnlyReaction', () => {
+	const a = new Node('A', 10n);
+	const r1 = new Reaction('destroy', [{node: a, amount: 2n}], []);
+	const simulator = new GillespieSimulator([a], [r1]);
+	while (simulator.step());
+	const steps = simulator.getSteps();
+	expect(steps.length).toBe(6);
+	expect(steps[0].speciesCounts[0]).toBe(10n);
+	expect(steps[1].speciesCounts[0]).toBe(8n);
+	expect(steps[2].speciesCounts[0]).toBe(6n);
+	expect(steps[3].speciesCounts[0]).toBe(4n);
+	expect(steps[4].speciesCounts[0]).toBe(2n);
+	expect(steps[5].speciesCounts[0]).toBe(0n);
+});
+
 test('reversibleDimerBinding', () => {
 	const a = new Node('A', 10n);
 	const b = new Node('B', 10n);
