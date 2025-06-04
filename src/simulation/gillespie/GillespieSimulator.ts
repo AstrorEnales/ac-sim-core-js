@@ -77,32 +77,35 @@ export class GillespieSimulator extends Simulator {
 		reaction: Reaction,
 		speciesCounts: bigint[]
 	): Decimal {
-		return Decimal.mul(
-			reaction.rate,
-			reaction.from
-				.map((n) =>
-					speciesCounts[this.nodesOrder.get(n.node)!] >= n.amount
-						? this.calculateReactantCombinatorialCoefficient(
-								Decimal(n.amount.toString()),
-								Decimal(speciesCounts[this.nodesOrder.get(n.node)!].toString())
-							)
-						: Decimal(0)
-				)
-				.reduce((acc, v) => Decimal.mul(acc, v), Decimal(1))
-		);
+		const inputsPropensity = reaction.from
+			.map<bigint>((n) =>
+				speciesCounts[this.nodesOrder.get(n.node)!] >= n.amount
+					? this.calculateReactantCombinatorialCoefficient(
+							n.amount,
+							speciesCounts[this.nodesOrder.get(n.node)!]
+						)
+					: 0n
+			)
+			.reduce((acc, v) => acc * v, 1n);
+		return reaction.rate.mul(Decimal(inputsPropensity.toString()));
 	}
 
 	private calculateReactantCombinatorialCoefficient(
-		requested: Decimal,
-		available: Decimal
-	): Decimal {
-		return Decimal.div(
-			this.mathjs.factorial(available),
-			Decimal.mul(
-				this.mathjs.factorial(requested),
-				this.mathjs.factorial(Decimal.sub(available, requested))
-			)
+		requested: bigint,
+		available: bigint
+	): bigint {
+		return (
+			this.factorial(available) /
+			(this.factorial(requested) * this.factorial(available - requested))
 		);
+	}
+
+	private factorial(n: bigint): bigint {
+		let result = 1n;
+		for (let i = 2n; i <= n; i++) {
+			result *= i;
+		}
+		return result;
 	}
 
 	public getNodes(): Node[] {
