@@ -15,11 +15,13 @@ export class GillespieSimulator extends Simulator {
 	private readonly lastReactionPropensities = new Map<Reaction, Decimal>();
 	private readonly nodeToReactionsMap = new Map<Node, Reaction[]>();
 	private lastPartialTotalPropensity: Decimal = Decimal(0);
+	private readonly approximateFactorialsFrom: bigint | null;
 
 	constructor(
 		nodes: Node[],
 		reactions: Reaction[],
-		random: RandomGenerator = new Xorshift128Plus(42n)
+		random: RandomGenerator = new Xorshift128Plus(42n),
+		approximateFactorialsFrom: bigint | null = null
 	) {
 		super(random);
 		this.nodes = nodes;
@@ -30,6 +32,7 @@ export class GillespieSimulator extends Simulator {
 		this.reactions.forEach((r) => {
 			r.from.forEach((n) => this.nodeToReactionsMap.get(n.node)!.push(r));
 		});
+		this.approximateFactorialsFrom = approximateFactorialsFrom;
 		this.initialize(Decimal(0));
 	}
 
@@ -48,11 +51,6 @@ export class GillespieSimulator extends Simulator {
 				this.lastPartialTotalPropensity =
 					this.lastPartialTotalPropensity.add(p);
 				this.lastReactionPropensities.set(r, p);
-			} else {
-				const test = this.calculatePropensity(r, currentStep.speciesCounts);
-				if (test.comparedTo(p) != 0) {
-					console.log(r.id, p.toString(), test.toString());
-				}
 			}
 			return p;
 		});
@@ -135,11 +133,31 @@ export class GillespieSimulator extends Simulator {
 	}
 
 	private factorial(n: bigint): bigint {
+		if (n === 0n || n === 1n) {
+			return 1n;
+		}
+		if (
+			this.approximateFactorialsFrom !== null &&
+			n >= this.approximateFactorialsFrom
+		) {
+			return this.stirlingApproxFactorial(n);
+		}
 		let result = 1n;
 		for (let i = 2n; i <= n; i++) {
 			result *= i;
 		}
 		return result;
+	}
+
+	private stirlingApproxFactorial(n: bigint): bigint {
+		const N = new Decimal(n.toString());
+		const pi = new Decimal(Math.PI);
+		const e = new Decimal(Math.E);
+		// sqrt(2 * pi * n) * (n / e)^n
+		const f = Decimal.sqrt(pi.times(N.times(2)))
+			.times(N.div(e).pow(N))
+			.floor();
+		return BigInt(f.toFixed(0));
 	}
 
 	public getNodes(): Node[] {

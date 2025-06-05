@@ -13,12 +13,14 @@ export declare class GillespieSimulator extends Simulator {
     private readonly lastReactionPropensities;
     private readonly nodeToReactionsMap;
     private lastPartialTotalPropensity;
-    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator);
+    private readonly approximateFactorialsFrom;
+    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, approximateFactorialsFrom?: bigint | null);
     private initialize;
     step(endTime?: Decimal | number | null): boolean;
     private calculatePropensity;
     private calculateReactantCombinatorialCoefficient;
     private factorial;
+    private stirlingApproxFactorial;
     getNodes(): Node[];
     getReactions(): Reaction[];
     getSteps(): Step[];
