@@ -8,12 +8,17 @@ export declare class GillespieSimulator extends Simulator {
     private readonly nodes;
     private readonly nodesOrder;
     private readonly reactions;
+    private readonly reactionsOrder;
     private readonly steps;
+    private readonly lastReactionPropensities;
+    private readonly nodeToReactionsMap;
+    private lastPartialTotalPropensity;
     constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator);
     private initialize;
     step(endTime?: Decimal | number | null): boolean;
     private calculatePropensity;
     private calculateReactantCombinatorialCoefficient;
+    private factorial;
     getNodes(): Node[];
     getReactions(): Reaction[];
     getSteps(): Step[];
