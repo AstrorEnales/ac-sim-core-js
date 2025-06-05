@@ -32916,7 +32916,7 @@ class y6 extends qs {
     ve(this, "steps", []);
     ve(this, "lastReactionPropensities", /* @__PURE__ */ new Map());
     ve(this, "nodeToReactionsMap", /* @__PURE__ */ new Map());
-    ve(this, "lastPartialTotalPropensity", null);
+    ve(this, "lastPartialTotalPropensity", Oe(0));
     this.nodes = t, this.nodes.forEach((i, o) => this.nodesOrder.set(i, o)), this.reactions = n, this.reactions.forEach((i, o) => this.reactionsOrder.set(i, o)), this.nodes.forEach((i) => this.nodeToReactionsMap.set(i, [])), this.reactions.forEach((i) => {
       i.from.forEach((o) => this.nodeToReactionsMap.get(o.node).push(i));
     }), this.initialize(Oe(0));
@@ -32927,12 +32927,16 @@ class y6 extends qs {
     this.steps.push(new oa(t, n));
   }
   step(t = null) {
-    const n = this.steps[this.steps.length - 1];
-    this.lastPartialTotalPropensity === null && (this.lastPartialTotalPropensity = Oe(0));
-    const a = this.reactions.map((p) => {
+    const n = this.steps[this.steps.length - 1], a = this.reactions.map((p) => {
       let y = this.lastReactionPropensities.get(p);
-      return y === void 0 && (y = this.calculatePropensity(p, n.speciesCounts), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.add(y), this.lastReactionPropensities.set(p, y)), y;
-    }), i = this.lastPartialTotalPropensity, o = this.random.nextDouble(), c = Oe.div(Oe.log10(Oe.div(1, o)), i);
+      if (!y)
+        y = this.calculatePropensity(p, n.speciesCounts), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.add(y), this.lastReactionPropensities.set(p, y);
+      else {
+        const g = this.calculatePropensity(p, n.speciesCounts);
+        g.comparedTo(y) != 0 && console.log(p.id, y.toString(), g.toString());
+      }
+      return y;
+    }), i = this.lastPartialTotalPropensity, o = this.random.nextDouble(), c = Oe.log10(Oe.div(1, o)).div(i);
     let l = i.mul(this.random.nextDouble()), s = 0;
     for (; s < a.length && (l = l.sub(a[s]), !l.isNeg()); s++)
       ;
@@ -32941,18 +32945,14 @@ class y6 extends qs {
     const u = [...n.speciesCounts], f = this.reactions[s], v = /* @__PURE__ */ new Set([f]);
     for (let p = 0; p < f.from.length; p++) {
       const y = f.from[p].node, g = this.nodesOrder.get(y);
-      u[g] = u[g] - f.from[p].amount, this.nodeToReactionsMap.get(y).forEach((D) => {
-        this.lastReactionPropensities.delete(D), v.add(D);
-      });
+      u[g] = u[g] - f.from[p].amount, this.nodeToReactionsMap.get(y).forEach((D) => v.add(D));
     }
     for (let p = 0; p < f.to.length; p++) {
       const y = f.to[p].node, g = this.nodesOrder.get(y);
-      u[g] = u[g] + f.to[p].amount, this.nodeToReactionsMap.get(y).forEach((D) => {
-        this.lastReactionPropensities.delete(D), v.add(D);
-      });
+      u[g] = u[g] + f.to[p].amount, this.nodeToReactionsMap.get(y).forEach((D) => v.add(D));
     }
     v.forEach((p) => {
-      this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(
+      this.lastReactionPropensities.delete(p), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(
         a[this.reactionsOrder.get(p)]
       );
     });
@@ -32963,12 +32963,10 @@ class y6 extends qs {
     return this.steps.push(d), !0;
   }
   calculatePropensity(t, n) {
-    const a = t.from.map(
-      (i) => n[this.nodesOrder.get(i.node)] >= i.amount ? this.calculateReactantCombinatorialCoefficient(
-        i.amount,
-        n[this.nodesOrder.get(i.node)]
-      ) : 0n
-    ).reduce((i, o) => i * o, 1n);
+    const a = t.from.map((i) => {
+      const o = n[this.nodesOrder.get(i.node)];
+      return o >= i.amount ? this.calculateReactantCombinatorialCoefficient(i.amount, o) : 0n;
+    }).reduce((i, o) => i * o, 1n);
     return t.rate.mul(Oe(a.toString()));
   }
   calculateReactantCombinatorialCoefficient(t, n) {
@@ -32996,13 +32994,17 @@ class y6 extends qs {
     return this.steps[this.steps.length - 1];
   }
   inject(t, n) {
-    const a = this.getLastStep(), i = [...a.speciesCounts];
-    for (let c = 0; c < t.length; c++) {
-      const l = this.nodesOrder.get(t[c].node);
-      i[l] = i[l] + t[c].amount;
+    const a = this.getLastStep(), i = [...a.speciesCounts], o = /* @__PURE__ */ new Set();
+    for (let l = 0; l < t.length; l++) {
+      const s = this.nodesOrder.get(t[l].node);
+      i[s] = i[s] + t[l].amount, this.nodeToReactionsMap.get(t[l].node).forEach((u) => o.add(u));
     }
-    const o = new oa(n ?? a.time, i);
-    this.steps.push(o);
+    o.forEach((l) => {
+      const s = this.lastReactionPropensities.get(l);
+      s && (this.lastReactionPropensities.delete(l), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(s));
+    });
+    const c = new oa(n ?? a.time, i);
+    this.steps.push(c);
   }
   getMaxTime() {
     return this.steps[this.steps.length - 1].time;

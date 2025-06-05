@@ -14,7 +14,7 @@ export class GillespieSimulator extends Simulator {
 	private readonly steps: Step[] = [];
 	private readonly lastReactionPropensities = new Map<Reaction, Decimal>();
 	private readonly nodeToReactionsMap = new Map<Node, Reaction[]>();
-	private lastPartialTotalPropensity: Decimal | null = null;
+	private lastPartialTotalPropensity: Decimal = Decimal(0);
 
 	constructor(
 		nodes: Node[],
@@ -41,22 +41,24 @@ export class GillespieSimulator extends Simulator {
 
 	public step(endTime: Decimal | number | null = null): boolean {
 		const currentStep = this.steps[this.steps.length - 1];
-		if (this.lastPartialTotalPropensity === null) {
-			this.lastPartialTotalPropensity = Decimal(0);
-		}
 		const propensities = this.reactions.map((r) => {
 			let p = this.lastReactionPropensities.get(r);
-			if (p === undefined) {
+			if (!p) {
 				p = this.calculatePropensity(r, currentStep.speciesCounts);
 				this.lastPartialTotalPropensity =
-					this.lastPartialTotalPropensity!.add(p);
+					this.lastPartialTotalPropensity.add(p);
 				this.lastReactionPropensities.set(r, p);
+			} else {
+				const test = this.calculatePropensity(r, currentStep.speciesCounts);
+				if (test.comparedTo(p) != 0) {
+					console.log(r.id, p.toString(), test.toString());
+				}
 			}
 			return p;
 		});
 		const totalPropensity = this.lastPartialTotalPropensity;
 		const r1 = this.random.nextDouble();
-		const tau = Decimal.div(Decimal.log10(Decimal.div(1, r1)), totalPropensity);
+		const tau = Decimal.log10(Decimal.div(1, r1)).div(totalPropensity);
 		let r2TotalPropensity = totalPropensity.mul(this.random.nextDouble());
 		let j = 0;
 		for (; j < propensities.length; j++) {
@@ -77,10 +79,9 @@ export class GillespieSimulator extends Simulator {
 			newSpeciesCounts[nIndex] =
 				newSpeciesCounts[nIndex] - reaction.from[i].amount;
 			// Remove cached propensity for recalculation
-			this.nodeToReactionsMap.get(n)!.forEach((r) => {
-				this.lastReactionPropensities.delete(r);
-				reactionsToRemoveFromCache.add(r);
-			});
+			this.nodeToReactionsMap
+				.get(n)!
+				.forEach((r) => reactionsToRemoveFromCache.add(r));
 		}
 		for (let i = 0; i < reaction.to.length; i++) {
 			const n = reaction.to[i].node;
@@ -88,14 +89,14 @@ export class GillespieSimulator extends Simulator {
 			newSpeciesCounts[nIndex] =
 				newSpeciesCounts[nIndex] + reaction.to[i].amount;
 			// Remove cached propensity for recalculation
-			this.nodeToReactionsMap.get(n)!.forEach((r) => {
-				this.lastReactionPropensities.delete(r);
-				reactionsToRemoveFromCache.add(r);
-			});
+			this.nodeToReactionsMap
+				.get(n)!
+				.forEach((r) => reactionsToRemoveFromCache.add(r));
 		}
 		// Remove all reactions for which the inputs changed from the last sum
 		reactionsToRemoveFromCache.forEach((r) => {
-			this.lastPartialTotalPropensity = this.lastPartialTotalPropensity!.sub(
+			this.lastReactionPropensities.delete(r);
+			this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(
 				propensities[this.reactionsOrder.get(r)!]
 			);
 		});
@@ -113,14 +114,12 @@ export class GillespieSimulator extends Simulator {
 		speciesCounts: bigint[]
 	): Decimal {
 		const inputsPropensity = reaction.from
-			.map<bigint>((n) =>
-				speciesCounts[this.nodesOrder.get(n.node)!] >= n.amount
-					? this.calculateReactantCombinatorialCoefficient(
-							n.amount,
-							speciesCounts[this.nodesOrder.get(n.node)!]
-						)
-					: 0n
-			)
+			.map<bigint>((n) => {
+				const available = speciesCounts[this.nodesOrder.get(n.node)!];
+				return available >= n.amount
+					? this.calculateReactantCombinatorialCoefficient(n.amount, available)
+					: 0n;
+			})
 			.reduce((acc, v) => acc * v, 1n);
 		return reaction.rate.mul(Decimal(inputsPropensity.toString()));
 	}
@@ -166,11 +165,25 @@ export class GillespieSimulator extends Simulator {
 	public inject(nodeValues: NodeWithQuantity[], time: Decimal | null): void {
 		const currentStep = this.getLastStep();
 		const newSpeciesCounts: bigint[] = [...currentStep.speciesCounts];
+		const reactionsToRemoveFromCache = new Set<Reaction>();
 		for (let i = 0; i < nodeValues.length; i++) {
 			const nIndex = this.nodesOrder.get(nodeValues[i].node)!;
 			newSpeciesCounts[nIndex] =
 				newSpeciesCounts[nIndex] + nodeValues[i].amount;
+			// Remove cached propensity for recalculation
+			this.nodeToReactionsMap
+				.get(nodeValues[i].node)!
+				.forEach((r) => reactionsToRemoveFromCache.add(r));
 		}
+		// Remove all reactions for which the inputs changed from the last sum
+		reactionsToRemoveFromCache.forEach((r) => {
+			const previousPropensity = this.lastReactionPropensities.get(r);
+			if (previousPropensity) {
+				this.lastReactionPropensities.delete(r);
+				this.lastPartialTotalPropensity =
+					this.lastPartialTotalPropensity.sub(previousPropensity);
+			}
+		});
 		const nextStep = new Step(time ?? currentStep.time, newSpeciesCounts);
 		this.steps.push(nextStep);
 	}
