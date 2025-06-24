@@ -723,7 +723,7 @@ function w0(r, e) {
   else
     throw Error(dt + e);
   for (i = e.search(/p/i), i > 0 ? (l = +e.slice(i + 1), e = e.substring(2, i)) : e = e.slice(2), i = e.indexOf("."), o = i >= 0, n = r.constructor, o && (e = e.replace(".", ""), c = e.length, i = c - i, a = jv(n, new n(t), i, i * 2)), s = Qn(e, t, kr), u = s.length - 1, i = u; s[i] === 0; --i) s.pop();
-  return i < 0 ? new n(r.s * 0) : (r.e = qa(s, u), r.d = s, Re = !1, o && (r = tr(r, a, c * 4)), l && (r = r.times(Math.abs(l) < 54 ? sr(2, l) : Fe.pow(2, l))), Re = !0, r);
+  return i < 0 ? new n(r.s * 0) : (r.e = qa(s, u), r.d = s, Re = !1, o && (r = tr(r, a, c * 4)), l && (r = r.times(Math.abs(l) < 54 ? sr(2, l) : _e.pow(2, l))), Re = !0, r);
 }
 function D0(r, e) {
   var t, n = e.d.length;
@@ -942,7 +942,7 @@ function L0() {
   return Re = !0, t.sqrt();
 }
 function zs(r) {
-  return r instanceof Fe || r && r.toStringTag === Jv || !1;
+  return r instanceof _e || r && r.toStringTag === Jv || !1;
 }
 function k0(r) {
   return new this(r).ln();
@@ -1028,11 +1028,11 @@ function sg(r) {
 }
 he[Symbol.for("nodejs.util.inspect.custom")] = he.toString;
 he[Symbol.toStringTag] = "Decimal";
-var Fe = he.constructor = np(Io);
-sa = new Fe(sa);
-ua = new Fe(ua);
+var _e = he.constructor = np(Io);
+sa = new _e(sa);
+ua = new _e(ua);
 const Fa = class Fa {
-  constructor(e, t, n, a = Fe(1)) {
+  constructor(e, t, n, a = _e(1)) {
     ve(this, "id", ++Fa.ID_COUNTER);
     ve(this, "name");
     ve(this, "from");
@@ -1672,14 +1672,14 @@ function wp() {
     } else
       we = z._typedFunctionData.signatures;
     for (let Ve = 0; Ve < ge; ++Ve) {
-      const _e = fe[Ve], rr = [];
+      const Fe = fe[Ve], rr = [];
       let C;
       for (C of we) {
         const G = E(C.params, Ve);
-        if (!(!G || _e.restParam && !G.restParam)) {
+        if (!(!G || Fe.restParam && !G.restParam)) {
           if (!G.hasAny) {
             const oe = h(G);
-            if (_e.types.some((de) => !oe.has(de.name)))
+            if (Fe.types.some((de) => !oe.has(de.name)))
               continue;
           }
           rr.push(C);
@@ -1856,11 +1856,11 @@ function wp() {
     const fe = z || "unnamed";
     let xe = re, ge;
     for (ge = 0; ge < Z.length; ge++) {
-      const _e = [];
+      const Fe = [];
       if (xe.forEach((rr) => {
         const C = E(rr.params, ge), G = b(C);
-        (ge < rr.params.length || x(rr.params)) && G(Z[ge]) && _e.push(rr);
-      }), _e.length === 0) {
+        (ge < rr.params.length || x(rr.params)) && G(Z[ge]) && Fe.push(rr);
+      }), Fe.length === 0) {
         if (me = M(xe, ge), me.length > 0) {
           const rr = f(Z[ge]);
           return ie = new TypeError("Unexpected type of argument in function " + fe + " (expected: " + me.join(" or ") + ", actual: " + rr.join(" | ") + ", index: " + ge + ")"), ie.data = {
@@ -1872,10 +1872,10 @@ function wp() {
           }, ie;
         }
       } else
-        xe = _e;
+        xe = Fe;
     }
-    const we = xe.map(function(_e) {
-      return x(_e.params) ? 1 / 0 : _e.params.length;
+    const we = xe.map(function(Fe) {
+      return x(Fe.params) ? 1 / 0 : Fe.params.length;
     });
     if (Z.length < Math.min.apply(null, we))
       return me = M(xe, ge), ie = new TypeError("Too few arguments in function " + fe + " (expected: " + me.join(" or ") + ", index: " + Z.length + ")"), ie.data = {
@@ -1893,8 +1893,8 @@ function wp() {
         expectedLength: ye
       }, ie;
     const Ve = [];
-    for (let _e = 0; _e < Z.length; ++_e)
-      Ve.push(f(Z[_e]).join("|"));
+    for (let Fe = 0; Fe < Z.length; ++Fe)
+      Ve.push(f(Z[Fe]).join("|"));
     return ie = new TypeError('Arguments of type "' + Ve.join(", ") + '" do not match any of the defined signatures of function ' + fe + "."), ie.data = {
       category: "mismatch",
       actual: Ve
@@ -1946,11 +1946,11 @@ function wp() {
     let we = 0, ye = 0, Ve;
     for (Ve of re)
       Ve.hasAny && ++we, Ve.hasConversion && ++ye;
-    let _e = 0, rr = 0;
+    let Fe = 0, rr = 0;
     for (Ve of ie)
-      Ve.hasAny && ++_e, Ve.hasConversion && ++rr;
-    if (we !== _e)
-      return we - _e;
+      Ve.hasAny && ++Fe, Ve.hasConversion && ++rr;
+    if (we !== Fe)
+      return we - Fe;
     if (xe && me.hasConversion) {
       if (!ge || !fe.hasConversion)
         return 1;
@@ -2080,9 +2080,9 @@ function wp() {
     const re = Math.max(z.length, Z.length);
     for (let ge = 0; ge < re; ge++) {
       const we = N(z, ge), ye = N(Z, ge);
-      let Ve = !1, _e;
-      for (_e of ye)
-        if (we.has(_e)) {
+      let Ve = !1, Fe;
+      for (Fe of ye)
+        if (we.has(Fe)) {
           Ve = !0;
           break;
         }
@@ -2173,13 +2173,13 @@ function wp() {
     const ye = [], Ve = /* @__PURE__ */ new Map();
     for (we of fe)
       Ve.has(we.name) || (we.fn = ge[we.fn], ye.push(we), Ve.set(we.name, we));
-    const _e = ye[0] && ye[0].params.length <= 2 && !x(ye[0].params), rr = ye[1] && ye[1].params.length <= 2 && !x(ye[1].params), C = ye[2] && ye[2].params.length <= 2 && !x(ye[2].params), G = ye[3] && ye[3].params.length <= 2 && !x(ye[3].params), oe = ye[4] && ye[4].params.length <= 2 && !x(ye[4].params), de = ye[5] && ye[5].params.length <= 2 && !x(ye[5].params), Be = _e && rr && C && G && oe && de;
+    const Fe = ye[0] && ye[0].params.length <= 2 && !x(ye[0].params), rr = ye[1] && ye[1].params.length <= 2 && !x(ye[1].params), C = ye[2] && ye[2].params.length <= 2 && !x(ye[2].params), G = ye[3] && ye[3].params.length <= 2 && !x(ye[3].params), oe = ye[4] && ye[4].params.length <= 2 && !x(ye[4].params), de = ye[5] && ye[5].params.length <= 2 && !x(ye[5].params), Be = Fe && rr && C && G && oe && de;
     for (let Je = 0; Je < ye.length; ++Je)
       ye[Je].test = A(ye[Je].params);
-    const ze = _e ? b(ye[0].params[0]) : Br, xr = rr ? b(ye[1].params[0]) : Br, Xa = C ? b(ye[2].params[0]) : Br, zh = G ? b(ye[3].params[0]) : Br, Uh = oe ? b(ye[4].params[0]) : Br, Lh = de ? b(ye[5].params[0]) : Br, kh = _e ? b(ye[0].params[1]) : Br, Hh = rr ? b(ye[1].params[1]) : Br, Gh = C ? b(ye[2].params[1]) : Br, Vh = G ? b(ye[3].params[1]) : Br, Zh = oe ? b(ye[4].params[1]) : Br, Wh = de ? b(ye[5].params[1]) : Br;
+    const ze = Fe ? b(ye[0].params[0]) : Br, xr = rr ? b(ye[1].params[0]) : Br, Xa = C ? b(ye[2].params[0]) : Br, zh = G ? b(ye[3].params[0]) : Br, Uh = oe ? b(ye[4].params[0]) : Br, Lh = de ? b(ye[5].params[0]) : Br, kh = Fe ? b(ye[0].params[1]) : Br, Hh = rr ? b(ye[1].params[1]) : Br, Gh = C ? b(ye[2].params[1]) : Br, Vh = G ? b(ye[3].params[1]) : Br, Zh = oe ? b(ye[4].params[1]) : Br, Wh = de ? b(ye[5].params[1]) : Br;
     for (let Je = 0; Je < ye.length; ++Je)
       ye[Je].implementation = U(ye[Je].params, ye[Je].fn);
-    const Xh = _e ? ye[0].implementation : $t, Yh = rr ? ye[1].implementation : $t, Jh = C ? ye[2].implementation : $t, Qh = G ? ye[3].implementation : $t, Kh = oe ? ye[4].implementation : $t, jh = de ? ye[5].implementation : $t, e0 = _e ? ye[0].params.length : -1, r0 = rr ? ye[1].params.length : -1, t0 = C ? ye[2].params.length : -1, n0 = G ? ye[3].params.length : -1, a0 = oe ? ye[4].params.length : -1, i0 = de ? ye[5].params.length : -1, o0 = Be ? 6 : 0, s0 = ye.length, u0 = ye.map((Je) => Je.test), l0 = ye.map((Je) => Je.implementation), c0 = function() {
+    const Xh = Fe ? ye[0].implementation : $t, Yh = rr ? ye[1].implementation : $t, Jh = C ? ye[2].implementation : $t, Qh = G ? ye[3].implementation : $t, Kh = oe ? ye[4].implementation : $t, jh = de ? ye[5].implementation : $t, e0 = Fe ? ye[0].params.length : -1, r0 = rr ? ye[1].params.length : -1, t0 = C ? ye[2].params.length : -1, n0 = G ? ye[3].params.length : -1, a0 = oe ? ye[4].params.length : -1, i0 = de ? ye[5].params.length : -1, o0 = Be ? 6 : 0, s0 = ye.length, u0 = ye.map((Je) => Je.test), l0 = ye.map((Je) => Je.implementation), c0 = function() {
       for (let Er = o0; Er < s0; Er++)
         if (u0[Er](arguments))
           return l0[Er].apply(this, arguments);
@@ -2994,9 +2994,9 @@ var Ug = "ResultSet", Lg = [], kg = /* @__PURE__ */ I(Ug, Lg, () => {
   var {
     on: e,
     config: t
-  } = r, n = Fe.clone({
+  } = r, n = _e.clone({
     precision: t.precision,
-    modulo: Fe.EUCLID
+    modulo: _e.EUCLID
   });
   return n.prototype = Object.create(n.prototype), n.prototype.type = "BigNumber", n.prototype.isBigNumber = !0, n.prototype.toJSON = function() {
     return {
@@ -7157,7 +7157,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
         u[v] = t(n, a + 1, i, i[a + 1], c[v], l, s);
     return u;
   }
-}), es = "ceil", ky = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], Hy = new Fe(10), Gy = /* @__PURE__ */ I(es, ["typed", "config", "round"], (r) => {
+}), es = "ceil", ky = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], Hy = new _e(10), Gy = /* @__PURE__ */ I(es, ["typed", "config", "round"], (r) => {
   var {
     typed: e,
     config: t,
@@ -7371,7 +7371,7 @@ var Au = "addScalar", Fy = ["typed"], Ty = /* @__PURE__ */ I(Au, Fy, (r) => {
     "number | Complex | Fraction | BigNumber, Array": e.referToSelf((v) => (m, d) => u(n(d), m, v, !0).valueOf()),
     "number | Complex | Fraction | BigNumber, Matrix": e.referToSelf((v) => (m, d) => o(m, 0) ? c(d.size(), d.storage()) : d.storage() === "dense" ? u(d, m, v, !0) : s(d, m, v, !0))
   });
-}), ts = "floor", rb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], tb = new Fe(10), nb = /* @__PURE__ */ I(ts, ["typed", "config", "round"], (r) => {
+}), ts = "floor", rb = ["typed", "config", "round", "matrix", "equalScalar", "zeros", "DenseMatrix"], tb = new _e(10), nb = /* @__PURE__ */ I(ts, ["typed", "config", "round"], (r) => {
   var {
     typed: e,
     config: t,
@@ -15532,10 +15532,10 @@ var HD = "Unit", GD = ["?on", "config", "addScalar", "subtractScalar", "multiply
     }
     h.UNITS[R] = Z;
     for (var Ve = 0; Ve < te.length; Ve++) {
-      var _e = te[Ve], rr = {};
+      var Fe = te[Ve], rr = {};
       for (var C in Z)
         Ae(Z, C) && (rr[C] = Z[C]);
-      rr.name = _e, h.UNITS[_e] = rr;
+      rr.name = Fe, h.UNITS[Fe] = rr;
     }
     return delete $.cache, new h(null, R);
   }, h.deleteUnit = function(R) {
@@ -20547,13 +20547,13 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
       if (O(C) === "E" || O(C) === "e") {
         if (h.isDigit(_(C)) || _(C) === "-" || _(C) === "+") {
           if (C.token += O(C), q(C), (O(C) === "+" || O(C) === "-") && (C.token += O(C), q(C)), !h.isDigit(O(C)))
-            throw _e(C, 'Digit expected, got "' + O(C) + '"');
+            throw Fe(C, 'Digit expected, got "' + O(C) + '"');
           for (; h.isDigit(O(C)); )
             C.token += O(C), q(C);
           if (h.isDecimalMark(O(C), _(C)))
-            throw _e(C, 'Digit expected, got "' + O(C) + '"');
+            throw Fe(C, 'Digit expected, got "' + O(C) + '"');
         } else if (h.isDecimalMark(_(C), C.expression.charAt(C.index + 2)))
-          throw q(C), _e(C, 'Digit expected, got "' + O(C) + '"');
+          throw q(C), Fe(C, 'Digit expected, got "' + O(C) + '"');
       }
       return;
     }
@@ -20565,7 +20565,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
     }
     for (C.tokenType = x.UNKNOWN; O(C) !== ""; )
       C.token += O(C), q(C);
-    throw _e(C, 'Syntax error in part "' + C.token + '"');
+    throw Fe(C, 'Syntax error in part "' + C.token + '"');
   }
   function U(C) {
     do
@@ -20605,7 +20605,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
     }), F(oe);
     var de = W(oe);
     if (oe.token !== "")
-      throw oe.tokenType === x.DELIMITER ? rr(oe, "Unexpected operator " + oe.token) : _e(oe, 'Unexpected part "' + oe.token + '"');
+      throw oe.tokenType === x.DELIMITER ? rr(oe, "Unexpected operator " + oe.token) : Fe(oe, 'Unexpected part "' + oe.token + '"');
     return de;
   }
   function W(C) {
@@ -20634,7 +20634,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
         ur(xr) ? oe[Xa] = xr.name : Be = !1;
       }), Be))
         return U(C), de = P(C), new u(G, oe, de);
-      throw _e(C, "Invalid left hand side of assignment operator =");
+      throw Fe(C, "Invalid left hand side of assignment operator =");
     }
     return ze;
   }
@@ -20643,7 +20643,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
       var oe = C.conditionalLevel;
       C.conditionalLevel = C.nestingLevel, U(C);
       var de = G, Be = P(C);
-      if (C.token !== ":") throw _e(C, "False part of conditional expression expected");
+      if (C.token !== ":") throw Fe(C, "False part of conditional expression expected");
       C.conditionalLevel = null, U(C);
       var ze = P(C);
       G = new l(de, Be, ze), C.conditionalLevel = oe;
@@ -20821,7 +20821,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           for (G.push(P(C)); C.token === ","; )
             F(C), G.push(P(C));
         if (C.token !== ")")
-          throw _e(C, "Parenthesis ) expected");
+          throw Fe(C, "Parenthesis ) expected");
         X(C), F(C);
       }
       return new oe(G);
@@ -20840,7 +20840,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
             for (de.push(P(C)); C.token === ","; )
               F(C), de.push(P(C));
           if (C.token !== ")")
-            throw _e(C, "Parenthesis ) expected");
+            throw Fe(C, "Parenthesis ) expected");
           X(C), F(C), G = new f(G, de);
         } else
           return G;
@@ -20849,13 +20849,13 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           for (de.push(P(C)); C.token === ","; )
             F(C), de.push(P(C));
         if (C.token !== "]")
-          throw _e(C, "Parenthesis ] expected");
+          throw Fe(C, "Parenthesis ] expected");
         X(C), F(C), G = new a(G, new v(de));
       } else {
         F(C);
         var Be = C.tokenType === x.SYMBOL || C.tokenType === x.DELIMITER && C.token in A;
         if (!Be)
-          throw _e(C, "Property name expected after dot");
+          throw Fe(C, "Property name expected after dot");
         de.push(new s(C.token)), F(C);
         var ze = !0;
         G = new a(G, new v(de, ze));
@@ -20878,13 +20878,13 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           if (/^[0-9A-Fa-f]{4}$/.test(ze))
             oe += String.fromCharCode(parseInt(ze, 16)), C.index += 5;
           else
-            throw _e(C, "Invalid unicode character \\u".concat(ze));
+            throw Fe(C, "Invalid unicode character \\u".concat(ze));
         } else
-          throw _e(C, "Bad escape character \\".concat(de));
+          throw Fe(C, "Bad escape character \\".concat(de));
       } else
         oe += O(C), q(C);
     if (F(C), C.token !== G)
-      throw _e(C, "End of string ".concat(G, " expected"));
+      throw Fe(C, "End of string ".concat(G, " expected"));
     return F(C), oe;
   }
   function me(C) {
@@ -20896,7 +20896,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           for (de = 1, oe = [ze]; C.token === ";"; )
             F(C), C.token !== "]" && (oe[de] = fe(C), de++);
           if (C.token !== "]")
-            throw _e(C, "End of matrix ] expected");
+            throw Fe(C, "End of matrix ] expected");
           X(C), F(C), Be = oe[0].items.length;
           for (var xr = 1; xr < de; xr++)
             if (oe[xr].items.length !== Be)
@@ -20904,7 +20904,7 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           G = new i(oe);
         } else {
           if (C.token !== "]")
-            throw _e(C, "End of matrix ] expected");
+            throw Fe(C, "End of matrix ] expected");
           X(C), F(C), G = ze;
         }
       } else
@@ -20929,14 +20929,14 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
           else if (C.tokenType === x.SYMBOL || C.tokenType === x.DELIMITER && C.token in A)
             G = C.token, F(C);
           else
-            throw _e(C, "Symbol or string expected as object key");
+            throw Fe(C, "Symbol or string expected as object key");
           if (C.token !== ":")
-            throw _e(C, "Colon : expected after object key");
+            throw Fe(C, "Colon : expected after object key");
           F(C), oe[G] = P(C);
         }
       while (C.token === ",");
       if (C.token !== "}")
-        throw _e(C, "Comma , or bracket } expected after object value");
+        throw Fe(C, "Comma , or bracket } expected after object value");
       X(C), F(C);
       var de = new m(oe);
       return de = Z(C, de), de;
@@ -20956,18 +20956,18 @@ var Gn = "OperatorNode", nE = ["Node"], aE = /* @__PURE__ */ I(Gn, nE, (r) => {
     var G;
     if (C.token === "(") {
       if (B(C), F(C), G = P(C), C.token !== ")")
-        throw _e(C, "Parenthesis ) expected");
+        throw Fe(C, "Parenthesis ) expected");
       return X(C), F(C), G = new p(G), G = Z(C, G), G;
     }
     return ye(C);
   }
   function ye(C) {
-    throw C.token === "" ? _e(C, "Unexpected end of expression") : _e(C, "Value expected");
+    throw C.token === "" ? Fe(C, "Unexpected end of expression") : Fe(C, "Value expected");
   }
   function Ve(C) {
     return C.index - C.token.length + 1;
   }
-  function _e(C, G) {
+  function Fe(C, G) {
     var oe = Ve(C), de = new SyntaxError(G + " (char " + oe + ")");
     return de.char = oe, de;
   }
@@ -30725,7 +30725,7 @@ class _h extends pt {
 class j8 {
   constructor(e, t) {
     ve(this, "_name");
-    ve(this, "_value", Fe(0));
+    ve(this, "_value", _e(0));
     this._name = e, this._value = t;
   }
   get name() {
@@ -32793,7 +32793,7 @@ class Rh extends pt {
         const l = Math.max(1e-10, this.h);
         return {
           sample() {
-            return Fe(
+            return _e(
               -Math.log(Math.max(1e-10, t.nextDouble()) / l)
             );
           }
@@ -32803,13 +32803,13 @@ class Rh extends pt {
         return {
           sample() {
             const l = Math.max(1e-10, t.nextDouble()), s = (i - n) / (a - n);
-            return l <= s ? Fe(Math.sqrt(l * (a - n) * (i - n)) + n) : Fe(a - Math.sqrt((1 - l) * (a - n) * (a - i)));
+            return l <= s ? _e(Math.sqrt(l * (a - n) * (i - n)) + n) : _e(a - Math.sqrt((1 - l) * (a - n) * (a - i)));
           }
         };
       case ut.Uniform:
         return {
           sample() {
-            return Fe(Math.max(1e-10, t.nextDouble()) * (a - n) + n);
+            return _e(Math.max(1e-10, t.nextDouble()) * (a - n) + n);
           }
         };
       case ut.TruncatedNormal: {
@@ -32817,7 +32817,7 @@ class Rh extends pt {
         return {
           sample() {
             const u = l + Math.max(1e-10, t.nextDouble()) * (s - l), f = o + c * Math.sqrt(2) * Ih(2 * u - 1);
-            return Fe(Math.min(a, Math.max(n, f)));
+            return _e(Math.min(a, Math.max(n, f)));
           }
         };
       }
@@ -32837,8 +32837,8 @@ class Rh extends pt {
             const v = t.nextDouble();
             for (let m = 0; m < f.length; m++)
               if (v <= f[m])
-                return Fe(l[m]);
-            return Fe(l[l.length - 1]);
+                return _e(l[m]);
+            return _e(l[l.length - 1]);
           }
         };
       }
@@ -32916,11 +32916,11 @@ class y6 extends qs {
     ve(this, "steps", []);
     ve(this, "lastReactionPropensities", /* @__PURE__ */ new Map());
     ve(this, "nodeToReactionsMap", /* @__PURE__ */ new Map());
-    ve(this, "lastPartialTotalPropensity", Fe(0));
+    ve(this, "lastPartialTotalPropensity", _e(0));
     ve(this, "approximateFactorialsFrom");
     this.nodes = t, this.nodes.forEach((o, c) => this.nodesOrder.set(o, c)), this.reactions = n, this.reactions.forEach((o, c) => this.reactionsOrder.set(o, c)), this.nodes.forEach((o) => this.nodeToReactionsMap.set(o, [])), this.reactions.forEach((o) => {
       o.from.forEach((c) => this.nodeToReactionsMap.get(c.node).push(o));
-    }), this.approximateFactorialsFrom = i, this.initialize(Fe(0));
+    }), this.approximateFactorialsFrom = i, this.initialize(_e(0));
   }
   initialize(t) {
     this.steps.splice(0, this.steps.length);
@@ -32931,7 +32931,7 @@ class y6 extends qs {
     const n = this.steps[this.steps.length - 1], a = this.reactions.map((p) => {
       let y = this.lastReactionPropensities.get(p);
       return y || (y = this.calculatePropensity(p, n.speciesCounts), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.add(y), this.lastReactionPropensities.set(p, y)), y;
-    }), i = this.lastPartialTotalPropensity, o = this.random.nextDouble(), c = Fe.log10(Fe.div(1, o)).div(i);
+    }), i = this.lastPartialTotalPropensity, o = this.random.nextDouble(), c = _e.log10(_e.div(1, o)).div(i);
     let l = i.mul(this.random.nextDouble()), s = 0;
     for (; s < a.length && (l = l.sub(a[s]), !l.isNeg()); s++)
       ;
@@ -32958,11 +32958,18 @@ class y6 extends qs {
     return this.steps.push(d), !0;
   }
   calculatePropensity(t, n) {
-    const a = t.from.map((i) => {
-      const o = n[this.nodesOrder.get(i.node)];
-      return o >= i.amount ? this.calculateReactantCombinatorialCoefficient(i.amount, o) : 0n;
-    }).reduce((i, o) => i * o, 1n);
-    return t.rate.mul(Fe(a.toString()));
+    let a = 1n;
+    for (let i = 0; i < t.from.length; i++) {
+      const o = t.from[i], c = n[this.nodesOrder.get(o.node)];
+      if (c >= o.amount)
+        a *= this.calculateReactantCombinatorialCoefficient(
+          o.amount,
+          c
+        );
+      else
+        return _e(0);
+    }
+    return t.rate.mul(_e(a.toString()));
   }
   calculateReactantCombinatorialCoefficient(t, n) {
     return this.factorial(n) / (this.factorial(t) * this.factorial(n - t));
@@ -32978,7 +32985,7 @@ class y6 extends qs {
     return n;
   }
   stirlingApproxFactorial(t) {
-    const n = new Fe(t.toString()), a = new Fe(Math.PI), i = new Fe(Math.E), o = Fe.sqrt(a.times(n.times(2))).times(n.div(i).pow(n)).floor();
+    const n = new _e(t.toString()), a = new _e(Math.PI), i = new _e(Math.E), o = _e.sqrt(a.times(n.times(2))).times(n.div(i).pow(n)).floor();
     return BigInt(o.toFixed(0));
   }
   getNodes() {
@@ -33189,18 +33196,18 @@ class Vt extends qs {
         const o = this.places.get(i.from), c = this.transitions.get(i.to);
         c.sources.push(i), this.arcTransitions.set(i, c), this.arcPlaces.set(i, o), i.type === ir.Regular && (o.outputProbabilitiesNormalizedArcOrder.push(i), o.outputProbabilitiesNormalized.set(
           i,
-          Fe.max(Fe(i.probability), Fe(0))
+          _e.max(_e(i.probability), _e(0))
         ), o.outputPrioritiesOrdered.push(i));
       } else if (i.from instanceof pt && i.to instanceof At) {
         const o = this.transitions.get(i.from), c = this.places.get(i.to);
         o.targets.push(i), this.arcTransitions.set(i, o), this.arcPlaces.set(i, c), i.type === ir.Regular && (c.inputProbabilitiesNormalizedArcOrder.push(i), c.inputProbabilitiesNormalized.set(
           i,
-          Fe.max(Fe(i.probability), Fe(0))
+          _e.max(_e(i.probability), _e(0))
         ), c.inputPrioritiesOrdered.push(i));
       }
     }), this.places.forEach((i) => {
       i.sortPriorities(), i.normalizeProbabilities();
-    }), this.initialize(Fe(0));
+    }), this.initialize(_e(0));
   }
   initialize(t) {
     this.markings.splice(0, this.markings.length), this.openMarkings.splice(0, this.openMarkings.length), this.firingEdges.splice(0, this.firingEdges.length);
@@ -33329,7 +33336,7 @@ class Vt extends qs {
       let c = 0;
       for (let m = 1; m < i.concessionsOrderedByDelay.length && !(i.concessionsOrderedByDelay[m].delay.comparedTo(o) > 0); m++)
         c = m;
-      if (o.comparedTo(Fe(0)) > 0)
+      if (o.comparedTo(_e(0)) > 0)
         for (let m = 0; m < c + 1; m++) {
           const d = i.concessionsOrderedByDelay[m];
           d.transition.sources.forEach((p) => {
@@ -33460,13 +33467,13 @@ class Vt extends qs {
           n.outputProbabilitiesNormalized.get(m)
         );
       }); f.length > 0; ) {
-        let m = Fe(0);
+        let m = _e(0);
         v.forEach(
           (h) => m = m.add(h)
         );
         for (let h = 0; h < v.length; h++)
           v[h] = v[h].div(m);
-        let d = Fe(this.random.nextDouble()), p = 0;
+        let d = _e(this.random.nextDouble()), p = 0;
         for (; p < f.length; p++) {
           const h = v[p];
           if (d.comparedTo(h) < 0)
@@ -33515,13 +33522,13 @@ class Vt extends qs {
           n.inputProbabilitiesNormalized.get(m)
         );
       }); f.length > 0; ) {
-        let m = Fe(0);
+        let m = _e(0);
         v.forEach(
           (h) => m = m.add(h)
         );
         for (let h = 0; h < v.length; h++)
           v[h] = v[h].div(m);
-        let d = Fe(this.random.nextDouble()), p = 0;
+        let d = _e(this.random.nextDouble()), p = 0;
         for (; p < f.length; p++) {
           const h = v[p];
           if (d.comparedTo(h) < 0)
@@ -33644,8 +33651,8 @@ class Vt extends qs {
     );
     try {
       const i = mt.evaluate(n.function, a);
-      return i instanceof BigInt ? i : i instanceof Fe ? BigInt(i.truncated().toString()) : BigInt(
-        Fe(i).truncated().toString()
+      return i instanceof BigInt ? i : i instanceof _e ? BigInt(i.truncated().toString()) : BigInt(
+        _e(i).truncated().toString()
       );
     } catch (i) {
       throw "Failed to evaluate function for arc '" + n.id + "' from '" + n.from.name + "' to '" + n.to.name + "': " + n.function + `
@@ -33759,20 +33766,20 @@ class w6 {
   }
   normalizeProbabilities() {
     if (this.outputProbabilitiesNormalized.size > 0) {
-      let e = Fe(0);
+      let e = _e(0);
       if (this.outputProbabilitiesNormalized.forEach(
         (t) => e = e.add(t)
-      ), e.lessThanOrEqualTo(Fe(0)))
+      ), e.lessThanOrEqualTo(_e(0)))
         throw "Output probabilities of place '" + this.place + "' are all zero";
       this.outputProbabilitiesNormalized.forEach((t, n) => {
         this.outputProbabilitiesNormalized.set(n, t.div(e));
       });
     }
     if (Object.keys(this.inputProbabilitiesNormalized).length > 0) {
-      let e = Fe(0);
+      let e = _e(0);
       if (this.inputProbabilitiesNormalized.forEach(
         (t) => e = e.add(t)
-      ), e.lessThanOrEqualTo(Fe(0)))
+      ), e.lessThanOrEqualTo(_e(0)))
         throw "Input probabilities of place '" + this.place + "' are all zero";
       this.inputProbabilitiesNormalized.forEach((t, n) => {
         this.inputProbabilitiesNormalized.set(n, t.div(e));
@@ -33850,18 +33857,18 @@ class N6 {
     const e = this.random.nextDouble();
     for (let t = 0; t < this.cumulativeProbabilities.length; t++)
       if (e <= this.cumulativeProbabilities[t])
-        return Fe(this.events[t]);
-    return Fe(this.events[this.events.length - 1]);
+        return _e(this.events[t]);
+    return _e(this.events[this.events.length - 1]);
   }
 }
 class A6 {
   constructor(e, t) {
     ve(this, "random");
     ve(this, "lambda");
-    this.random = e, this.lambda = Fe.max(1e-10, t);
+    this.random = e, this.lambda = _e.max(1e-10, t);
   }
   sample() {
-    return Fe.div(
+    return _e.div(
       -Math.log(Math.max(1e-10, this.random.nextDouble())),
       this.lambda
     );
@@ -33878,9 +33885,9 @@ class E6 {
   }
   sample() {
     const e = Math.max(1e-10, this.random.nextDouble());
-    return e <= this.help ? Fe(
+    return e <= this.help ? _e(
       Math.sqrt(e * (this.max - this.min) * (this.c - this.min)) + this.min
-    ) : Fe(
+    ) : _e(
       this.max - Math.sqrt((1 - e) * (this.max - this.min) * (this.max - this.c))
     );
   }
@@ -33898,7 +33905,7 @@ class S6 {
   }
   sample() {
     const e = this.cdfMin + Math.max(1e-10, this.random.nextDouble()) * (this.cdfMax - this.cdfMin), t = this.mu + this.sigma * Math.sqrt(2) * Ih(2 * e - 1);
-    return Fe(Math.min(this.max, Math.max(this.min, t)));
+    return _e(Math.min(this.max, Math.max(this.min, t)));
   }
 }
 class M6 {
@@ -33909,7 +33916,7 @@ class M6 {
     this.random = e, this.min = t, this.max = n;
   }
   sample() {
-    return Fe(
+    return _e(
       Math.max(1e-10, this.random.nextDouble()) * (this.max - this.min) + this.min
     );
   }
@@ -33928,3 +33935,4 @@ export {
   B6 as sampler,
   F6 as simulation
 };
+//# sourceMappingURL=ac-sim-core-js.js.map

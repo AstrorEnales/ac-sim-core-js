@@ -9,7 +9,7 @@
     "url": "https://github.com/AstrorEnales/ac-sim-core-js"
   },
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "./dist/ac-sim-core-js.umd.cjs",
   "module": "./dist/ac-sim-core-js.js",
@@ -28,7 +28,10 @@
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint .",
-    "lint-fix": "prettier --write ."
+    "lint-fix": "prettier --write .",
+    "version-patch": "npm version patch --no-git-tag-version",
+    "version-minor": "npm version minor --no-git-tag-version",
+    "version-major": "npm version major --no-git-tag-version"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",

@@ -111,14 +111,20 @@ export class GillespieSimulator extends Simulator {
 		reaction: Reaction,
 		speciesCounts: bigint[]
 	): Decimal {
-		const inputsPropensity = reaction.from
-			.map<bigint>((n) => {
-				const available = speciesCounts[this.nodesOrder.get(n.node)!];
-				return available >= n.amount
-					? this.calculateReactantCombinatorialCoefficient(n.amount, available)
-					: 0n;
-			})
-			.reduce((acc, v) => acc * v, 1n);
+		let inputsPropensity = 1n;
+		for (let i = 0; i < reaction.from.length; i++) {
+			const n = reaction.from[i];
+			const available = speciesCounts[this.nodesOrder.get(n.node)!];
+			if (available >= n.amount) {
+				inputsPropensity *= this.calculateReactantCombinatorialCoefficient(
+					n.amount,
+					available
+				);
+			} else {
+				// Early out as we don't have enough inputs
+				return Decimal(0);
+			}
+		}
 		return reaction.rate.mul(Decimal(inputsPropensity.toString()));
 	}
 

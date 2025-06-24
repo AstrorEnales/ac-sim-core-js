@@ -6,6 +6,7 @@ import dts from 'vite-plugin-dts';
 
 export default defineConfig({
 	build: {
+		sourcemap: true,
 		lib: {
 			entry: resolve(__dirname, 'src/index.ts'),
 			name: 'ACSimCore',
