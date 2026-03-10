@@ -9,7 +9,7 @@
     "url": "https://github.com/AstrorEnales/ac-sim-core-js"
   },
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "main": "./dist/ac-sim-core-js.umd.cjs",
   "module": "./dist/ac-sim-core-js.js",
@@ -34,25 +34,25 @@
     "version-major": "npm version major --no-git-tag-version"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
-    "@typescript-eslint/eslint-plugin": "^8.30.1",
-    "@typescript-eslint/parser": "^8.30.1",
-    "eslint": "^9.24.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.6",
-    "prettier": "^3.5.3",
-    "typescript": "~5.7.2",
-    "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.1",
-    "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.1.1"
+    "@types/node": "^25.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
-    "@stdlib/math-base-special-erfinv": "^0.3.0",
-    "decimal.js": "^10.5.0",
-    "mathjs": "^14.4.0"
+    "@stdlib/math-base-special-erfinv": "^0.3.1",
+    "decimal.js": "^10.6.0",
+    "mathjs": "^15.1.1"
   },
   "peerDependencies": {
-    "decimal.js": "^10.5.0"
+    "decimal.js": "^10.6.0"
   }
 }
