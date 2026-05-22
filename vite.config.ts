@@ -16,6 +16,9 @@ export default defineConfig({
 			output: {},
 		},
 	},
-	plugins: [dts()],
-	test: {},
+	plugins: [
+		dts({
+			entryRoot: 'src',
+		}),
+	],
 });
