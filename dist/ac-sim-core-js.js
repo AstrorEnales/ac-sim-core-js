@@ -28359,10 +28359,40 @@ var Hx = class e {
 		return e._instance;
 	}
 	static evaluate(t, n) {
-		return e.mathjs.parse(t).evaluate(n ? {
+		return t = this.preprocessExpression(t), e.mathjs.parse(t).evaluate(n ? {
 			...e._functionScope,
 			...n
 		} : e._functionScope);
+	}
+	static preprocessExpression(e) {
+		let t = "", n = 0;
+		for (; n < e.length;) {
+			let r = e[n];
+			if (r === "\"" || r === "'") {
+				let i = r;
+				for (t += r, n++; n < e.length;) {
+					if (t += e[n], e[n] === "\\") n++, n < e.length && (t += e[n]);
+					else if (e[n] === i) break;
+					n++;
+				}
+				n++;
+				continue;
+			}
+			if (r === "#") {
+				for (; n < e.length && e[n] !== "\n";) t += e[n], n++;
+				continue;
+			}
+			if (r === "&" && n + 1 < e.length && e[n + 1] === "&") {
+				t += " and ", n += 2;
+				continue;
+			}
+			if (r === "|" && n + 1 < e.length && e[n + 1] === "|") {
+				t += " or ", n += 2;
+				continue;
+			}
+			t += r, n++;
+		}
+		return t;
 	}
 }, EC = class e extends bC {
 	places = /* @__PURE__ */ new Map();

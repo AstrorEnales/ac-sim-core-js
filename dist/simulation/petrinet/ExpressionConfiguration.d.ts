@@ -4,4 +4,5 @@ export declare class ExpressionConfiguration {
     private static _functionScope;
     static get mathjs(): MathJsInstance;
     static evaluate(expression: string, scope?: any): any;
+    private static preprocessExpression;
 }
