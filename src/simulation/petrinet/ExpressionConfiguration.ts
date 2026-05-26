@@ -143,6 +143,7 @@ export class ExpressionConfiguration {
 	}
 
 	public static evaluate(expression: string, scope?: any): any {
+		expression = this.preprocessExpression(expression);
 		const ast = ExpressionConfiguration.mathjs.parse(expression);
 		return ast.evaluate(
 			scope
@@ -152,5 +153,64 @@ export class ExpressionConfiguration {
 					}
 				: ExpressionConfiguration._functionScope
 		);
+	}
+
+	private static preprocessExpression(expression: string): string {
+		let result = '';
+		let i = 0;
+		while (i < expression.length) {
+			const ch = expression[i];
+			// Skip over string literals (single or double quoted)
+			if (ch === '"' || ch === "'") {
+				const quote = ch;
+				result += ch;
+				i++;
+				while (i < expression.length) {
+					result += expression[i];
+					if (expression[i] === '\\') {
+						i++;
+						if (i < expression.length) {
+							result += expression[i];
+						}
+					} else if (expression[i] === quote) {
+						break;
+					}
+					i++;
+				}
+				i++;
+				continue;
+			}
+			// Skip over comments (# to end of line)
+			if (ch === '#') {
+				while (i < expression.length && expression[i] !== '\n') {
+					result += expression[i];
+					i++;
+				}
+				continue;
+			}
+			// Replace && with ' and '
+			if (
+				ch === '&' &&
+				i + 1 < expression.length &&
+				expression[i + 1] === '&'
+			) {
+				result += ' and ';
+				i += 2;
+				continue;
+			}
+			// Replace || with ' or '
+			if (
+				ch === '|' &&
+				i + 1 < expression.length &&
+				expression[i + 1] === '|'
+			) {
+				result += ' or ';
+				i += 2;
+				continue;
+			}
+			result += ch;
+			i++;
+		}
+		return result;
 	}
 }

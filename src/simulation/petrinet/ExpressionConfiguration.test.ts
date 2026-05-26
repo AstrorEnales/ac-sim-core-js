@@ -37,11 +37,10 @@ test('allOperators', () => {
 	expect(ExpressionConfiguration.evaluate('4>=3')).toBeTruthy();
 	expect(ExpressionConfiguration.evaluate('3<4')).toBeTruthy();
 	expect(ExpressionConfiguration.evaluate('3<=4')).toBeTruthy();
-	// TODO: for feature parity we need to define && and || in math.js
-	// expect(ExpressionConfiguration.evaluate('true && 4==1+3')).toBeTruthy();
-	// expect(ExpressionConfiguration.evaluate('false && 4==1+3')).toBeFalsy();
-	// expect(ExpressionConfiguration.evaluate('true || 4==1+3')).toBeTruthy();
-	// expect(ExpressionConfiguration.evaluate('false || 4==1+3')).toBeTruthy();
+	expect(ExpressionConfiguration.evaluate('true && 4==1+3')).toBeTruthy();
+	expect(ExpressionConfiguration.evaluate('false&&4==1+3')).toBeFalsy();
+	expect(ExpressionConfiguration.evaluate('true || 4==1+3')).toBeTruthy();
+	expect(ExpressionConfiguration.evaluate('false||4==1+3')).toBeTruthy();
 });
 
 test('allConstants', () => {
