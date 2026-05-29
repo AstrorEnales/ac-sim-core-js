@@ -45,6 +45,101 @@ test('inputOnlyReaction', () => {
 	expect(steps[5].speciesCounts[0]).toBe(0n);
 });
 
+test('addNode appends a new species to existing steps', () => {
+	const a = new Node('A', 10n);
+	const simulator = new GillespieSimulator([a], []);
+	const b = new Node('B', 5n);
+	simulator.addNode(b);
+	expect(simulator.getNodes()).toContain(b);
+	// Existing steps are back-filled with 0n; the late node's startCount is ignored.
+	expect(simulator.getStartStep().speciesCounts).toEqual([10n, 0n]);
+});
+
+test('addNode is idempotent for an existing node', () => {
+	const a = new Node('A', 10n);
+	const simulator = new GillespieSimulator([a], []);
+	simulator.addNode(a);
+	expect(simulator.getNodes().length).toBe(1);
+	expect(simulator.getStartStep().speciesCounts).toEqual([10n]);
+});
+
+test('addReaction registers a reaction with a new product node that can fire', () => {
+	const a = new Node('A', 10n);
+	const simulator = new GillespieSimulator([a], []);
+	const c = new Node('C', 0n);
+	const r1 = new Reaction(
+		'A->C',
+		[{node: a, amount: 1n}],
+		[{node: c, amount: 1n}]
+	);
+	simulator.addReaction(r1);
+	expect(simulator.getReactions()).toContain(r1);
+	expect(simulator.getNodes()).toContain(c);
+	const isAlive = simulator.step();
+	expect(isAlive).toBeTruthy();
+	const last = simulator.getLastStep();
+	expect(last.speciesCounts[0]).toBe(9n); // A
+	expect(last.speciesCounts[1]).toBe(1n); // C
+	expect(last.reaction).toBe(r1);
+});
+
+test('addReaction is idempotent for an existing reaction', () => {
+	const a = new Node('A', 10n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], []);
+	const simulator = new GillespieSimulator([a], [r1]);
+	simulator.addReaction(r1);
+	expect(simulator.getReactions().length).toBe(1);
+	// Duplicate must not grow the parallel propensity-cache array.
+	expect((simulator as any).lastReactionPropensities.length).toBe(1);
+});
+
+test('addReaction registers a reaction with a new reactant node that can fire', () => {
+	const a = new Node('A', 0n);
+	const simulator = new GillespieSimulator([a], []);
+	const x = new Node('X', 3n); // brand-new node used as a reactant
+	const r1 = new Reaction(
+		'X->A',
+		[{node: x, amount: 1n}],
+		[{node: a, amount: 1n}]
+	);
+	simulator.addReaction(r1);
+	expect(simulator.getReactions()).toContain(r1);
+	expect(simulator.getNodes()).toContain(x);
+	// Late-added nodes are back-filled with 0n, so seed X with a population.
+	simulator.inject([{node: x, amount: 3n}], null);
+	const isAlive = simulator.step();
+	expect(isAlive).toBeTruthy();
+	const last = simulator.getLastStep();
+	expect(last.speciesCounts[0]).toBe(1n); // A
+	expect(last.speciesCounts[1]).toBe(2n); // X
+	expect(last.reaction).toBe(r1);
+});
+
+test('addReaction added mid-simulation participates until depletion', () => {
+	const a = new Node('A', 10n);
+	const b = new Node('B', 0n);
+	const r1 = new Reaction(
+		'A->B',
+		[{node: a, amount: 1n}],
+		[{node: b, amount: 1n}]
+	);
+	const simulator = new GillespieSimulator([a, b], [r1]);
+	simulator.step();
+	const c = new Node('C', 0n);
+	const r2 = new Reaction(
+		'B->C',
+		[{node: b, amount: 1n}],
+		[{node: c, amount: 1n}]
+	);
+	simulator.addReaction(r2);
+	while (simulator.step());
+	// A->B->C is acyclic and count-conserving, so everything funnels into C.
+	const counts = simulator.getLastStep().speciesCounts;
+	expect(counts[0]).toBe(0n); // A
+	expect(counts[1]).toBe(0n); // B
+	expect(counts[2]).toBe(10n); // C
+});
+
 test('reversibleDimerBinding', () => {
 	const a = new Node('A', 10n);
 	const b = new Node('B', 10n);

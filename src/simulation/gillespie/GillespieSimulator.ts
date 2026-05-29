@@ -12,7 +12,7 @@ export class GillespieSimulator extends Simulator {
 	private readonly reactions: Reaction[];
 	private readonly steps: Step[] = [];
 	private readonly lastReactionPropensities: (Decimal | null)[];
-	private readonly nodeToReactionsMap = new Map<Node, number[]>();
+	private readonly nodeToReactionsMap = new Map<Node, Set<number>>();
 	private lastPartialTotalPropensity = Decimal(0);
 	private readonly approximateFactorialsFrom: bigint | null;
 
@@ -27,9 +27,9 @@ export class GillespieSimulator extends Simulator {
 		this.nodes.forEach((n, i) => this.nodesOrder.set(n, i));
 		this.reactions = reactions;
 		this.lastReactionPropensities = new Array(reactions.length).fill(null);
-		this.nodes.forEach((n) => this.nodeToReactionsMap.set(n, []));
+		this.nodes.forEach((n) => this.nodeToReactionsMap.set(n, new Set()));
 		this.reactions.forEach((r, i) => {
-			r.from.forEach((n) => this.nodeToReactionsMap.get(n.node)!.push(i));
+			r.from.forEach((n) => this.nodeToReactionsMap.get(n.node)!.add(i));
 		});
 		this.approximateFactorialsFrom = approximateFactorialsFrom;
 		this.initialize(Decimal(0));
@@ -38,7 +38,29 @@ export class GillespieSimulator extends Simulator {
 	private initialize(startTime: Decimal): void {
 		this.steps.splice(0, this.steps.length);
 		const speciesCounts: bigint[] = this.nodes.map((n) => n.startCount);
-		this.steps.push(new Step(startTime, speciesCounts));
+		this.steps.push(new Step(startTime, speciesCounts, null));
+	}
+
+	public addReaction(reaction: Reaction) {
+		if (!this.reactions.includes(reaction)) {
+			const reactionIndex = this.reactions.length;
+			reaction.from.forEach((n) => {
+				this.addNode(n.node);
+				this.nodeToReactionsMap.get(n.node)!.add(reactionIndex);
+			});
+			reaction.to.forEach((n) => this.addNode(n.node));
+			this.reactions.push(reaction);
+			this.lastReactionPropensities.push(null);
+		}
+	}
+
+	public addNode(node: Node) {
+		if (!this.nodesOrder.has(node)) {
+			this.nodesOrder.set(node, this.nodes.length);
+			this.nodes.push(node);
+			this.nodeToReactionsMap.set(node, new Set());
+			this.steps.forEach((s) => s.speciesCounts.push(0n));
+		}
 	}
 
 	public step(endTime: Decimal | number | null = null): boolean {
@@ -101,7 +123,7 @@ export class GillespieSimulator extends Simulator {
 		if (endTime !== null && nextTime.comparedTo(endTime) > 0) {
 			return false;
 		}
-		const nextStep = new Step(nextTime, newSpeciesCounts);
+		const nextStep = new Step(nextTime, newSpeciesCounts, reaction);
 		this.steps.push(nextStep);
 		return true;
 	}
@@ -207,7 +229,7 @@ export class GillespieSimulator extends Simulator {
 					this.lastPartialTotalPropensity.sub(previousPropensity);
 			}
 		});
-		const nextStep = new Step(time ?? currentStep.time, newSpeciesCounts);
+		const nextStep = new Step(time ?? currentStep.time, newSpeciesCounts, null);
 		this.steps.push(nextStep);
 	}
 
@@ -221,9 +243,19 @@ export class GillespieSimulator extends Simulator {
 export class Step {
 	public readonly time: Decimal;
 	public readonly speciesCounts: bigint[];
+	/**
+	 * The reaction that fired to generate this step or null
+	 * for the start step or if node quantities have been injected.
+	 */
+	public readonly reaction: Reaction | null;
 
-	constructor(time: Decimal, speciesCounts: bigint[]) {
+	constructor(
+		time: Decimal,
+		speciesCounts: bigint[],
+		reaction: Reaction | null
+	) {
 		this.time = time;
 		this.speciesCounts = speciesCounts;
+		this.reaction = reaction;
 	}
 }
