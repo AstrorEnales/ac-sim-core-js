@@ -15,6 +15,8 @@ export declare class GillespieSimulator extends Simulator {
     private readonly approximateFactorialsFrom;
     constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, approximateFactorialsFrom?: bigint | null);
     private initialize;
+    addReaction(reaction: Reaction): void;
+    addNode(node: Node): void;
     step(endTime?: Decimal | number | null): boolean;
     private calculatePropensity;
     private calculateReactantCombinatorialCoefficient;
@@ -31,5 +33,10 @@ export declare class GillespieSimulator extends Simulator {
 export declare class Step {
     readonly time: Decimal;
     readonly speciesCounts: bigint[];
-    constructor(time: Decimal, speciesCounts: bigint[]);
+    /**
+     * The reaction that fired to generate this step or null
+     * for the start step or if node quantities have been injected.
+     */
+    readonly reaction: Reaction | null;
+    constructor(time: Decimal, speciesCounts: bigint[], reaction: Reaction | null);
 }

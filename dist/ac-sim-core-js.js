@@ -28149,14 +28149,25 @@ var Hx = class e {
 	lastPartialTotalPropensity = W(0);
 	approximateFactorialsFrom;
 	constructor(e, t, n = new xC(42n), r = null) {
-		super(n), this.nodes = e, this.nodes.forEach((e, t) => this.nodesOrder.set(e, t)), this.reactions = t, this.lastReactionPropensities = Array(t.length).fill(null), this.nodes.forEach((e) => this.nodeToReactionsMap.set(e, [])), this.reactions.forEach((e, t) => {
-			e.from.forEach((e) => this.nodeToReactionsMap.get(e.node).push(t));
+		super(n), this.nodes = e, this.nodes.forEach((e, t) => this.nodesOrder.set(e, t)), this.reactions = t, this.lastReactionPropensities = Array(t.length).fill(null), this.nodes.forEach((e) => this.nodeToReactionsMap.set(e, /* @__PURE__ */ new Set())), this.reactions.forEach((e, t) => {
+			e.from.forEach((e) => this.nodeToReactionsMap.get(e.node).add(t));
 		}), this.approximateFactorialsFrom = r, this.initialize(W(0));
 	}
 	initialize(e) {
 		this.steps.splice(0, this.steps.length);
 		let t = this.nodes.map((e) => e.startCount);
-		this.steps.push(new CC(e, t));
+		this.steps.push(new CC(e, t, null));
+	}
+	addReaction(e) {
+		if (!this.reactions.includes(e)) {
+			let t = this.reactions.length;
+			e.from.forEach((e) => {
+				this.addNode(e.node), this.nodeToReactionsMap.get(e.node).add(t);
+			}), e.to.forEach((e) => this.addNode(e.node)), this.reactions.push(e), this.lastReactionPropensities.push(null);
+		}
+	}
+	addNode(e) {
+		this.nodesOrder.has(e) || (this.nodesOrder.set(e, this.nodes.length), this.nodes.push(e), this.nodeToReactionsMap.set(e, /* @__PURE__ */ new Set()), this.steps.forEach((e) => e.speciesCounts.push(0n)));
 	}
 	step(e = null) {
 		let t = this.steps[this.steps.length - 1], n = this.reactions.map((e, n) => {
@@ -28179,7 +28190,7 @@ var Hx = class e {
 		});
 		let d = t.time.add(a);
 		if (e !== null && d.comparedTo(e) > 0) return !1;
-		let f = new CC(d, c);
+		let f = new CC(d, c, l);
 		return this.steps.push(f), !0;
 	}
 	calculatePropensity(e, t) {
@@ -28230,7 +28241,7 @@ var Hx = class e {
 			let t = this.lastReactionPropensities[e];
 			t !== null && (this.lastReactionPropensities[e] = null, this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(t));
 		});
-		let a = new CC(t ?? n.time, r);
+		let a = new CC(t ?? n.time, r, null);
 		this.steps.push(a);
 	}
 	getMaxTime() {
@@ -28239,8 +28250,9 @@ var Hx = class e {
 }, CC = class {
 	time;
 	speciesCounts;
-	constructor(e, t) {
-		this.time = e, this.speciesCounts = t;
+	reaction;
+	constructor(e, t, n) {
+		this.time = e, this.speciesCounts = t, this.reaction = n;
 	}
 }, wC = /* @__PURE__ */ s({
 	GillespieSimulator: () => SC,
