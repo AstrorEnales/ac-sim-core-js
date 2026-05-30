@@ -77,7 +77,7 @@ export class GillespieSimulator extends Simulator {
 		});
 		const totalPropensity = this.lastPartialTotalPropensity;
 		const r1 = this.random.nextDouble();
-		const tau = Decimal.log10(Decimal.div(1, r1)).div(totalPropensity);
+		const tau = Decimal.ln(Decimal.div(1, r1)).div(totalPropensity);
 		let r2TotalPropensity = totalPropensity.mul(this.random.nextDouble());
 		let j = 0;
 		for (; j < propensities.length; j++) {
