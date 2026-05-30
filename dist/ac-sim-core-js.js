@@ -28173,7 +28173,7 @@ var Hx = class e {
 		let t = this.steps[this.steps.length - 1], n = this.reactions.map((e, n) => {
 			let r = this.lastReactionPropensities[n];
 			return r === null && (r = this.calculatePropensity(e, t.speciesCounts), this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.add(r), this.lastReactionPropensities[n] = r), r;
-		}), r = this.lastPartialTotalPropensity, i = this.random.nextDouble(), a = W.log10(W.div(1, i)).div(r), o = r.mul(this.random.nextDouble()), s = 0;
+		}), r = this.lastPartialTotalPropensity, i = this.random.nextDouble(), a = W.ln(W.div(1, i)).div(r), o = r.mul(this.random.nextDouble()), s = 0;
 		for (; s < n.length && (o = o.sub(n[s]), !o.isNeg()); s++);
 		if (s == n.length) return !1;
 		let c = [...t.speciesCounts], l = this.reactions[s], u = new Set([s]);
