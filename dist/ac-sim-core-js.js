@@ -28147,11 +28147,10 @@ var Hx = class e {
 	lastReactionPropensities;
 	nodeToReactionsMap = /* @__PURE__ */ new Map();
 	lastPartialTotalPropensity = W(0);
-	approximateFactorialsFrom;
-	constructor(e, t, n = new xC(42n), r = null) {
+	constructor(e, t, n = new xC(42n)) {
 		super(n), this.nodes = e, this.nodes.forEach((e, t) => this.nodesOrder.set(e, t)), this.reactions = t, this.lastReactionPropensities = Array(t.length).fill(null), this.nodes.forEach((e) => this.nodeToReactionsMap.set(e, /* @__PURE__ */ new Set())), this.reactions.forEach((e, t) => {
 			e.from.forEach((e) => this.nodeToReactionsMap.get(e.node).add(t));
-		}), this.approximateFactorialsFrom = r, this.initialize(W(0));
+		}), this.initialize(W(0));
 	}
 	initialize(e) {
 		this.steps.splice(0, this.steps.length);
@@ -28197,24 +28196,19 @@ var Hx = class e {
 		let n = 1n;
 		for (let r = 0; r < e.from.length; r++) {
 			let i = e.from[r], a = t[this.nodesOrder.get(i.node)];
-			if (a >= i.amount) n *= this.calculateReactantCombinatorialCoefficient(i.amount, a);
+			if (a >= i.amount) n *= this.binomCoeff(a, i.amount);
 			else return W(0);
 		}
-		return e.rate.mul(W(n.toString()));
+		return e.rate.mul(n);
 	}
-	calculateReactantCombinatorialCoefficient(e, t) {
-		return this.factorial(t) / (this.factorial(e) * this.factorial(t - e));
-	}
-	factorial(e) {
-		if (e === 0n || e === 1n) return 1n;
-		if (this.approximateFactorialsFrom !== null && e >= this.approximateFactorialsFrom) return this.stirlingApproxFactorial(e);
-		let t = 1n;
-		for (let n = 2n; n <= e; n++) t *= n;
-		return t;
-	}
-	stirlingApproxFactorial(e) {
-		let t = new W(e.toString()), n = new W(Math.PI), r = new W(Math.E), i = W.sqrt(n.times(t.times(2))).times(t.div(r).pow(t)).floor();
-		return BigInt(i.toFixed(0));
+	binomCoeff(e, t) {
+		let n = Number(e), r = Number(t), i = Array(r + 1).fill(0n);
+		i[0] = 1n;
+		for (let e = 1; e <= n; e++) {
+			let t = e < r ? e : r;
+			for (let e = t; e > 0; e--) i[e] = i[e] + i[e - 1];
+		}
+		return i[r];
 	}
 	getNodes() {
 		return [...this.nodes];

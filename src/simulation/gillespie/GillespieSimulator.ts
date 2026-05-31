@@ -14,13 +14,11 @@ export class GillespieSimulator extends Simulator {
 	private readonly lastReactionPropensities: (Decimal | null)[];
 	private readonly nodeToReactionsMap = new Map<Node, Set<number>>();
 	private lastPartialTotalPropensity = Decimal(0);
-	private readonly approximateFactorialsFrom: bigint | null;
 
 	constructor(
 		nodes: Node[],
 		reactions: Reaction[],
-		random: RandomGenerator = new Xorshift128Plus(42n),
-		approximateFactorialsFrom: bigint | null = null
+		random: RandomGenerator = new Xorshift128Plus(42n)
 	) {
 		super(random);
 		this.nodes = nodes;
@@ -31,7 +29,6 @@ export class GillespieSimulator extends Simulator {
 		this.reactions.forEach((r, i) => {
 			r.from.forEach((n) => this.nodeToReactionsMap.get(n.node)!.add(i));
 		});
-		this.approximateFactorialsFrom = approximateFactorialsFrom;
 		this.initialize(Decimal(0));
 	}
 
@@ -137,54 +134,40 @@ export class GillespieSimulator extends Simulator {
 			const n = reaction.from[i];
 			const available = speciesCounts[this.nodesOrder.get(n.node)!];
 			if (available >= n.amount) {
-				inputsPropensity *= this.calculateReactantCombinatorialCoefficient(
-					n.amount,
-					available
-				);
+				inputsPropensity *= this.binomCoeff(available, n.amount);
 			} else {
 				// Early out as we don't have enough inputs
 				return Decimal(0);
 			}
 		}
-		return reaction.rate.mul(Decimal(inputsPropensity.toString()));
+		return reaction.rate.mul(inputsPropensity);
 	}
 
-	private calculateReactantCombinatorialCoefficient(
-		requested: bigint,
-		available: bigint
-	): bigint {
-		return (
-			this.factorial(available) /
-			(this.factorial(requested) * this.factorial(available - requested))
-		);
-	}
-
-	private factorial(n: bigint): bigint {
-		if (n === 0n || n === 1n) {
-			return 1n;
+	/**
+	 * Binomial coefficient C(available, requested), the number of distinct ways
+	 * to choose `requested` reactant molecules out of `available`.
+	 *
+	 * Space-optimised dynamic programming: build successive rows of Pascal's
+	 * triangle in a single row buffer of size `requested + 1`, using only
+	 * additions. O(available * requested) time, O(requested) space, exact result,
+	 * and never materialises the full factorial of the (potentially very large)
+	 * reactant count.
+	 * @see https://www.geeksforgeeks.org/dsa/binomial-coefficient-dp-9/
+	 */
+	private binomCoeff(available: bigint, requested: bigint): bigint {
+		const n = Number(available);
+		const k = Number(requested);
+		const row: bigint[] = new Array(k + 1).fill(0n);
+		row[0] = 1n; // C(i, 0) = 1
+		for (let i = 1; i <= n; i++) {
+			// Update the current row right-to-left so each C[j] still reads the
+			// previous row's C[j-1]. Only the first min(i, k) entries change.
+			const upper = i < k ? i : k;
+			for (let j = upper; j > 0; j--) {
+				row[j] = row[j] + row[j - 1];
+			}
 		}
-		if (
-			this.approximateFactorialsFrom !== null &&
-			n >= this.approximateFactorialsFrom
-		) {
-			return this.stirlingApproxFactorial(n);
-		}
-		let result = 1n;
-		for (let i = 2n; i <= n; i++) {
-			result *= i;
-		}
-		return result;
-	}
-
-	private stirlingApproxFactorial(n: bigint): bigint {
-		const N = new Decimal(n.toString());
-		const pi = new Decimal(Math.PI);
-		const e = new Decimal(Math.E);
-		// sqrt(2 * pi * n) * (n / e)^n
-		const f = Decimal.sqrt(pi.times(N.times(2)))
-			.times(N.div(e).pow(N))
-			.floor();
-		return BigInt(f.toFixed(0));
+		return row[k];
 	}
 
 	public getNodes(): Node[] {

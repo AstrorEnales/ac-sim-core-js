@@ -12,16 +12,24 @@ export declare class GillespieSimulator extends Simulator {
     private readonly lastReactionPropensities;
     private readonly nodeToReactionsMap;
     private lastPartialTotalPropensity;
-    private readonly approximateFactorialsFrom;
-    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, approximateFactorialsFrom?: bigint | null);
+    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator);
     private initialize;
     addReaction(reaction: Reaction): void;
     addNode(node: Node): void;
     step(endTime?: Decimal | number | null): boolean;
     private calculatePropensity;
-    private calculateReactantCombinatorialCoefficient;
-    private factorial;
-    private stirlingApproxFactorial;
+    /**
+     * Binomial coefficient C(available, requested), the number of distinct ways
+     * to choose `requested` reactant molecules out of `available`.
+     *
+     * Space-optimised dynamic programming: build successive rows of Pascal's
+     * triangle in a single row buffer of size `requested + 1`, using only
+     * additions. O(available * requested) time, O(requested) space, exact result,
+     * and never materialises the full factorial of the (potentially very large)
+     * reactant count.
+     * @see https://www.geeksforgeeks.org/dsa/binomial-coefficient-dp-9/
+     */
+    private binomCoeff;
     getNodes(): Node[];
     getReactions(): Reaction[];
     getSteps(): Step[];
