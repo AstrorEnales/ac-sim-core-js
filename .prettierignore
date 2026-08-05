@@ -1,0 +1,9 @@
+dist
+.vscode
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+**/*.md
+**/*.json
