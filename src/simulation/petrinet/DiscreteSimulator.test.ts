@@ -1049,6 +1049,31 @@ test('arcsRetainWeightsWithSameDelay', () => {
 	expect(simulator.getTokens(markingTimeline[1], p1)).toBe(1n);
 });
 
+test('reservedTimePlaceNameThrows', () => {
+	const p1 = new DiscretePlace('time');
+	expect(() => new DiscreteSimulator([p1], [])).toThrow(
+		"Place name 'time' is reserved for the current simulation time"
+	);
+});
+
+test('reservedTimeTransitionParameterNameThrows', () => {
+	const t1 = new DiscreteTransition('t1');
+	t1.parameters.push(new Parameter('time', Decimal(2)));
+	expect(() => new DiscreteSimulator([t1], [])).toThrow(
+		"Parameter name 'time' of transition 't1' is reserved for the current simulation time"
+	);
+});
+
+test('reservedTimeArcParameterNameThrows', () => {
+	const p1 = new DiscretePlace('p1');
+	const t1 = new DiscreteTransition('t1');
+	const arc1 = new Arc(ArcType.Regular, {from: t1, to: p1});
+	arc1.parameters.push(new Parameter('time', Decimal(2)));
+	expect(() => new DiscreteSimulator([t1, p1], [arc1])).toThrow(
+		"Parameter name 'time' of arc '1' is reserved for the current simulation time"
+	);
+});
+
 test('stepWithEndTimeStopsAtLimit', () => {
 	const t1 = new DiscreteTransition('t1');
 	const simulator = new DiscreteSimulator([t1], []);

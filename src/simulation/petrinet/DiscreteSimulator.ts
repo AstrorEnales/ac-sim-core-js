@@ -39,8 +39,19 @@ export class DiscreteSimulator extends Simulator {
 		// Collect places and transitions
 		nodes.forEach((node) => {
 			if (node instanceof Transition) {
+				DiscreteSimulator.validateReservedNames(
+					node.parameters,
+					"transition '" + node.name + "'"
+				);
 				this.transitions.set(node, new TransitionDetails(node, random));
 			} else if (node instanceof DiscretePlace) {
+				if (node.name === ExpressionConfiguration.TIME_SYMBOL) {
+					throw (
+						"Place name '" +
+						ExpressionConfiguration.TIME_SYMBOL +
+						"' is reserved for the current simulation time"
+					);
+				}
 				this.places.set(node, new PlaceDetails(node));
 				this.placesOrder.set(node, this.placesOrder.size);
 			} else {
@@ -53,6 +64,10 @@ export class DiscreteSimulator extends Simulator {
 		});
 		// Collect all transition source and target places
 		arcs.forEach((arc) => {
+			DiscreteSimulator.validateReservedNames(
+				arc.parameters,
+				"arc '" + arc.id + "'"
+			);
 			if (arc.from instanceof DiscretePlace && arc.to instanceof Transition) {
 				const place = this.places.get(arc.from)!;
 				const transition = this.transitions.get(arc.to)!;
@@ -92,6 +107,23 @@ export class DiscreteSimulator extends Simulator {
 			place.normalizeProbabilities();
 		});
 		this.initialize(Decimal(0));
+	}
+
+	private static validateReservedNames(
+		parameters: Parameter[],
+		owner: string
+	): void {
+		parameters.forEach((param) => {
+			if (param.name === ExpressionConfiguration.TIME_SYMBOL) {
+				throw (
+					"Parameter name '" +
+					ExpressionConfiguration.TIME_SYMBOL +
+					"' of " +
+					owner +
+					' is reserved for the current simulation time'
+				);
+			}
+		});
 	}
 
 	private initialize(startTime: Decimal): void {
@@ -135,10 +167,12 @@ export class DiscreteSimulator extends Simulator {
 					firingConditionScope['time'] = time;
 					try {
 						if (
-							!ExpressionConfiguration.evaluate(
-								transition.firingCondition,
-								firingConditionScope
-							).getBooleanValue()
+							!ExpressionConfiguration.toBoolean(
+								ExpressionConfiguration.evaluate(
+									transition.firingCondition,
+									firingConditionScope
+								)
+							)
 						) {
 							return;
 						}
