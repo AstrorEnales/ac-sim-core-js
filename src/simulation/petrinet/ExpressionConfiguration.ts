@@ -1,8 +1,32 @@
-import {all, create, MathJsInstance, MathNumericType, MathType} from 'mathjs';
+import {
+	all,
+	create,
+	EvalFunction,
+	MathJsInstance,
+	MathNode,
+	MathNumericType,
+	MathType,
+	SymbolNode,
+} from 'mathjs';
 
 export class ExpressionConfiguration {
+	/**
+	 * Reserved symbol which always resolves to the current simulation time and can therefore not be
+	 * used as a place or parameter name.
+	 */
+	public static readonly TIME_SYMBOL = 'time';
 	private static _instance: MathJsInstance | null = null;
 	private static _functionScope: any | null = null;
+	/**
+	 * Parsing and compiling an expression is expensive compared to evaluating it, and a simulation
+	 * evaluates the same small set of expressions over and over again, so both results are cached.
+	 */
+	private static readonly _cache = new Map<string, CachedExpression>();
+	/**
+	 * A single model only contains a small number of expressions, but the cache is shared by all
+	 * simulator instances of the process, so it is dropped instead of growing without bounds.
+	 */
+	private static readonly MAX_CACHE_SIZE = 10000;
 
 	public static get mathjs(): MathJsInstance {
 		if (ExpressionConfiguration._instance === null) {
@@ -143,9 +167,7 @@ export class ExpressionConfiguration {
 	}
 
 	public static evaluate(expression: string, scope?: any): any {
-		expression = this.preprocessExpression(expression);
-		const ast = ExpressionConfiguration.mathjs.parse(expression);
-		return ast.evaluate(
+		return ExpressionConfiguration.getCached(expression).code.evaluate(
 			scope
 				? {
 						...ExpressionConfiguration._functionScope,
@@ -153,6 +175,95 @@ export class ExpressionConfiguration {
 					}
 				: ExpressionConfiguration._functionScope
 		);
+	}
+
+	/**
+	 * Interprets the result of an evaluated expression as a boolean. Comparisons and logical
+	 * operators evaluate to a plain boolean, but a condition may also evaluate to a number, which is
+	 * false if and only if it is zero. Numbers are represented as objects and would therefore always
+	 * be truthy without this conversion.
+	 */
+	public static toBoolean(value: any): boolean {
+		if (typeof value === 'boolean') {
+			return value;
+		}
+		if (typeof value === 'bigint') {
+			return value !== 0n;
+		}
+		if (typeof value === 'number') {
+			return value !== 0;
+		}
+		// BigNumber, Fraction and Complex all provide isZero
+		if (value != null && typeof value.isZero === 'function') {
+			return !value.isZero();
+		}
+		return !!value;
+	}
+
+	/**
+	 * Returns the parsed abstract syntax tree of the given expression. The result is shared with the
+	 * expression cache and must not be modified.
+	 */
+	public static parse(expression: string): MathNode {
+		return ExpressionConfiguration.getCached(expression).node;
+	}
+
+	/**
+	 * Returns all symbols of the given expression which have to be provided by the evaluation scope.
+	 * The names of called functions are resolved from the function scope and are not part of the
+	 * result.
+	 */
+	public static getFreeSymbols(expression: string): ReadonlySet<string> {
+		return ExpressionConfiguration.getCached(expression).symbols;
+	}
+
+	/**
+	 * Returns whether the given expression references the reserved time symbol and therefore has to
+	 * be evaluated again whenever the simulation time changes.
+	 */
+	public static dependsOnTime(expression: string): boolean {
+		return ExpressionConfiguration.getFreeSymbols(expression).has(
+			ExpressionConfiguration.TIME_SYMBOL
+		);
+	}
+
+	public static clearCache(): void {
+		ExpressionConfiguration._cache.clear();
+	}
+
+	private static getCached(expression: string): CachedExpression {
+		let cached = ExpressionConfiguration._cache.get(expression);
+		if (cached === undefined) {
+			const node = ExpressionConfiguration.mathjs.parse(
+				ExpressionConfiguration.preprocessExpression(expression)
+			);
+			const symbols = new Set<string>();
+			node.traverse(
+				(child: MathNode, path: string, parent: MathNode | null) => {
+					// The name of a called function is a symbol node as well, but is resolved from the
+					// function scope and never has to be provided by the caller
+					if (
+						child.type === 'SymbolNode' &&
+						!(
+							parent !== null &&
+							parent.type === 'FunctionNode' &&
+							path === 'fn'
+						)
+					) {
+						symbols.add((child as SymbolNode).name);
+					}
+				}
+			);
+			if (
+				ExpressionConfiguration._cache.size >=
+				ExpressionConfiguration.MAX_CACHE_SIZE
+			) {
+				ExpressionConfiguration._cache.clear();
+			}
+			cached = {node: node, code: node.compile(), symbols: symbols};
+			ExpressionConfiguration._cache.set(expression, cached);
+		}
+		return cached;
 	}
 
 	private static preprocessExpression(expression: string): string {
@@ -213,4 +324,10 @@ export class ExpressionConfiguration {
 		}
 		return result;
 	}
+}
+
+interface CachedExpression {
+	readonly node: MathNode;
+	readonly code: EvalFunction;
+	readonly symbols: ReadonlySet<string>;
 }

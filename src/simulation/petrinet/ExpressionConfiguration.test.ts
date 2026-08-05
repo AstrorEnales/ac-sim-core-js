@@ -21,6 +21,70 @@ function assertNumberExpression(expected: string, formula: string) {
 	).toBeTruthy();
 }
 
+test('getFreeSymbols', () => {
+	expect([...ExpressionConfiguration.getFreeSymbols('1+2')]).toEqual([]);
+	expect([...ExpressionConfiguration.getFreeSymbols('p1 + p2')]).toEqual([
+		'p1',
+		'p2',
+	]);
+	// The names of called functions are resolved from the function scope and are not free symbols
+	expect([...ExpressionConfiguration.getFreeSymbols('max(p1, 2)')]).toEqual([
+		'p1',
+	]);
+	expect([
+		...ExpressionConfiguration.getFreeSymbols('MAX(min(a, b), c)'),
+	]).toEqual(['a', 'b', 'c']);
+	// Constants are resolved from the function scope by default, but can be shadowed by a place or
+	// parameter of the same name, so they are reported
+	expect([...ExpressionConfiguration.getFreeSymbols('2*pi')]).toEqual(['pi']);
+	// Operators rewritten by the preprocessing must not introduce symbols
+	expect([...ExpressionConfiguration.getFreeSymbols('a > 1 && b < 2')]).toEqual(
+		['a', 'b']
+	);
+});
+
+test('dependsOnTime', () => {
+	expect(ExpressionConfiguration.dependsOnTime('time')).toBeTruthy();
+	expect(ExpressionConfiguration.dependsOnTime('time > 3')).toBeTruthy();
+	expect(ExpressionConfiguration.dependsOnTime('2*time+1')).toBeTruthy();
+	expect(ExpressionConfiguration.dependsOnTime('max(time, p1)')).toBeTruthy();
+	expect(ExpressionConfiguration.dependsOnTime('p1 + 1')).toBeFalsy();
+	expect(ExpressionConfiguration.dependsOnTime('1')).toBeFalsy();
+	// A string literal mentioning the time symbol is not a dependency
+	expect(ExpressionConfiguration.dependsOnTime('"time"')).toBeFalsy();
+});
+
+test('toBoolean', () => {
+	expect(ExpressionConfiguration.toBoolean(true)).toBe(true);
+	expect(ExpressionConfiguration.toBoolean(false)).toBe(false);
+	expect(ExpressionConfiguration.toBoolean(1n)).toBe(true);
+	expect(ExpressionConfiguration.toBoolean(0n)).toBe(false);
+	expect(ExpressionConfiguration.toBoolean(1)).toBe(true);
+	expect(ExpressionConfiguration.toBoolean(0)).toBe(false);
+	// Numbers are objects and would be truthy without an explicit zero check
+	expect(
+		ExpressionConfiguration.toBoolean(ExpressionConfiguration.evaluate('1'))
+	).toBe(true);
+	expect(
+		ExpressionConfiguration.toBoolean(ExpressionConfiguration.evaluate('0'))
+	).toBe(false);
+	expect(
+		ExpressionConfiguration.toBoolean(ExpressionConfiguration.evaluate('2>1'))
+	).toBe(true);
+	expect(
+		ExpressionConfiguration.toBoolean(ExpressionConfiguration.evaluate('2<1'))
+	).toBe(false);
+});
+
+test('cachedExpressionsEvaluateWithDifferentScopes', () => {
+	expect(ExpressionConfiguration.evaluate('a*2', {a: 2}).toString()).toBe('4');
+	expect(ExpressionConfiguration.evaluate('a*2', {a: 5}).toString()).toBe('10');
+	// Repeated parsing of the same expression is served from the cache
+	expect(ExpressionConfiguration.parse('a*2')).toBe(
+		ExpressionConfiguration.parse('a*2')
+	);
+});
+
 test('allOperators', () => {
 	assertNumberExpression('4', '+4');
 	assertNumberExpression('-4', '-4');
