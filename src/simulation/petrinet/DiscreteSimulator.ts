@@ -292,11 +292,14 @@ export class DiscreteSimulator extends Simulator {
 			}
 			// Determine which transitions should fire next based on the smallest delay
 			const minDelay = marking.concessionsOrderedByDelay[0].delay;
-			// If we defined an end time and would move past this time limit, skip expanding this marking
+			// If we defined an end time and would move past this time limit, skip expanding this marking.
+			// The marking is put back into the open list, because it is only blocked by the requested time
+			// limit and not exhausted, so a later step with a larger end time can resume from it.
 			if (
 				endTime !== null &&
 				marking.time.add(minDelay).comparedTo(endTime) > 0
 			) {
+				this.openMarkings.push(marking);
 				return;
 			}
 			let maxFireIndex = 0;

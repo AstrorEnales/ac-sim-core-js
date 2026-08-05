@@ -1048,3 +1048,37 @@ test('arcsRetainWeightsWithSameDelay', () => {
 	expect(simulator.getTokens(markingTimeline[0], p1)).toBe(4n);
 	expect(simulator.getTokens(markingTimeline[1], p1)).toBe(1n);
 });
+
+test('stepWithEndTimeStopsAtLimit', () => {
+	const t1 = new DiscreteTransition('t1');
+	const simulator = new DiscreteSimulator([t1], []);
+	for (let i = 0; i < 10; i++) {
+		simulator.step(3);
+	}
+	const markingTimeline = simulator.getMarkingTimeline();
+	expect(markingTimeline.length).toBe(4);
+	expect(markingTimeline[markingTimeline.length - 1].time).toEqual(Decimal(3));
+	expect(simulator.getMaxTime().equals(3)).toBeTruthy();
+	// The last marking is only blocked by the end time and not exhausted, so the simulation is not dead
+	expect(simulator.step(3)).toBeFalsy();
+	expect(markingTimeline[markingTimeline.length - 1].isDead).toBeFalsy();
+	expect(simulator.isDead).toBeFalsy();
+});
+
+test('stepWithEndTimeResumesWithLargerEndTime', () => {
+	const t1 = new DiscreteTransition('t1');
+	const simulator = new DiscreteSimulator([t1], []);
+	for (let i = 0; i < 10; i++) {
+		simulator.step(3);
+	}
+	expect(simulator.getMaxTime().equals(3)).toBeTruthy();
+	// Stepping again with a larger end time resumes from the retained marking
+	for (let i = 0; i < 10; i++) {
+		simulator.step(Decimal(5));
+	}
+	expect(simulator.getMarkingTimeline().length).toBe(6);
+	expect(simulator.getMaxTime().equals(5)).toBeTruthy();
+	// Dropping the limit continues the unbounded simulation
+	expect(simulator.step()).toBeTruthy();
+	expect(simulator.getMaxTime().equals(6)).toBeTruthy();
+});
