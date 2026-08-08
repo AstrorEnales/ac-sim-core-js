@@ -6,6 +6,29 @@ import {Xorshift128Plus} from '../../random/Xorshift128Plus';
 import {Simulator} from '../Simulator';
 import {NodeWithQuantity} from '../../model/gillespie';
 
+/**
+ * Strategy for drawing the time increment until the next reaction fires, given
+ * the current total propensity (activity sum) and the simulator's random
+ * generator. Returning a `number` is allowed for convenience and is converted
+ * to a {@link Decimal}.
+ *
+ * The default {@link exponentialTimeDraw} implements the standard Gillespie SSA
+ * exponential waiting time; supply a custom one for non-Markovian waiting
+ * times, deterministic stepping, variance reduction, etc.
+ */
+export type TimeDraw = (
+	totalPropensity: Decimal,
+	random: RandomGenerator
+) => Decimal | number;
+
+/**
+ * Default {@link TimeDraw}: an exponentially distributed waiting time with rate
+ * equal to the total propensity, sampled by inverse transform as
+ * `ln(1 / r) / totalPropensity` with `r` uniform in `[0, 1)`.
+ */
+export const exponentialTimeDraw: TimeDraw = (totalPropensity, random) =>
+	Decimal.ln(Decimal.div(1, random.nextDouble())).div(totalPropensity);
+
 export class GillespieSimulator extends Simulator {
 	private readonly nodes: Node[];
 	private readonly nodesOrder = new Map<Node, number>();
@@ -26,13 +49,17 @@ export class GillespieSimulator extends Simulator {
 	 * `false` once the callback opts into caching (see {@link RateResult.cache}).
 	 */
 	private readonly rateIsDynamic: boolean[];
+	/** Strategy for drawing the waiting time until the next reaction. */
+	private readonly drawTime: TimeDraw;
 
 	constructor(
 		nodes: Node[],
 		reactions: Reaction[],
-		random: RandomGenerator = new Xorshift128Plus(42n)
+		random: RandomGenerator = new Xorshift128Plus(42n),
+		drawTime: TimeDraw = exponentialTimeDraw
 	) {
 		super(random);
+		this.drawTime = drawTime;
 		this.nodes = nodes;
 		this.nodes.forEach((n, i) => this.nodesOrder.set(n, i));
 		this.reactions = reactions;
@@ -118,19 +145,19 @@ export class GillespieSimulator extends Simulator {
 			return p;
 		});
 		const totalPropensity = this.lastPartialTotalPropensity;
-		const r1 = this.random.nextDouble();
-		const tau = Decimal.ln(Decimal.div(1, r1)).div(totalPropensity);
-		let r2TotalPropensity = totalPropensity.mul(this.random.nextDouble());
+		let remainingPropensity = totalPropensity.mul(this.random.nextDouble());
 		let j = 0;
 		for (; j < propensities.length; j++) {
-			r2TotalPropensity = r2TotalPropensity.sub(propensities[j]);
-			if (r2TotalPropensity.isNeg()) {
+			remainingPropensity = remainingPropensity.sub(propensities[j]);
+			if (remainingPropensity.isNeg()) {
 				break;
 			}
 		}
 		if (j == propensities.length) {
-			return false; // dead
+			return false; // dead, no reaction to fire
 		}
+		const drawnTime = this.drawTime(totalPropensity, this.random);
+		const tau = typeof drawnTime === 'number' ? Decimal(drawnTime) : drawnTime;
 		const newSpeciesCounts: bigint[] = [...currentStep.speciesCounts];
 		const reaction = this.reactions[j];
 		const reactionsToRemoveFromCache = new Set<number>([j]);

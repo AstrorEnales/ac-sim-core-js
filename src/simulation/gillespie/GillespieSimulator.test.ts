@@ -2,7 +2,12 @@ import {beforeEach, expect, test} from 'vitest';
 import Decimal from 'decimal.js';
 import {Reaction} from '../../model/gillespie/Reaction';
 import {Node} from '../../model/gillespie/Node';
-import {GillespieSimulator} from './GillespieSimulator';
+import {
+	exponentialTimeDraw,
+	GillespieSimulator,
+	TimeDraw,
+} from './GillespieSimulator';
+import {Xorshift128Plus} from '../../random/Xorshift128Plus';
 
 beforeEach(() => {
 	(Node as any).ID_COUNTER = 0;
@@ -358,4 +363,75 @@ test('a time-dependent rate is refreshed even when its reactants are untouched',
 	// If the stale zero propensity were never refreshed, A would never convert.
 	expect(counts[2]).toBe(0n); // A fully consumed
 	expect(counts[3]).toBe(5n); // all A became Z
+});
+
+test('a custom time-draw replaces the default waiting-time distribution', () => {
+	const a = new Node('A', 4n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], []);
+	// Deterministic mean waiting time tau = 1 / totalPropensity. With a single
+	// rate-1 reaction the propensity equals the current A count, so the waiting
+	// times are exactly 1/4, 1/3, 1/2, 1/1 rather than the default random draw.
+	const meanTime: TimeDraw = (totalPropensity) =>
+		Decimal(1).div(totalPropensity);
+	const simulator = new GillespieSimulator([a], [r1], undefined, meanTime);
+	while (simulator.step());
+	// Rebuild the expected cumulative times with the same Decimal arithmetic the
+	// simulator uses, so rounding matches exactly.
+	let cumulative = Decimal(0);
+	const expectedTimes = [cumulative.toString()];
+	for (const propensity of [4, 3, 2, 1]) {
+		cumulative = cumulative.add(Decimal(1).div(propensity));
+		expectedTimes.push(cumulative.toString());
+	}
+	const steps = simulator.getSteps();
+	expect(steps.length).toBe(5); // start + 4 decays
+	expect(steps.map((s) => s.time.toString())).toEqual(expectedTimes);
+});
+
+test('a custom time-draw may return a plain number', () => {
+	const a = new Node('A', 3n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], []);
+	const simulator = new GillespieSimulator([a], [r1], undefined, () => 0.5);
+	while (simulator.step());
+	const steps = simulator.getSteps();
+	expect(steps.length).toBe(4);
+	expect(steps[1].time.toString()).toBe('0.5');
+	expect(steps[2].time.toString()).toBe('1');
+	expect(steps[3].time.toString()).toBe('1.5');
+});
+
+test('exponentialTimeDraw is the default time-draw', () => {
+	const build = (drawTime?: TimeDraw) => {
+		const a = new Node('A', 15n);
+		const b = new Node('B', 0n);
+		const r1 = new Reaction(
+			'A->B',
+			[{node: a, amount: 1n}],
+			[{node: b, amount: 1n}],
+			Decimal(2)
+		);
+		return new GillespieSimulator(
+			[a, b],
+			[r1],
+			new Xorshift128Plus(7n),
+			drawTime
+		);
+	};
+	const implicit = build();
+	const explicit = build(exponentialTimeDraw);
+	for (let i = 0; i < 15; i++) {
+		implicit.step();
+		explicit.step();
+	}
+	const implicitSteps = implicit.getSteps();
+	const explicitSteps = explicit.getSteps();
+	expect(explicitSteps.length).toBe(implicitSteps.length);
+	for (let i = 0; i < implicitSteps.length; i++) {
+		expect(explicitSteps[i].speciesCounts).toEqual(
+			implicitSteps[i].speciesCounts
+		);
+		expect(explicitSteps[i].time.toString()).toBe(
+			implicitSteps[i].time.toString()
+		);
+	}
 });
