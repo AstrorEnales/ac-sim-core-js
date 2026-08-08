@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 import {Node} from '../../model/gillespie/Node';
-import {Reaction} from '../../model/gillespie/Reaction';
+import {isRateCallback, Reaction} from '../../model/gillespie/Reaction';
 import {RandomGenerator} from '../../random/RandomGenerator';
 import {Xorshift128Plus} from '../../random/Xorshift128Plus';
 import {Simulator} from '../Simulator';
@@ -14,6 +14,18 @@ export class GillespieSimulator extends Simulator {
 	private readonly lastReactionPropensities: (Decimal | null)[];
 	private readonly nodeToReactionsMap = new Map<Node, Set<number>>();
 	private lastPartialTotalPropensity = Decimal(0);
+	/**
+	 * The rate currently in effect for each reaction. For fixed rates this is
+	 * the constant; for dynamic (callback) rates it is the value returned by the
+	 * most recent callback call, or `null` before the callback has ever run.
+	 */
+	private readonly currentRates: (Decimal | null)[];
+	/**
+	 * Whether each reaction's rate still needs to be resolved via its callback.
+	 * Fixed rates start `false`; a callback rate starts `true` and flips to
+	 * `false` once the callback opts into caching (see {@link RateResult.cache}).
+	 */
+	private readonly rateIsDynamic: boolean[];
 
 	constructor(
 		nodes: Node[],
@@ -25,6 +37,10 @@ export class GillespieSimulator extends Simulator {
 		this.nodes.forEach((n, i) => this.nodesOrder.set(n, i));
 		this.reactions = reactions;
 		this.lastReactionPropensities = new Array(reactions.length).fill(null);
+		this.currentRates = reactions.map((r) =>
+			isRateCallback(r.rate) ? null : r.rate
+		);
+		this.rateIsDynamic = reactions.map((r) => isRateCallback(r.rate));
 		this.nodes.forEach((n) => this.nodeToReactionsMap.set(n, new Set()));
 		this.reactions.forEach((r, i) => {
 			r.from.forEach((n) => this.nodeToReactionsMap.get(n.node)!.add(i));
@@ -48,6 +64,10 @@ export class GillespieSimulator extends Simulator {
 			reaction.to.forEach((n) => this.addNode(n.node));
 			this.reactions.push(reaction);
 			this.lastReactionPropensities.push(null);
+			this.currentRates.push(
+				isRateCallback(reaction.rate) ? null : reaction.rate
+			);
+			this.rateIsDynamic.push(isRateCallback(reaction.rate));
 		}
 	}
 
@@ -62,10 +82,35 @@ export class GillespieSimulator extends Simulator {
 
 	public step(endTime: Decimal | number | null = null): boolean {
 		const currentStep = this.steps[this.steps.length - 1];
+		const count = (node: Node): bigint =>
+			currentStep.speciesCounts[this.nodesOrder.get(node)!];
 		const propensities = this.reactions.map((r, i) => {
+			// Resolve dynamic rates. Fixed rates, and callbacks that opted into
+			// caching, keep their frozen value and skip the callback entirely.
+			if (this.rateIsDynamic[i] && isRateCallback(r.rate)) {
+				const result = r.rate({reaction: r, time: currentStep.time, count});
+				const newRate =
+					typeof result.rate === 'number' ? Decimal(result.rate) : result.rate;
+				if (result.cache) {
+					// Freeze the rate, from now on it behaves like a fixed rate.
+					this.rateIsDynamic[i] = false;
+				}
+				const current = this.currentRates[i];
+				if (current === null || !newRate.equals(current)) {
+					// The rate changed compared to the previous call, so the cached
+					// propensity is stale and must be recomputed below. If it did not
+					// change we keep the cache (best of both worlds).
+					this.invalidatePropensity(i);
+					this.currentRates[i] = newRate;
+				}
+			}
 			let p = this.lastReactionPropensities[i];
 			if (p === null) {
-				p = this.calculatePropensity(r, currentStep.speciesCounts);
+				p = this.calculatePropensity(
+					r,
+					this.currentRates[i]!,
+					currentStep.speciesCounts
+				);
 				this.lastPartialTotalPropensity =
 					this.lastPartialTotalPropensity.add(p);
 				this.lastReactionPropensities[i] = p;
@@ -110,12 +155,7 @@ export class GillespieSimulator extends Simulator {
 				.forEach((r) => reactionsToRemoveFromCache.add(r));
 		}
 		// Remove all reactions for which the inputs changed from the last sum
-		reactionsToRemoveFromCache.forEach((r) => {
-			this.lastReactionPropensities[r] = null;
-			this.lastPartialTotalPropensity = this.lastPartialTotalPropensity.sub(
-				propensities[r]
-			);
-		});
+		reactionsToRemoveFromCache.forEach((r) => this.invalidatePropensity(r));
 		const nextTime = currentStep.time.add(tau);
 		if (endTime !== null && nextTime.comparedTo(endTime) > 0) {
 			return false;
@@ -127,6 +167,7 @@ export class GillespieSimulator extends Simulator {
 
 	private calculatePropensity(
 		reaction: Reaction,
+		rate: Decimal,
 		speciesCounts: bigint[]
 	): Decimal {
 		let inputsPropensity = 1n;
@@ -140,7 +181,23 @@ export class GillespieSimulator extends Simulator {
 				return Decimal(0);
 			}
 		}
-		return reaction.rate.mul(inputsPropensity);
+		// inputsPropensity is a bigint (a possibly very large binomial product);
+		// stringify it so decimal.js keeps full precision instead of going through
+		// a lossy Number conversion.
+		return rate.mul(inputsPropensity.toString());
+	}
+
+	/**
+	 * Drop the cached propensity of reaction `i` (if any) so it is recomputed on
+	 * the next evaluation, keeping the running total propensity in sync.
+	 */
+	private invalidatePropensity(i: number): void {
+		const previous = this.lastReactionPropensities[i];
+		if (previous !== null) {
+			this.lastReactionPropensities[i] = null;
+			this.lastPartialTotalPropensity =
+				this.lastPartialTotalPropensity.sub(previous);
+		}
 	}
 
 	/**
@@ -204,14 +261,7 @@ export class GillespieSimulator extends Simulator {
 				.forEach((r) => reactionsToRemoveFromCache.add(r));
 		}
 		// Remove all reactions for which the inputs changed from the last sum
-		reactionsToRemoveFromCache.forEach((r) => {
-			const previousPropensity = this.lastReactionPropensities[r];
-			if (previousPropensity !== null) {
-				this.lastReactionPropensities[r] = null;
-				this.lastPartialTotalPropensity =
-					this.lastPartialTotalPropensity.sub(previousPropensity);
-			}
-		});
+		reactionsToRemoveFromCache.forEach((r) => this.invalidatePropensity(r));
 		const nextStep = new Step(time ?? currentStep.time, newSpeciesCounts, null);
 		this.steps.push(nextStep);
 	}

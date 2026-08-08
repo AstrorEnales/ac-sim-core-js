@@ -1,4 +1,5 @@
 import {beforeEach, expect, test} from 'vitest';
+import Decimal from 'decimal.js';
 import {Reaction} from '../../model/gillespie/Reaction';
 import {Node} from '../../model/gillespie/Node';
 import {GillespieSimulator} from './GillespieSimulator';
@@ -172,4 +173,189 @@ test('reversibleDimerBinding', () => {
 	//simulator.getNodes().forEach((n, i) => {
 	//	console.log(n.name, steps.map((s) => s.speciesCounts[i]).join(', '));
 	//});
+});
+
+test('a constant callback rate reproduces the equivalent fixed-rate trajectory', () => {
+	// A callback that always returns the same rate must be indistinguishable
+	// from a fixed rate: identical propensities each step -> identical RNG
+	// draws -> identical trajectory. This also exercises the "rate unchanged ->
+	// reuse the cached propensity" path over many steps.
+	const build = (rate: Decimal | (() => {rate: number; cache: boolean})) => {
+		const a = new Node('A', 20n);
+		const b = new Node('B', 20n);
+		const ab = new Node('AB', 0n);
+		const formation = new Reaction(
+			'A+B->AB',
+			[
+				{node: a, amount: 1n},
+				{node: b, amount: 1n},
+			],
+			[{node: ab, amount: 1n}],
+			rate
+		);
+		const dissociation = new Reaction(
+			'AB->A+B',
+			[{node: ab, amount: 1n}],
+			[
+				{node: a, amount: 1n},
+				{node: b, amount: 1n},
+			],
+			rate
+		);
+		return new GillespieSimulator([a, b, ab], [formation, dissociation]);
+	};
+	const fixed = build(Decimal(2));
+	const dynamic = build(() => ({rate: 2, cache: false}));
+	for (let i = 0; i < 30; i++) {
+		fixed.step();
+		dynamic.step();
+	}
+	const fixedSteps = fixed.getSteps();
+	const dynamicSteps = dynamic.getSteps();
+	expect(dynamicSteps.length).toBe(fixedSteps.length);
+	for (let i = 0; i < fixedSteps.length; i++) {
+		expect(dynamicSteps[i].speciesCounts).toEqual(fixedSteps[i].speciesCounts);
+		expect(dynamicSteps[i].time.toString()).toBe(fixedSteps[i].time.toString());
+	}
+});
+
+test('a cache:true rate callback is evaluated only once and then frozen', () => {
+	const a = new Node('A', 100n);
+	let calls = 0;
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], () => {
+		calls++;
+		return {rate: 2, cache: true};
+	});
+	const simulator = new GillespieSimulator([a], [r1]);
+	for (let i = 0; i < 5; i++) {
+		simulator.step();
+	}
+	// After the first evaluation the rate is frozen, so the callback is never
+	// called again and the reaction behaves exactly like a fixed rate.
+	expect(calls).toBe(1);
+	expect(simulator.getSteps().length).toBe(6);
+});
+
+test('a non-cached rate callback is re-evaluated on every step', () => {
+	const a = new Node('A', 100n);
+	let calls = 0;
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], () => {
+		calls++;
+		return {rate: 1, cache: false};
+	});
+	const simulator = new GillespieSimulator([a], [r1]);
+	for (let i = 0; i < 5; i++) {
+		simulator.step();
+	}
+	expect(calls).toBe(5);
+});
+
+test('a zero rate from a callback disables the reaction', () => {
+	const a = new Node('A', 10n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], () => ({
+		rate: 0,
+		cache: false,
+	}));
+	const simulator = new GillespieSimulator([a], [r1]);
+	// Total propensity is zero, so no event can be drawn and the net is dead.
+	expect(simulator.step()).toBe(false);
+	expect(simulator.getSteps().length).toBe(1);
+});
+
+test('a rate callback receives the current time and species counts', () => {
+	const a = new Node('A', 7n);
+	const observed: {time: string; a: bigint}[] = [];
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], (ctx) => {
+		observed.push({time: ctx.time.toString(), a: ctx.count(a)});
+		return {rate: 1, cache: false};
+	});
+	const simulator = new GillespieSimulator([a], [r1]);
+	simulator.step();
+	simulator.step();
+	expect(observed.length).toBe(2);
+	// First evaluation sees the initial state.
+	expect(observed[0]).toEqual({time: '0', a: 7n});
+	// After one A-> event, A dropped by one and the clock advanced.
+	expect(observed[1].a).toBe(6n);
+	expect(observed[1].time).not.toBe('0');
+});
+
+test('a callback returning a Decimal works and mixes with fixed rates', () => {
+	const a = new Node('A', 50n);
+	const b = new Node('B', 0n);
+	const c = new Node('C', 0n);
+	const fixed = new Reaction(
+		'A->B',
+		[{node: a, amount: 1n}],
+		[{node: b, amount: 1n}],
+		Decimal(1)
+	);
+	const dynamic = new Reaction(
+		'B->C',
+		[{node: b, amount: 1n}],
+		[{node: c, amount: 1n}],
+		() => ({rate: Decimal(3), cache: false})
+	);
+	const simulator = new GillespieSimulator([a, b, c], [fixed, dynamic]);
+	while (simulator.step());
+	// A->B->C is acyclic and count-conserving, so everything funnels into C.
+	const counts = simulator.getLastStep().speciesCounts;
+	expect(counts[0]).toBe(0n); // A
+	expect(counts[1]).toBe(0n); // B
+	expect(counts[2]).toBe(50n); // C
+});
+
+test('a rate that changes as populations change stays consistent', () => {
+	const a = new Node('A', 40n);
+	const b = new Node('B', 0n);
+	// Rate grows with the remaining A, so it changes on (almost) every step,
+	// exercising the rate-change invalidation path repeatedly.
+	const r1 = new Reaction(
+		'A->B',
+		[{node: a, amount: 1n}],
+		[{node: b, amount: 1n}],
+		(ctx) => ({rate: Decimal(1).add(ctx.count(a).toString()), cache: false})
+	);
+	const simulator = new GillespieSimulator([a, b], [r1]);
+	let guard = 0;
+	while (simulator.step() && guard++ < 10000);
+	const counts = simulator.getLastStep().speciesCounts;
+	expect(counts[0]).toBe(0n);
+	expect(counts[1]).toBe(40n);
+	const steps = simulator.getSteps();
+	for (let i = 1; i < steps.length; i++) {
+		expect(steps[i].time.comparedTo(steps[i - 1].time)).toBeGreaterThan(0);
+	}
+});
+
+test('a time-dependent rate is refreshed even when its reactants are untouched', () => {
+	// R_fast (X->Y) fires repeatedly, advancing time but never touching A, so
+	// the node->reaction invalidation never marks R_time (A->Z) stale. Only the
+	// rate-change detection can notice that R_time's time-gated rate switched on.
+	const x = new Node('X', 200n);
+	const y = new Node('Y', 0n);
+	const a = new Node('A', 5n);
+	const z = new Node('Z', 0n);
+	const rFast = new Reaction(
+		'X->Y',
+		[{node: x, amount: 1n}],
+		[{node: y, amount: 1n}],
+		Decimal(1)
+	);
+	const rTime = new Reaction(
+		'A->Z',
+		[{node: a, amount: 1n}],
+		[{node: z, amount: 1n}],
+		(ctx) => ({
+			rate: ctx.time.comparedTo(Decimal('0.5')) < 0 ? 0 : 100,
+			cache: false,
+		})
+	);
+	const simulator = new GillespieSimulator([x, y, a, z], [rFast, rTime]);
+	let guard = 0;
+	while (simulator.step() && guard++ < 100000);
+	const counts = simulator.getLastStep().speciesCounts;
+	// If the stale zero propensity were never refreshed, A would never convert.
+	expect(counts[2]).toBe(0n); // A fully consumed
+	expect(counts[3]).toBe(5n); // all A became Z
 });
