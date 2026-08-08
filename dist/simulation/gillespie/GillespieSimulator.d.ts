@@ -4,6 +4,23 @@ import { Reaction } from '../../model/gillespie/Reaction';
 import { RandomGenerator } from '../../random/RandomGenerator';
 import { Simulator } from '../Simulator';
 import { NodeWithQuantity } from '../../model/gillespie';
+/**
+ * Strategy for drawing the time increment until the next reaction fires, given
+ * the current total propensity (activity sum) and the simulator's random
+ * generator. Returning a `number` is allowed for convenience and is converted
+ * to a {@link Decimal}.
+ *
+ * The default {@link exponentialTimeDraw} implements the standard Gillespie SSA
+ * exponential waiting time; supply a custom one for non-Markovian waiting
+ * times, deterministic stepping, variance reduction, etc.
+ */
+export type TimeDraw = (totalPropensity: Decimal, random: RandomGenerator) => Decimal | number;
+/**
+ * Default {@link TimeDraw}: an exponentially distributed waiting time with rate
+ * equal to the total propensity, sampled by inverse transform as
+ * `ln(1 / r) / totalPropensity` with `r` uniform in `[0, 1)`.
+ */
+export declare const exponentialTimeDraw: TimeDraw;
 export declare class GillespieSimulator extends Simulator {
     private readonly nodes;
     private readonly nodesOrder;
@@ -12,12 +29,31 @@ export declare class GillespieSimulator extends Simulator {
     private readonly lastReactionPropensities;
     private readonly nodeToReactionsMap;
     private lastPartialTotalPropensity;
-    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator);
+    /**
+     * The rate currently in effect for each reaction. For fixed rates this is
+     * the constant; for dynamic (callback) rates it is the value returned by the
+     * most recent callback call, or `null` before the callback has ever run.
+     */
+    private readonly currentRates;
+    /**
+     * Whether each reaction's rate still needs to be resolved via its callback.
+     * Fixed rates start `false`; a callback rate starts `true` and flips to
+     * `false` once the callback opts into caching (see {@link RateResult.cache}).
+     */
+    private readonly rateIsDynamic;
+    /** Strategy for drawing the waiting time until the next reaction. */
+    private readonly drawTime;
+    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, drawTime?: TimeDraw);
     private initialize;
     addReaction(reaction: Reaction): void;
     addNode(node: Node): void;
     step(endTime?: Decimal | number | null): boolean;
     private calculatePropensity;
+    /**
+     * Drop the cached propensity of reaction `i` (if any) so it is recomputed on
+     * the next evaluation, keeping the running total propensity in sync.
+     */
+    private invalidatePropensity;
     /**
      * Binomial coefficient C(available, requested), the number of distinct ways
      * to choose `requested` reactant molecules out of `available`.

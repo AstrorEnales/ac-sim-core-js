@@ -22,6 +22,7 @@ export declare class DiscreteSimulator extends Simulator {
     private readonly outEdges;
     private readonly inEdges;
     constructor(nodes: (Transition | Place)[], arcs: Arc[], random?: RandomGenerator);
+    private static validateReservedNames;
     private initialize;
     private determineConcession;
     step(endTime?: Decimal | number | null): boolean;
