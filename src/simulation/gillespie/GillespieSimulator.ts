@@ -107,7 +107,10 @@ export class GillespieSimulator extends Simulator {
 		}
 	}
 
-	public step(endTime: Decimal | number | null = null): boolean {
+	public step(
+		endTime: Decimal | number | null = null,
+		advanceToEndTime = false
+	): boolean {
 		const currentStep = this.steps[this.steps.length - 1];
 		const count = (node: Node): bigint =>
 			currentStep.speciesCounts[this.nodesOrder.get(node)!];
@@ -154,10 +157,23 @@ export class GillespieSimulator extends Simulator {
 			}
 		}
 		if (j == propensities.length) {
-			return false; // dead, no reaction to fire
+			// No reaction can fire from the current state. Still honor a request to
+			// advance to the time limit: parking the clock at endTime lets a later
+			// step re-evaluate time-dependent rates that may switch on and revive the
+			// system at that time.
+			this.parkAtEndTime(endTime, advanceToEndTime, currentStep);
+			return false;
 		}
 		const drawnTime = this.drawTime(totalPropensity, this.random);
 		const tau = typeof drawnTime === 'number' ? Decimal(drawnTime) : drawnTime;
+		const nextTime = currentStep.time.add(tau);
+		// If the drawn event would fall past the requested time limit, do not fire
+		// it. The event is discarded and re-drawn on the next call, which is valid
+		// for the memoryless exponential waiting time.
+		if (endTime !== null && nextTime.comparedTo(endTime) > 0) {
+			this.parkAtEndTime(endTime, advanceToEndTime, currentStep);
+			return false;
+		}
 		const newSpeciesCounts: bigint[] = [...currentStep.speciesCounts];
 		const reaction = this.reactions[j];
 		const reactionsToRemoveFromCache = new Set<number>([j]);
@@ -183,13 +199,35 @@ export class GillespieSimulator extends Simulator {
 		}
 		// Remove all reactions for which the inputs changed from the last sum
 		reactionsToRemoveFromCache.forEach((r) => this.invalidatePropensity(r));
-		const nextTime = currentStep.time.add(tau);
-		if (endTime !== null && nextTime.comparedTo(endTime) > 0) {
-			return false;
-		}
 		const nextStep = new Step(nextTime, newSpeciesCounts, reaction);
 		this.steps.push(nextStep);
 		return true;
+	}
+
+	/**
+	 * When `advanceToEndTime` is set and the limit lies strictly in the future,
+	 * append a marker step (no reaction, counts unchanged) at exactly `endTime`.
+	 * This advances the clock to the time limit even though no reaction fired -
+	 * whether because the drawn event overshot the limit or because the system is
+	 * momentarily dead - so a subsequent step re-evaluates time-dependent rates at
+	 * `endTime`. That is what lets a rate switch on at a specific time and revive
+	 * an otherwise dead system, or lets an injection land at exactly that time.
+	 * The guard prevents adding a duplicate or backwards-in-time marker.
+	 */
+	private parkAtEndTime(
+		endTime: Decimal | number | null,
+		advanceToEndTime: boolean,
+		currentStep: Step
+	): void {
+		if (
+			advanceToEndTime &&
+			endTime !== null &&
+			currentStep.time.comparedTo(endTime) < 0
+		) {
+			this.steps.push(
+				new Step(Decimal(endTime), [...currentStep.speciesCounts], null)
+			);
+		}
 	}
 
 	private calculatePropensity(
@@ -231,10 +269,10 @@ export class GillespieSimulator extends Simulator {
 	 * Binomial coefficient C(available, requested), the number of distinct ways
 	 * to choose `requested` reactant molecules out of `available`.
 	 *
-	 * Space-optimised dynamic programming: build successive rows of Pascal's
+	 * Space-optimized dynamic programming: build successive rows of Pascal's
 	 * triangle in a single row buffer of size `requested + 1`, using only
 	 * additions. O(available * requested) time, O(requested) space, exact result,
-	 * and never materialises the full factorial of the (potentially very large)
+	 * and never materializes the full factorial of the (potentially very large)
 	 * reactant count.
 	 * @see https://www.geeksforgeeks.org/dsa/binomial-coefficient-dp-9/
 	 */
@@ -276,6 +314,16 @@ export class GillespieSimulator extends Simulator {
 
 	public inject(nodeValues: NodeWithQuantity[], time: Decimal | null): void {
 		const currentStep = this.getLastStep();
+		// Guard against traveling back in time, which would corrupt the ordered
+		// trajectory. Checked before any mutation so a rejected inject is a no-op.
+		if (time !== null && time.comparedTo(currentStep.time) < 0) {
+			throw (
+				'Cannot inject at time ' +
+				time.toString() +
+				' which is before the last step time ' +
+				currentStep.time.toString()
+			);
+		}
 		const newSpeciesCounts: bigint[] = [...currentStep.speciesCounts];
 		const reactionsToRemoveFromCache = new Set<number>();
 		for (let i = 0; i < nodeValues.length; i++) {

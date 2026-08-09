@@ -435,3 +435,157 @@ test('exponentialTimeDraw is the default time-draw', () => {
 		);
 	}
 });
+
+test('inject throws when the given time precedes the last step time', () => {
+	const a = new Node('A', 5n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], []);
+	const simulator = new GillespieSimulator([a], [r1]);
+	simulator.step(); // advance the clock past 0
+	const lastTime = simulator.getLastStep().time;
+	expect(lastTime.comparedTo(0)).toBeGreaterThan(0);
+	const stepsBefore = simulator.getSteps().length;
+	expect(() => simulator.inject([{node: a, amount: 3n}], Decimal(0))).toThrow();
+	// A rejected inject must not touch the trajectory.
+	expect(simulator.getSteps().length).toBe(stepsBefore);
+	// Injecting at exactly the last step time (or later, or with null) is allowed.
+	expect(() =>
+		simulator.inject([{node: a, amount: 3n}], lastTime)
+	).not.toThrow();
+	expect(() => simulator.inject([{node: a, amount: 3n}], null)).not.toThrow();
+});
+
+test('advanceToEndTime parks the clock exactly at endTime with a marker step', () => {
+	const a = new Node('A', 100n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], Decimal(1));
+	const simulator = new GillespieSimulator([a], [r1]);
+	const endTime = Decimal('0.5');
+	while (simulator.step(endTime, true));
+	const steps = simulator.getSteps();
+	const last = steps[steps.length - 1];
+	expect(last.time.equals(endTime)).toBe(true); // parked exactly at 0.5
+	expect(last.reaction).toBeNull(); // marker, no reaction fired
+	// The marker leaves species counts identical to the preceding real step.
+	expect(last.speciesCounts).toEqual(steps[steps.length - 2].speciesCounts);
+});
+
+test('without advanceToEndTime the clock stops strictly before endTime', () => {
+	const a = new Node('A', 100n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], Decimal(1));
+	const simulator = new GillespieSimulator([a], [r1]);
+	const endTime = Decimal('0.5');
+	while (simulator.step(endTime));
+	const last = simulator.getLastStep();
+	expect(last.time.comparedTo(endTime)).toBeLessThan(0); // never reached 0.5
+	expect(last.reaction).not.toBeNull(); // last entry is a real event
+});
+
+test('after parking, rate callbacks are re-evaluated at exactly endTime', () => {
+	const a = new Node('A', 50n);
+	const evalTimes: string[] = [];
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], (ctx) => {
+		evalTimes.push(ctx.time.toString());
+		return {rate: 1, cache: false};
+	});
+	const simulator = new GillespieSimulator([a], [r1]);
+	while (simulator.step(Decimal('0.3'), true));
+	// The next step runs from the parked marker, so the callback sees time 0.3
+	// exactly - this is what lets a time-specific rate change take effect there.
+	simulator.step(Decimal('0.6'), true);
+	expect(evalTimes).toContain('0.3');
+});
+
+test('advanceToEndTime does not add a second marker once parked', () => {
+	const a = new Node('A', 100n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], Decimal(1));
+	const simulator = new GillespieSimulator([a], [r1]);
+	const endTime = Decimal('0.5');
+	while (simulator.step(endTime, true));
+	const parkedCount = simulator.getSteps().length;
+	// Already parked at endTime: another capped step must not append a marker.
+	expect(simulator.step(endTime, true)).toBe(false);
+	expect(simulator.getSteps().length).toBe(parkedCount);
+});
+
+test('advanceToEndTime parks a dead system at endTime so it can be revived', () => {
+	const a = new Node('A', 1n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], Decimal(1));
+	const simulator = new GillespieSimulator([a], [r1]);
+	simulator.step(); // consume the only A, leaving the system dead
+	expect(simulator.getLastStep().speciesCounts[0]).toBe(0n);
+	// Even though no reaction can fire, advancing to a future limit parks the
+	// clock there (so a later, time-triggered rate change could revive it).
+	expect(simulator.step(Decimal(1000), true)).toBe(false);
+	const parked = simulator.getLastStep();
+	expect(parked.time.equals(Decimal(1000))).toBe(true);
+	expect(parked.reaction).toBeNull();
+	expect(parked.speciesCounts[0]).toBe(0n);
+	// Without advanceToEndTime a dead system stays put.
+	const before = simulator.getSteps().length;
+	expect(simulator.step(Decimal(2000))).toBe(false);
+	expect(simulator.getSteps().length).toBe(before);
+});
+
+test('a time-gated rate revives a dead system after advancing to the limit', () => {
+	// The reaction is off (rate 0) until t = 10, so the system starts dead.
+	// Advancing to the t = 10 limit parks the clock there; from t = 10 the rate
+	// switches on and the reaction proceeds - the exact scenario of a reaction
+	// that only wakes up at a specific time.
+	const a = new Node('A', 5n);
+	const b = new Node('B', 0n);
+	const r1 = new Reaction(
+		'A->B',
+		[{node: a, amount: 1n}],
+		[{node: b, amount: 1n}],
+		(ctx) => ({
+			rate: ctx.time.comparedTo(10) < 0 ? 0 : 1,
+			cache: false,
+		})
+	);
+	const simulator = new GillespieSimulator([a, b], [r1]);
+	// Phase 1: dead until t = 10; advanceToEndTime advances the clock to 10.
+	while (simulator.step(Decimal(10), true));
+	const parked = simulator.getLastStep();
+	expect(parked.time.equals(Decimal(10))).toBe(true);
+	expect(parked.speciesCounts[0]).toBe(5n); // nothing reacted before t = 10
+	expect(parked.speciesCounts[1]).toBe(0n);
+	// Phase 2: from t = 10 the rate is on; run to depletion.
+	let guard = 0;
+	while (simulator.step() && guard++ < 100000);
+	const counts = simulator.getLastStep().speciesCounts;
+	expect(counts[0]).toBe(0n); // A fully consumed
+	expect(counts[1]).toBe(5n); // all A became B
+	// The reaction only ever fired at or after t = 10.
+	for (const step of simulator.getSteps()) {
+		if (step.reaction !== null) {
+			expect(step.time.comparedTo(10)).toBeGreaterThanOrEqual(0);
+		}
+	}
+});
+
+test('interventions at exact time points via advanceToEndTime', () => {
+	// A slow decay whose rate is boosted 100x from t = 1 onwards, plus an
+	// injection at t = 1. The rate change is only sampled correctly because we
+	// park the clock at t = 1 before continuing.
+	const a = new Node('A', 40n);
+	const r1 = new Reaction('A->', [{node: a, amount: 1n}], [], (ctx) => ({
+		rate: ctx.time.comparedTo(1) < 0 ? 1 : 100,
+		cache: false,
+	}));
+	const simulator = new GillespieSimulator([a], [r1]);
+	// Phase 1: run up to t = 1 under the slow rate.
+	while (simulator.step(Decimal(1), true));
+	expect(simulator.getLastStep().time.equals(Decimal(1))).toBe(true);
+	// Intervene exactly at t = 1: top A back up.
+	simulator.inject([{node: a, amount: 10n}], Decimal(1));
+	// Phase 2: run to completion under the fast rate.
+	let guard = 0;
+	while (simulator.step(undefined, true) && guard++ < 100000);
+	expect(simulator.getLastStep().speciesCounts[0]).toBe(0n);
+	// Every step is time-ordered.
+	const steps = simulator.getSteps();
+	for (let i = 1; i < steps.length; i++) {
+		expect(steps[i].time.comparedTo(steps[i - 1].time)).toBeGreaterThanOrEqual(
+			0
+		);
+	}
+});
