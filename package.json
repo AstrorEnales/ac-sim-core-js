@@ -9,7 +9,7 @@
     "url": "https://github.com/AstrorEnales/ac-sim-core-js"
   },
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "main": "./dist/ac-sim-core-js.umd.cjs",
   "module": "./dist/ac-sim-core-js.js",

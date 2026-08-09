@@ -47,7 +47,18 @@ export declare class GillespieSimulator extends Simulator {
     private initialize;
     addReaction(reaction: Reaction): void;
     addNode(node: Node): void;
-    step(endTime?: Decimal | number | null): boolean;
+    step(endTime?: Decimal | number | null, advanceToEndTime?: boolean): boolean;
+    /**
+     * When `advanceToEndTime` is set and the limit lies strictly in the future,
+     * append a marker step (no reaction, counts unchanged) at exactly `endTime`.
+     * This advances the clock to the time limit even though no reaction fired -
+     * whether because the drawn event overshot the limit or because the system is
+     * momentarily dead - so a subsequent step re-evaluates time-dependent rates at
+     * `endTime`. That is what lets a rate switch on at a specific time and revive
+     * an otherwise dead system, or lets an injection land at exactly that time.
+     * The guard prevents adding a duplicate or backwards-in-time marker.
+     */
+    private parkAtEndTime;
     private calculatePropensity;
     /**
      * Drop the cached propensity of reaction `i` (if any) so it is recomputed on
@@ -58,10 +69,10 @@ export declare class GillespieSimulator extends Simulator {
      * Binomial coefficient C(available, requested), the number of distinct ways
      * to choose `requested` reactant molecules out of `available`.
      *
-     * Space-optimised dynamic programming: build successive rows of Pascal's
+     * Space-optimized dynamic programming: build successive rows of Pascal's
      * triangle in a single row buffer of size `requested + 1`, using only
      * additions. O(available * requested) time, O(requested) space, exact result,
-     * and never materialises the full factorial of the (potentially very large)
+     * and never materializes the full factorial of the (potentially very large)
      * reactant count.
      * @see https://www.geeksforgeeks.org/dsa/binomial-coefficient-dp-9/
      */
