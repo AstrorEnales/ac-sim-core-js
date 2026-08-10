@@ -21,10 +21,49 @@ export type TimeDraw = (totalPropensity: Decimal, random: RandomGenerator) => De
  * `ln(1 / r) / totalPropensity` with `r` uniform in `[0, 1)`.
  */
 export declare const exponentialTimeDraw: TimeDraw;
+/**
+ * Listener invoked once for every step appended to the trajectory: the initial
+ * start step first (reported during construction when the listener is supplied
+ * via {@link GillespieOptions.onStep}), then every step produced by
+ * {@link GillespieSimulator.step} or {@link GillespieSimulator.inject}. Seeing
+ * the start step lets a listener persist the complete trajectory, initial state
+ * included.
+ *
+ * The listener is handed both the {@link Step} and `speciesCounts`, a fresh copy
+ * of the full count vector at that step - so it never has to reconstruct the
+ * state from the log (this also works with `retainHistory: false`, where later
+ * reconstruction is impossible). The copy is the listener's own to keep or
+ * mutate; it is not the simulator's live vector.
+ *
+ * This is the streaming hook: combined with `retainHistory: false` it lets a
+ * consumer write each step to disk / aggregate / downsample as it is produced
+ * while the simulator holds only O(species) state in memory regardless of how
+ * many steps run.
+ */
+export type StepListener = (step: Step, speciesCounts: bigint[]) => void;
+/**
+ * Optional configuration for a {@link GillespieSimulator}.
+ */
+export interface GillespieOptions {
+    /**
+     * When `true` (default) every step is kept, so the whole trajectory stays in
+     * memory and any step can be reconstructed at random. When `false` only the
+     * start and the current last step are retained (O(species) memory); use
+     * {@link GillespieOptions.onStep} to stream the trajectory out as it runs.
+     */
+    readonly retainHistory?: boolean;
+    /** Streaming listener, see {@link StepListener}. */
+    readonly onStep?: StepListener | null;
+}
 export declare class GillespieSimulator extends Simulator {
     private readonly nodes;
     private readonly nodesOrder;
     private readonly reactions;
+    /**
+     * The retained event log. With retention on this holds every step and its
+     * array index equals the step's absolute {@link Step.index}. With retention
+     * off it holds only `[start, last]`.
+     */
     private readonly steps;
     private readonly lastReactionPropensities;
     private readonly nodeToReactionsMap;
@@ -43,7 +82,24 @@ export declare class GillespieSimulator extends Simulator {
     private readonly rateIsDynamic;
     /** Strategy for drawing the waiting time until the next reaction. */
     private readonly drawTime;
-    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, drawTime?: TimeDraw);
+    /**
+     * The live species-count vector, mutated in place on every fire/injection.
+     * This is the single source of truth for the current state - propensity
+     * evaluation reads it and reconstruction of any past step replays the event
+     * log forward from {@link startCounts}. Keeping one vector (instead of a full
+     * copy per step) is what turns the memory cost from O(steps * species) into
+     * O(steps) + O(species).
+     */
+    private currentCounts;
+    /** Snapshot of the counts at the start step - the reconstruction anchor. */
+    private startCounts;
+    /** Explicit deltas for injection steps, keyed by absolute step index. */
+    private readonly stepDeltas;
+    /** See {@link GillespieOptions.retainHistory}. Fixed at construction. */
+    private readonly retainHistory;
+    /** See {@link GillespieOptions.onStep}. Fixed at construction. */
+    private readonly onStepListener;
+    constructor(nodes: Node[], reactions: Reaction[], random?: RandomGenerator, drawTime?: TimeDraw, options?: GillespieOptions);
     private initialize;
     addReaction(reaction: Reaction): void;
     addNode(node: Node): void;
@@ -59,6 +115,12 @@ export declare class GillespieSimulator extends Simulator {
      * The guard prevents adding a duplicate or backwards-in-time marker.
      */
     private parkAtEndTime;
+    /**
+     * Append a produced step to the trajectory and report it to the step listener.
+     * With retention on the step is pushed onto the full log; with retention off
+     * only `[start, last]` are kept, so the new step replaces the previous last.
+     */
+    private recordStep;
     private calculatePropensity;
     /**
      * Drop the cached propensity of reaction `i` (if any) so it is recomputed on
@@ -79,19 +141,87 @@ export declare class GillespieSimulator extends Simulator {
     private binomCoeff;
     getNodes(): Node[];
     getReactions(): Reaction[];
+    /**
+     * The retained steps. With history retention on this is the whole trajectory;
+     * with it off it is only `[start, last]` (use {@link getStepCount} for the
+     * true number of steps produced and {@link StepListener} to see them all).
+     */
     getSteps(): Step[];
     getStartStep(): Step;
     getLastStep(): Step;
+    /** Total number of steps produced so far, including the start step. */
+    getStepCount(): number;
+    /**
+     * Reconstruct the full species-count vector at the given absolute step index
+     * by replaying the event log forward from the start snapshot.
+     *
+     * The start step and the current last step are O(species); an interior step is
+     * O(index) as it replays the log from the start. This is a point-query helper -
+     * for dense output prefer {@link forEachStep}, which walks the whole trajectory
+     * once with a single buffer (scanning via this method is O(steps^2)).
+     *
+     * With history retention off only the start and last steps are available;
+     * requesting any interior step throws.
+     */
+    getCountsAt(index: number): bigint[];
+    /** Reconstruct the count of a single node at the given absolute step index. */
+    getCountAt(index: number, node: Node): bigint;
+    /**
+     * Walk the whole trajectory once, invoking `callback` with the running count
+     * vector at each step. This is the efficient path for dense output (plotting,
+     * export): O(steps * changes-per-step) time and O(species) working memory, with
+     * no per-step allocation.
+     *
+     * The `counts` argument is a live buffer reused across calls - do not retain a
+     * reference to it; copy (e.g. `counts.slice()`) if you need to keep a snapshot.
+     *
+     * Requires history retention. With `retainHistory: false` the full trajectory
+     * is never in memory (only the start and last steps are), so this throws rather
+     * than silently visiting just those two - stream the trajectory via the
+     * {@link StepListener} instead, and reach the endpoints through
+     * {@link getStartStep} / {@link getLastStep}.
+     */
+    forEachStep(callback: (time: Decimal, counts: bigint[], reaction: Reaction | null, index: number) => void): void;
+    /**
+     * Apply the count change of the retained step at array index `k` to `counts`.
+     * A reaction step replays its stoichiometry; an injection step replays its
+     * stored delta; a marker step changes nothing. Only valid with retention on,
+     * where the array index equals the absolute step index.
+     */
+    private applyStepDelta;
     inject(nodeValues: NodeWithQuantity[], time: Decimal | null): void;
     getMaxTime(): Decimal;
 }
 export declare class Step {
+    /** The simulation time at this step. */
     readonly time: Decimal;
-    readonly speciesCounts: bigint[];
     /**
      * The reaction that fired to generate this step or null
-     * for the start step or if node quantities have been injected.
+     * for the start step, marker steps or if node quantities have been injected.
      */
     readonly reaction: Reaction | null;
-    constructor(time: Decimal, speciesCounts: bigint[], reaction: Reaction | null);
+    /** Absolute position of this step in the trajectory (0 is the start step). */
+    readonly index: number;
+    private readonly simulator;
+    constructor(simulator: GillespieSimulator, index: number, time: Decimal, reaction: Reaction | null);
+    /**
+     * Reconstruct the full species-count vector at this step from the simulator's
+     * event log (see {@link GillespieSimulator.getCountsAt}). This is a computation,
+     * not a stored field: each call returns a fresh array. The start and last steps
+     * are O(species); an interior step is O(index). To read counts across the whole
+     * trajectory use {@link GillespieSimulator.forEachStep} rather than calling this
+     * per step, which would be O(steps^2).
+     *
+     * With history retention off, only the start and last steps can be
+     * reconstructed - calling this on an interior step throws. Inside an
+     * {@link StepListener} you are already handed the counts, so there is no need
+     * to call this.
+     */
+    getSpeciesCounts(): bigint[];
+    /**
+     * Reconstruct the count of a single `node` at this step (see
+     * {@link GillespieSimulator.getCountAt}). Same cost and retention rules as
+     * {@link getSpeciesCounts}; prefer this when you only need one species.
+     */
+    getSpeciesCount(node: Node): bigint;
 }
